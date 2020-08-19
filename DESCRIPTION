@@ -1,0 +1,14 @@
+Package: ggcheck
+Title: Functions that facilitate grading ggplot2 objects
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Garrett",
+           family = "Grolemund",
+           role = c("aut", "cre"),
+           email = "garrett@rstudio.com",
+           comment = c(ORCID = "0000-0002-7765-6011"))
+Description: ggcheck provides functions that inspect ggplot2 objects to make it easier for teachers to check that student plots meet expectations.
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
