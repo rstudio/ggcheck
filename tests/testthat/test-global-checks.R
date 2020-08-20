@@ -50,11 +50,11 @@ test_that("Identifies local data", {
   )
   expect_equal(
     data_for_layer(p, geom = "point", local_only = TRUE),
-    structure(list(), class = "waiver")
+    NULL
   )
   expect_equal(
     data_for_layer(p, i = 1, local_only = TRUE),
-    structure(list(), class = "waiver")
+    NULL
   )
   expect_equal(
     data_for_layer(p2, geom = "point", local_only = TRUE),
@@ -66,11 +66,17 @@ test_that("Identifies local data", {
   )
   expect_equal(
     data_for_layer(p2, geom = "point", i = 2, local_only = TRUE),
-    structure(list(), class = "waiver")
+    NULL
   )
 })
 
-
+test_that("Checks whether data is used by layer", {
+  expect_true(uses_data_in_layer(p2, d2, i = 1))
+  expect_true(uses_data_in_layer(p2, mpg, i = 2))
+  expect_false(uses_data_in_layer(p2, mpg, i = 2, local_only = TRUE))
+  expect_false(uses_data_in_layer(p2, mpg, i = 1))
+  expect_false(uses_data_in_layer(p2, d2, i = 2))
+})
 
 test_that("Identifies global mapping", {
   expect_equal(
@@ -91,6 +97,39 @@ test_that("Checks whether a single mapping is used globally", {
   expect_false(uses_global_mapping(p, mapping = aes(x = hwy)))
 })
 
+test_that("Identifies local mappings", {
+  expect_equal(
+    mappings_for_layer(p2, geom = "point", i = 1),
+    aes(x = displ, y = hwy)
+  )
+  expect_equal(
+    mappings_for_layer(p2, geom = "point", i = 2),
+    aes(x = displ, y = hwy, color = class)
+  )
+  expect_equal(
+    mappings_for_layer(p2, geom = "point", i = 1, local_only = TRUE),
+    NULL
+  )
+  expect_equal(
+    mappings_for_layer(p2, geom = "point", i = 2, local_only = TRUE),
+    aes(color = class)
+  )
+})
+
+test_that("Checks whether layer mappings exactly match", {
+  expect_true(layer_mappings_match(p2, aes(x = displ, y = hwy, color = class), i = 2))
+  expect_true(layer_mappings_match(p2, aes(y = hwy, x = displ, color = class), i = 2))
+  expect_false(layer_mappings_match(p2, aes(x = displ, y = hwy), i = 2))
+  expect_false(layer_mappings_match(p2, aes(x = displ, y = hwy, color = class), i = 2, local_only = TRUE))
+  expect_true(layer_mappings_match(p2, aes(color = class), i = 2, local_only = TRUE))
+})
+
+test_that("Checks whether layer uses a mapping", {
+  expect_true(uses_mappings_in_layer(p2, aes(x = displ), i = 2))
+  expect_true(uses_mappings_in_layer(p2, aes(color = class), i = 2))
+  expect_false(uses_mappings_in_layer(p2, aes(x = displ), i = 2, local_only = TRUE))
+})
+
 test_that("Identifies number of layers", {
   expect_equal(
     n_layers(p),
@@ -107,6 +146,13 @@ test_that("Identifies ith geom", {
     ith_geom(p, 2),
     "smooth"
   )
+})
+
+test_that("Checks ith geom", {
+  expect_true(ith_geom_is(p, "point", i = 1))
+  expect_true(ith_geom_is(p, "smooth", i = 2))
+  expect_false(ith_geom_is(p, "smooth", i = 1))
+  expect_false(ith_geom_is(p, "point", i = 2))
 })
 
 test_that("Identifies sequence of geoms", {
