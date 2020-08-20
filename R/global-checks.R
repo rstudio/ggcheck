@@ -7,6 +7,41 @@ uses_global_data <- function(p, data) {
   identical(global_data(p), data)
 }
 
+# Returns NULL if layer does not exist
+# if i not specified, returns first instance of described geom
+determine_layer <- function(p, geom = NULL, i = NULL) {
+  if (is.null(geom) && is.null(i)) {
+    stop("Grading error: cannot identify which layer to grade. (For the grader) please specify at least one of geom or i.")
+  } else if (is.null(geom)) {
+    index <- i
+  } else if (is.null(i)) {
+    index <- which(geoms(p) == geom)[1]
+  } else {
+    index <- which(geoms(p) == geom)[i]
+  }
+
+  if (index > length(p$layers)) {
+    stop("Grading error: cannot find specified layer. (For the grader) use checks to check that desired layer exists before inspecting the layer.")
+  }
+
+  p$layers[[index]]
+}
+
+get_data_from_layer <- function(l) {
+  l$data
+}
+
+data_for_layer <- function(p, geom = NULL, i = NULL, local_only = FALSE) {
+  l <- determine_layer(p, geom, i)
+  local_data <- get_data_from_layer(l)
+
+  if (local_only || length(local_data)) {
+    return(local_data)
+  } else {
+    return(global_data(p))
+  }
+}
+
 global_mappings <- function(p) {
   p$mapping
 }
@@ -50,3 +85,5 @@ coordinate_system <- function(p) {
 uses_coordinate_system <- function(p, coordinates) {
   coordinates == coordinate_system(p)
 }
+
+

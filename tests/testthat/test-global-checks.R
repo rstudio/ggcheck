@@ -6,6 +6,15 @@ p <-
     geom_smooth(se = FALSE) +
     labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
 
+d2 <- head(mpg)
+
+p2 <-
+  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+    geom_point(data = d2, color = "red") +
+    geom_point(mapping = aes(color = class)) +
+    geom_smooth(se = FALSE) +
+    labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
+
 test_that("Identifies global data", {
   expect_equal(
     global_data(p),
@@ -17,6 +26,50 @@ test_that("Checks whether data is used globally", {
   expect_true(uses_global_data(p, data = mpg))
   expect_false(uses_global_data(p, data = mtcars))
 })
+
+test_that("Identifies local data", {
+  expect_equal(
+    data_for_layer(p, geom = "point"),
+    mpg
+  )
+  expect_equal(
+    data_for_layer(p, i = 1),
+    mpg
+  )
+  expect_equal(
+    data_for_layer(p2, geom = "point"),
+    d2
+  )
+  expect_equal(
+    data_for_layer(p2, i = 1),
+    d2
+  )
+  expect_equal(
+    data_for_layer(p2, geom = "point", i = 2),
+    mpg
+  )
+  expect_equal(
+    data_for_layer(p, geom = "point", local_only = TRUE),
+    structure(list(), class = "waiver")
+  )
+  expect_equal(
+    data_for_layer(p, i = 1, local_only = TRUE),
+    structure(list(), class = "waiver")
+  )
+  expect_equal(
+    data_for_layer(p2, geom = "point", local_only = TRUE),
+    d2
+  )
+  expect_equal(
+    data_for_layer(p2, i = 1, local_only = TRUE),
+    d2
+  )
+  expect_equal(
+    data_for_layer(p2, geom = "point", i = 2, local_only = TRUE),
+    structure(list(), class = "waiver")
+  )
+})
+
 
 
 test_that("Identifies global mapping", {
