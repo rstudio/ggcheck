@@ -1,6 +1,11 @@
 # geoms are character strings, i.e. "point", "smooth"
 
 ith_geom <- function(p, i) {
+
+  if(!inherits(p, "ggplot")) {
+    stop("p should be a ggplot object")
+  }
+
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
 }
