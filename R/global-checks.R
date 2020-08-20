@@ -31,27 +31,77 @@ get_data_from_layer <- function(l) {
   l$data
 }
 
+is_empty_data <- function(d) {
+  identical(d, structure(list(), class = "waiver"))
+}
+
 data_for_layer <- function(p, geom = NULL, i = NULL, local_only = FALSE) {
   l <- determine_layer(p, geom, i)
   local_data <- get_data_from_layer(l)
 
   if (local_only || length(local_data)) {
+    if (is_empty_data(local_data)) {
+      local_data <- NULL
+    }
     return(local_data)
   } else {
-    return(global_data(p))
+    global <- global_data(p)
+    if (is_empty_data(global)) {
+      global <- NULL
+    }
+    return(global)
   }
+}
+
+uses_data_in_layer <- function(p, data, geom = NULL, i = NULL, local_only = FALSE){
+  d <- data_for_layer(p, geom, i, local_only)
+  identical(data, d)
 }
 
 global_mappings <- function(p) {
   p$mapping
 }
 
+# will environments matter here?
 uses_global_mappings <- function(p, mappings) {
   identical(global_mappings(p), mappings)
 }
 
+# will environments matter here?
 uses_global_mapping <- function(p, mapping) {
   mappings <- global_mappings(p)
+  names(mapping) %in% names(mappings) && identical(mapping, mappings[names(mapping)])
+}
+
+get_mappings_from_layer <- function (l) {
+  l$mapping
+}
+
+aes_c <- function(a1, a2) {
+  aesthetics <- names(a2)
+  a1[aesthetics] <- a2
+  a1
+}
+
+mappings_for_layer <- function(p, geom = NULL, i = NULL, local_only = FALSE) {
+  l <- determine_layer(p, geom, i)
+  local_mappings <- get_mappings_from_layer(l)
+
+  if (local_only) {
+    return(local_mappings)
+  } else {
+    return(aes_c(global_mappings(p), local_mappings))
+  }
+}
+
+# write tests
+layer_mappings_match <- function(p, mappings, geom = NULL, i = NULL, local_only = FALSE) {
+  identical(mappings, mappings_for_layer(p, geom, i, local_only))
+}
+
+# write tests
+uses_mappings_in_layer <- function(p, mapping, geom = NULL, i = NULL, local_only = FALSE) {
+  mappings <- mappings_for_layer(p, geom, i, local_only)
   names(mapping) %in% names(mappings) && identical(mapping, mappings[names(mapping)])
 }
 
@@ -62,6 +112,11 @@ n_layers <- function(p) {
 ith_geom <- function(p, i) {
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
+}
+
+ith_geom_is <- function(p, geom, i = 1) {
+  geom_i <- ith_geom(p, i)
+  geom_i == geom
 }
 
 geoms <- function(p) {
