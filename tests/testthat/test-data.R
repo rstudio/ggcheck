@@ -73,3 +73,33 @@ test_that("Checks whether data is used by layer", {
   expect_false(p2 %>% get_layer(i = 1) %>% uses_data(mpg))
   expect_false(p2 %>% get_layer(i = 2) %>% uses_data(d2))
 })
+
+test_that("Identifies the data set used by ith layer", {
+  expect_equal(
+    p2 %>% ith_data(1),
+    d2
+  )
+  expect_equal(
+    p2 %>% ith_data(1, local_only = FALSE),
+    d2
+  )
+  expect_equal(
+    p2 %>% ith_data(2, local_only = FALSE),
+    mpg
+  )
+  expect_equal(
+    p2 %>% ith_data(2),
+    NULL
+  )
+})
+
+test_that("Checks the data used by ith layer", {
+  expect_true(p2 %>% ith_data_is(data = d2, i = 1))
+  expect_true(p2 %>% ith_data_is(data = d2, i =1, local_only = FALSE))
+  expect_true(p2 %>% ith_data_is(data = mpg, i = 2, local_only = FALSE))
+  expect_true(p2 %>% ith_data_is(data = NULL, i = 2))
+  expect_false(p2 %>% ith_data_is(data = mpg, i = 1))
+  expect_false(p2 %>% ith_data_is(data = mpg, i =1, local_only = FALSE))
+  expect_false(p2 %>% ith_data_is(data = NULL, i = 2, local_only = FALSE))
+  expect_false(p2 %>% ith_data_is(data = mpg, i = 2))
+})

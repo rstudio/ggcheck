@@ -41,3 +41,17 @@ get_data.layer_to_check <- function(p, local_only = TRUE) {
 uses_data <- function(p, data, local_only = FALSE) {
   identical(data, get_data(p, local_only))
 }
+
+ith_data <- function(p, i, local_only = TRUE) {
+
+  if(!inherits(p, "ggplot")) {
+    stop("p should be a ggplot object")
+  }
+
+  get_data(get_layer(p, i = i), local_only)
+}
+
+ith_data_is <- function(p, data, i, local_only = TRUE) {
+  identical(data, ith_data(p, i, local_only))
+}
+
