@@ -34,7 +34,7 @@ uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = F
 uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
 }
 \seealso{
-Other check mappings: 
+Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
@@ -42,4 +42,4 @@ Other check mappings:
 \code{\link{ith_mappings}()},
 \code{\link{mappings_match}()}
 }
-\concept{check mappings}
+\concept{functions for checking mappings}

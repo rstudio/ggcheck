@@ -14,11 +14,9 @@
 #'
 #' @return \code{TRUE} or \code{FALSE}
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
-#'
-#' @examples
 identical_aes <- function(a1, a2) {
   # remove environments
   a1 <- lapply(a1, `attributes<-`, NULL)
@@ -56,7 +54,7 @@ aes_c <- function(a1, a2) {
 #' @return A list with class uneval, as returned by \code{\link[ggplot2]{aes}}
 #'   Components of the list are either quosures or constants.
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'
@@ -102,7 +100,7 @@ get_mappings.layer_to_check <- function(p, local_only = TRUE) {
 #'
 #' @return A logical value.
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'
@@ -134,7 +132,7 @@ uses_mappings <- function(p, mappings, local_only = FALSE) {
 #'
 #' @return A logical value
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'
@@ -172,7 +170,7 @@ mappings_match <- function(p, mappings, local_only = FALSE) {
 #' @return A list with class uneval, as returned by \code{\link[ggplot2]{aes}}
 #'   Components of the list are either quosures or constants.
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'
@@ -215,7 +213,7 @@ ith_mappings <- function(p, i, local_only = TRUE) {
 #'
 #' @return A logical value
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'
@@ -254,7 +252,7 @@ ith_mappings_use <- function(p, mappings, i, local_only = TRUE) {
 #'
 #' @return A logical value
 #'
-#' @family check mappings
+#' @family functions for checking mappings
 #'
 #' @export
 #'

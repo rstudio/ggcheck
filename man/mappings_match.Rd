@@ -33,7 +33,7 @@ mappings_match(get_layer(p, i = 1), aes(x = displ,  y = hwy, color = class), loc
 mappings_match(get_layer(p, i = 1), aes(x = displ, y = hwy, color = class), local_only = TRUE)
 }
 \seealso{
-Other check mappings: 
+Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
@@ -41,4 +41,4 @@ Other check mappings:
 \code{\link{ith_mappings}()},
 \code{\link{uses_mappings}()}
 }
-\concept{check mappings}
+\concept{functions for checking mappings}

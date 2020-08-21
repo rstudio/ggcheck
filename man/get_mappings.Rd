@@ -39,7 +39,7 @@ get_mappings(p)
 get_mappings(get_layer(p, i = 1), local_only = FALSE)
 }
 \seealso{
-Other check mappings: 
+Other functions for checking mappings: 
 \code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
@@ -47,4 +47,4 @@ Other check mappings:
 \code{\link{mappings_match}()},
 \code{\link{uses_mappings}()}
 }
-\concept{check mappings}
+\concept{functions for checking mappings}

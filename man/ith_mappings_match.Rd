@@ -41,7 +41,7 @@ ith_mappings_match(p, i = 1, aes(color = class), local_only = TRUE)
 ith_mappings_match(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 }
 \seealso{
-Other check mappings: 
+Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
 \code{\link{ith_mappings_use}()},
@@ -49,4 +49,4 @@ Other check mappings:
 \code{\link{mappings_match}()},
 \code{\link{uses_mappings}()}
 }
-\concept{check mappings}
+\concept{functions for checking mappings}

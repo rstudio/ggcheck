@@ -43,7 +43,7 @@ ith_mappings_use(p, i = 1, aes(x = displ), local_only = TRUE)
 ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 }
 \seealso{
-Other check mappings: 
+Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
@@ -51,4 +51,4 @@ Other check mappings:
 \code{\link{mappings_match}()},
 \code{\link{uses_mappings}()}
 }
-\concept{check mappings}
+\concept{functions for checking mappings}
