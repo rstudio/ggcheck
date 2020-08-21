@@ -2,9 +2,11 @@
 
 S3method(get_mappings,ggplot)
 S3method(get_mappings,layer_to_check)
+export(get_layer)
 export(get_mappings)
 export(ith_mappings)
 export(ith_mappings_match)
 export(ith_mappings_use)
 export(mappings_match)
+export(n_layers)
 export(uses_mappings)
