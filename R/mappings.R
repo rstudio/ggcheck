@@ -197,7 +197,7 @@ ith_mappings <- function(p, i, local_only = TRUE) {
 #' additional mappings as well. Functions that use the \code{ith_} prefix are
 #' designed to eliminate the need to call \code{get_layer} to check a specific
 #' layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
-#' mappings_use(aes(color = class))}.
+#' uses_mappings(aes(color = class))}.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.

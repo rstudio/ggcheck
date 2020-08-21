@@ -32,7 +32,7 @@ in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
 additional mappings as well. Functions that use the \code{ith_} prefix are
 designed to eliminate the need to call \code{get_layer} to check a specific
 layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
-mappings_use(aes(color = class))}.
+uses_mappings(aes(color = class))}.
 }
 \examples{
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
