@@ -26,13 +26,13 @@ combination of global and local methods that will be used to plot a layer.}
 A logical value
 }
 \description{
-\code{ith_mappings} returns the mappings used by a ggplot object or a single
-layer extracted from the object with \code{\link{get_layer}}.
-}
-\details{
-Functions that use the \code{ith_} prefix are
+\code{ith_mappings_use} checks whether the student uses the supplied mappings
+in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
+\code{ith_mappings_use} ignores whether or not the student supplied
+additional mappings as well. Functions that use the \code{ith_} prefix are
 designed to eliminate the need to call \code{get_layer} to check a specific
-layer in a plot, e.g. \code{p \%>\% get_layer(geom = "point") \%>\% get_mappings()}.
+layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
+mappings_use(aes(color = class))}.
 }
 \examples{
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +

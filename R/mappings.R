@@ -121,13 +121,12 @@ mappings_match <- function(p, mappings, local_only = FALSE) {
 
 #' Return the aesthetic mappings used by the ith layer
 #'
-#' \code{ith_mappings_use} checks whether the student uses the supplied mappings
-#' in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
-#' \code{ith_mappings_use} ignores whether or not the student supplied
-#' additional mappings as well. Functions that use the \code{ith_} prefix are
+#' \code{ith_mappings} returns the mappings used by a ggplot object or a single
+#' layer extracted from the object with \code{\link{get_layer}}.
+#'
+#' Functions that use the \code{ith_} prefix are
 #' designed to eliminate the need to call \code{get_layer} to check a specific
-#' layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
-#' mappings_use(aes(color = class))}.
+#' layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>% get_mappings()}.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
@@ -165,12 +164,13 @@ ith_mappings <- function(p, i, local_only = TRUE) {
 
 #' Does the ith layer use one or more aesthetic mappings?
 #'
-#' \code{ith_mappings} returns the mappings used by a ggplot object or a single
-#' layer extracted from the object with \code{\link{get_layer}}.
-#'
-#' Functions that use the \code{ith_} prefix are
+#' \code{ith_mappings_use} checks whether the student uses the supplied mappings
+#' in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
+#' \code{ith_mappings_use} ignores whether or not the student supplied
+#' additional mappings as well. Functions that use the \code{ith_} prefix are
 #' designed to eliminate the need to call \code{get_layer} to check a specific
-#' layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>% get_mappings()}.
+#' layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
+#' mappings_use(aes(color = class))}.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
