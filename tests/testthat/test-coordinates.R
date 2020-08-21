@@ -1,11 +1,11 @@
 context("Coordinate Systems")
-
+library(ggplot2)
 
 p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class)) +
-  geom_smooth(se = FALSE) +
-  labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
+    geom_point(mapping = aes(color = class)) +
+    geom_smooth(se = FALSE) +
+    labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
 
 test_that("Identifies coordinate system", {
   expect_equal(
