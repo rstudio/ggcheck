@@ -26,7 +26,7 @@ get_layer <- function(p, geom = NULL, i = NULL) {
   l <- list(
     layer = p$layers[[index]],
     global_data = get_data(p),
-    global_mapping = global_mappings(p)
+    global_mapping = get_mappings(p)
   )
   structure(l, class = "layer_to_check")
 }
