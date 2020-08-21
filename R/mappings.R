@@ -1,3 +1,32 @@
+#' Are aesthetic mapping specifications "identical"?
+#'
+#' The ggplot2 package uses quosures to record aesthetic mappings. These record
+#' both the mapping described as well as the environment in which the mapping
+#' was described. As a result, it is difficult to compare mappings created by
+#' students in one environment to mappings created on the fly by graders in
+#' another environment. \code{identical_aes} facilitates comparison by ignoring
+#' the environments associated with an aesthetic mapping specification. If the
+#' two specifications contain identical expressions, e.g. \code{x = displ},
+#' etc., \code{identical_aes} returns \code{TRUE}.
+#'
+#' @param a1 The output of \code{\link[ggplot2]{aes}}, perhaps extracted from a ggplot object.
+#' @param a2 The output of \code{\link[ggplot2]{aes}}, perhaps extracted from a ggplot object.
+#'
+#' @return \code{TRUE} or \code{FALSE}
+#'
+#' @family check mappings
+#'
+#' @export
+#'
+#' @examples
+identical_aes <- function(a1, a2) {
+  # remove environments
+  a1 <- lapply(a1, `attributes<-`, NULL)
+  a2 <- lapply(a2, `attributes<-`, NULL)
+  identical(a1, a2)
+}
+
+
 aes_c <- function(a1, a2) {
   aesthetics <- names(a2)
   a1[aesthetics] <- a2
@@ -86,7 +115,7 @@ get_mappings.layer_to_check <- function(p, local_only = TRUE) {
 uses_mappings <- function(p, mappings, local_only = FALSE) {
   aes_map <- get_mappings(p, local_only)
   names(mappings) %in% names(aes_map) &&
-    identical(mappings, aes_map[names(mappings)])
+    identical_aes(mappings, aes_map[names(mappings)])
 }
 
 #' Do the mappings of a plot or layer exactly match the set supplied?
@@ -116,7 +145,7 @@ uses_mappings <- function(p, mappings, local_only = FALSE) {
 #' mappings_match(get_layer(p, i = 1), aes(x = displ,  y = hwy, color = class), local_only = FALSE)
 #' mappings_match(get_layer(p, i = 1), aes(x = displ, y = hwy, color = class), local_only = TRUE)
 mappings_match <- function(p, mappings, local_only = FALSE) {
-  identical(mappings, get_mappings(p, local_only))
+  identical_aes(mappings, get_mappings(p, local_only))
 }
 
 #' Return the aesthetic mappings used by the ith layer
@@ -200,7 +229,7 @@ ith_mappings <- function(p, i, local_only = TRUE) {
 ith_mappings_use <- function(p, mappings, i, local_only = TRUE) {
   aes_map <- get_mappings(get_layer(p, i = i), local_only)
   names(mappings) %in% names(aes_map) &&
-    identical(mappings, aes_map[names(mappings)])
+    identical_aes(mappings, aes_map[names(mappings)])
 }
 
 #' Do the mappings of the ith layer exactly match the set supplied?
@@ -237,6 +266,6 @@ ith_mappings_use <- function(p, mappings, i, local_only = TRUE) {
 #' ith_mappings_match(p, i = 1, aes(color = class), local_only = TRUE)
 #' ith_mappings_match(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 ith_mappings_match <- function(p, mappings, i, local_only = TRUE) {
-  identical(mappings, get_mappings(get_layer(p, i = i), local_only))
+  identical_aes(mappings, get_mappings(get_layer(p, i = i), local_only))
 }
 

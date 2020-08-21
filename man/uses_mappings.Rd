@@ -36,6 +36,7 @@ uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = T
 \seealso{
 Other check mappings: 
 \code{\link{get_mappings}()},
+\code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
 \code{\link{ith_mappings}()},

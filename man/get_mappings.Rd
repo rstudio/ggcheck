@@ -40,6 +40,7 @@ get_mappings(get_layer(p, i = 1), local_only = FALSE)
 }
 \seealso{
 Other check mappings: 
+\code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
 \code{\link{ith_mappings}()},

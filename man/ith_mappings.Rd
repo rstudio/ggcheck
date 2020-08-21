@@ -46,6 +46,7 @@ ith_mappings(p, i = 2, local_only = FALSE)
 \seealso{
 Other check mappings: 
 \code{\link{get_mappings}()},
+\code{\link{identical_aes}()},
 \code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
 \code{\link{mappings_match}()},
