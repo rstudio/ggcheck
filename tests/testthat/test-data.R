@@ -29,7 +29,7 @@ test_that("Checks whether data is used globally", {
 
 test_that("Identifies local data", {
   expect_equal(
-    p %>% get_layer(geom = "point") %>% get_data(),
+    p %>% get_layer(geom = "point") %>% get_data(local_only = TRUE),
     NULL
   )
   expect_equal(
@@ -57,7 +57,7 @@ test_that("Identifies local data", {
     d2
   )
   expect_equal(
-    p2 %>% get_layer(geom = "point", i = 2) %>% get_data(),
+    p2 %>% get_layer(geom = "point", i = 2) %>% get_data(local_only = TRUE),
     NULL
   )
   expect_equal(
@@ -88,7 +88,7 @@ test_that("Identifies the data set used by ith layer", {
     mpg
   )
   expect_equal(
-    p2 %>% ith_data(2),
+    p2 %>% ith_data(2, local_only = TRUE),
     NULL
   )
 })
@@ -97,9 +97,9 @@ test_that("Checks the data used by ith layer", {
   expect_true(p2 %>% ith_data_is(data = d2, i = 1))
   expect_true(p2 %>% ith_data_is(data = d2, i =1, local_only = FALSE))
   expect_true(p2 %>% ith_data_is(data = mpg, i = 2, local_only = FALSE))
-  expect_true(p2 %>% ith_data_is(data = NULL, i = 2))
+  expect_true(p2 %>% ith_data_is(data = NULL, i = 2, local_only = TRUE))
   expect_false(p2 %>% ith_data_is(data = mpg, i = 1))
   expect_false(p2 %>% ith_data_is(data = mpg, i =1, local_only = FALSE))
   expect_false(p2 %>% ith_data_is(data = NULL, i = 2, local_only = FALSE))
-  expect_false(p2 %>% ith_data_is(data = mpg, i = 2))
+  expect_false(p2 %>% ith_data_is(data = mpg, i = 2, local_only = TRUE))
 })

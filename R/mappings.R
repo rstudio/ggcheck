@@ -38,18 +38,18 @@ aes_c <- function(a1, a2) {
 #'
 #' When passed a ggplot object (i.e. a plot), \code{get_mappings} will return
 #' only the mappings that have been set globally with
-#' \code{\link[ggplot2]{ggplot}}. When passed a single layer from a plot,
-#' \code{get_mappings} will return either only the mappings set locally in the
-#' function that created the layer, or the combination of global and local
-#' mappings that the layer will use. See the ... param for details.
+#' \code{\link[ggplot2]{ggplot}}. When passed a single layer from a plot, the
+#' behavior of \code{get_mappings} will depend on the value of
+#' \code{local_only}. If \code{local_only = TRUE}, \code{get_mappings} will
+#' return only the mappings defined locally in a layer. When \code{local_only =
+#' FALSE}, \code{get_mappings} will return the combination of global and local
+#' methods that will be used to plot a layer.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
-#' @param ... Arguments passed to methods. At the moment, the only recognized
-#'   argument is \code{local_only}. When \code{local_only = TRUE},
-#'   \code{get_mappings} will return only the mappings defined locally in a
-#'   layer. When \code{local_only = FALSE}, \code{get_mappings} will return the
-#'   combination of global and local methods that will be used to plot a layer.
+#' @param local_only \code{TRUE} or \code{FALSE}. Should \code{get_mappings}
+#'   return only the mappings defined locally in a layer. This has no effect
+#'   when \code{p} is a ggplot object.
 #'
 #' @return A list with class uneval, as returned by \code{\link[ggplot2]{aes}}
 #'   Components of the list are either quosures or constants.
@@ -63,17 +63,17 @@ aes_c <- function(a1, a2) {
 #'   geom_point(mapping = aes(color = class))
 #' get_mappings(p)
 #' get_mappings(get_layer(p, i = 1), local_only = FALSE)
-get_mappings <- function(p, ...) {
+get_mappings <- function(p, local_only = FALSE) {
   UseMethod("get_mappings")
 }
 
 #' @export
-get_mappings.ggplot <- function(p, ...) {
+get_mappings.ggplot <- function(p, local_only = FALSE) {
   p$mapping
 }
 
 #' @export
-get_mappings.layer_to_check <- function(p, local_only = TRUE) {
+get_mappings.layer_to_check <- function(p, local_only = FALSE) {
   local_mappings <- p$layer$mapping
 
   if (local_only) {
@@ -181,7 +181,7 @@ mappings_match <- function(p, mappings, local_only = FALSE) {
 #' ith_mappings(p, i = 1, local_only = FALSE)
 #' ith_mappings(p, i = 1, local_only = TRUE)
 #' ith_mappings(p, i = 2, local_only = FALSE)
-ith_mappings <- function(p, i, local_only = TRUE) {
+ith_mappings <- function(p, i, local_only = FALSE) {
   if(!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
@@ -224,7 +224,7 @@ ith_mappings <- function(p, i, local_only = TRUE) {
 #' ith_mappings_use(p, i = 1, aes(x = displ), local_only = FALSE)
 #' ith_mappings_use(p, i = 1, aes(x = displ), local_only = TRUE)
 #' ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
-ith_mappings_use <- function(p, mappings, i, local_only = TRUE) {
+ith_mappings_use <- function(p, mappings, i, local_only = FALSE) {
   aes_map <- get_mappings(get_layer(p, i = i), local_only)
   names(mappings) %in% names(aes_map) &&
     identical_aes(mappings, aes_map[names(mappings)])
@@ -263,7 +263,7 @@ ith_mappings_use <- function(p, mappings, i, local_only = TRUE) {
 #' ith_mappings_match(p, i = 1, aes(x = displ,  y = hwy, color = class), local_only = FALSE)
 #' ith_mappings_match(p, i = 1, aes(color = class), local_only = TRUE)
 #' ith_mappings_match(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
-ith_mappings_match <- function(p, mappings, i, local_only = TRUE) {
+ith_mappings_match <- function(p, mappings, i, local_only = FALSE) {
   identical_aes(mappings, get_mappings(get_layer(p, i = i), local_only))
 }
 

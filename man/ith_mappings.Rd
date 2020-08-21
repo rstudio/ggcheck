@@ -4,7 +4,7 @@
 \alias{ith_mappings}
 \title{Return the aesthetic mappings used by the ith layer}
 \usage{
-ith_mappings(p, i, local_only = TRUE)
+ith_mappings(p, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with

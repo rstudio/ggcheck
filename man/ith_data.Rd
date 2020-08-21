@@ -4,7 +4,7 @@
 \alias{ith_data}
 \title{Which data set does the ith layer use?}
 \usage{
-ith_data(p, i, local_only = TRUE)
+ith_data(p, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with

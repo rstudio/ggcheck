@@ -4,7 +4,7 @@
 \alias{ith_mappings_use}
 \title{Does the ith layer use one or more aesthetic mappings?}
 \usage{
-ith_mappings_use(p, mappings, i, local_only = TRUE)
+ith_mappings_use(p, mappings, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with

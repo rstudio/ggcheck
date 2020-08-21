@@ -4,7 +4,7 @@
 \alias{ith_mappings_match}
 \title{Do the mappings of the ith layer exactly match the set supplied?}
 \usage{
-ith_mappings_match(p, mappings, i, local_only = TRUE)
+ith_mappings_match(p, mappings, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with

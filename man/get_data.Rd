@@ -4,17 +4,18 @@
 \alias{get_data}
 \title{Get the data set used by a plot or layer}
 \usage{
-get_data(p, ...)
+get_data(p, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
 \code{\link{get_layer}}.}
 
-\item{...}{Arguments passed to methods. At the moment, the only recognized
-argument is \code{local_only}. See the details.}
+\item{local_only}{\code{TRUE} or \code{FALSE}. Should \code{get_data} onbly
+return data defined locally in the layer?}
 }
 \value{
-A data frame. If no data set is found, \code{get_data} returns \code{NULL}
+A data frame. If no data set is found, \code{get_data} returns
+\code{NULL}
 }
 \description{
 \code{get_data} returns the data set used by a ggplot object or a single

@@ -32,10 +32,11 @@ get_global_data_from_layer <- function(l) {
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
-#' @param ... Arguments passed to methods. At the moment, the only recognized
-#'   argument is \code{local_only}. See the details.
+#' @param local_only \code{TRUE} or \code{FALSE}. Should \code{get_data} onbly
+#'   return data defined locally in the layer?
 #'
-#' @return A data frame. If no data set is found, \code{get_data} returns \code{NULL}
+#' @return A data frame. If no data set is found, \code{get_data} returns
+#'   \code{NULL}
 #'
 #' @family functions for checking data
 #'
@@ -47,15 +48,15 @@ get_global_data_from_layer <- function(l) {
 #'   geom_point()
 #' get_data(p)
 #' get_data(get_layer(p, i = 1))
-get_data <- function(p, ...) {
+get_data <- function(p, local_only = FALSE) {
   UseMethod("get_data")
 }
 
-get_data.ggplot <- function(p, ...) {
+get_data.ggplot <- function(p, local_only = FALSE) {
   p$data
 }
 
-get_data.layer_to_check <- function(p, local_only = TRUE) {
+get_data.layer_to_check <- function(p, local_only = FALSE) {
 
   data <- p$layer$data
 
@@ -140,7 +141,7 @@ uses_data <- function(p, data, local_only = FALSE) {
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
 #' ith_data(p, i = 1)
-ith_data <- function(p, i, local_only = TRUE) {
+ith_data <- function(p, i, local_only = FALSE) {
 
   if(!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
@@ -182,7 +183,7 @@ ith_data <- function(p, i, local_only = TRUE) {
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
 #' ith_data_is(p, data = head(mpg), i = 1)
-ith_data_is <- function(p, data, i, local_only = TRUE) {
+ith_data_is <- function(p, data, i, local_only = FALSE) {
   identical(data, ith_data(p, i, local_only))
 }
 

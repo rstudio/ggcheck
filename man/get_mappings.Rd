@@ -4,17 +4,15 @@
 \alias{get_mappings}
 \title{Get aesthetic mappings from a layer or plot}
 \usage{
-get_mappings(p, ...)
+get_mappings(p, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
 \code{\link{get_layer}}.}
 
-\item{...}{Arguments passed to methods. At the moment, the only recognized
-argument is \code{local_only}. When \code{local_only = TRUE},
-\code{get_mappings} will return only the mappings defined locally in a
-layer. When \code{local_only = FALSE}, \code{get_mappings} will return the
-combination of global and local methods that will be used to plot a layer.}
+\item{local_only}{\code{TRUE} or \code{FALSE}. Should \code{get_mappings}
+return only the mappings defined locally in a layer. This has no effect
+when \code{p} is a ggplot object.}
 }
 \value{
 A list with class uneval, as returned by \code{\link[ggplot2]{aes}}
@@ -27,10 +25,12 @@ layer extracted from the object with \code{\link{get_layer}}.
 \details{
 When passed a ggplot object (i.e. a plot), \code{get_mappings} will return
 only the mappings that have been set globally with
-\code{\link[ggplot2]{ggplot}}. When passed a single layer from a plot,
-\code{get_mappings} will return either only the mappings set locally in the
-function that created the layer, or the combination of global and local
-mappings that the layer will use. See the ... param for details.
+\code{\link[ggplot2]{ggplot}}. When passed a single layer from a plot, the
+behavior of \code{get_mappings} will depend on the value of
+\code{local_only}. If \code{local_only = TRUE}, \code{get_mappings} will
+return only the mappings defined locally in a layer. When \code{local_only =
+FALSE}, \code{get_mappings} will return the combination of global and local
+methods that will be used to plot a layer.
 }
 \examples{
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
