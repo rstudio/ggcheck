@@ -4,10 +4,11 @@ Version: 0.0.0.9000
 Authors@R: 
     person(given = "Garrett",
            family = "Grolemund",
-           role = c("aut", "cre"),
+           role = c("ccp", "aut", "cre"),
            email = "garrett@rstudio.com",
            comment = c(ORCID = "0000-0002-7765-6011"))
 Description: ggcheck provides functions that inspect ggplot2 objects to make it easier for teachers to check that student plots meet expectations.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -15,3 +16,4 @@ RoxygenNote: 7.1.0
 Suggests: 
     testthat,
     ggplot2
+

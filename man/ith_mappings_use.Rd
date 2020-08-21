@@ -35,6 +35,7 @@ layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
 uses_mappings(aes(color = class))}.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

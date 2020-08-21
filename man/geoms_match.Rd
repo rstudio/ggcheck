@@ -21,6 +21,7 @@ the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
 set of geoms described by \code{geoms} in both order and type.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

@@ -23,6 +23,7 @@ would make the coordinate system. The default coordinate system for ggplot2
 plots is \code{"cartesian"}.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth() +

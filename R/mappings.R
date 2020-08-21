@@ -59,6 +59,7 @@ aes_c <- function(a1, a2) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class))
 #' get_mappings(p)
@@ -105,6 +106,7 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class))
 #' uses_mappings(p, aes(x = displ))
@@ -112,7 +114,7 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #' uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
 uses_mappings <- function(p, mappings, local_only = FALSE) {
   aes_map <- get_mappings(p, local_only)
-  names(mappings) %in% names(aes_map) &&
+  all(names(mappings) %in% names(aes_map)) &&
     identical_aes(mappings, aes_map[names(mappings)])
 }
 
@@ -137,6 +139,7 @@ uses_mappings <- function(p, mappings, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class))
 #' mappings_match(p, aes(x = displ, y = hwy))
@@ -173,6 +176,7 @@ mappings_match <- function(p, mappings, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
@@ -216,6 +220,7 @@ ith_mappings <- function(p, i, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
@@ -224,7 +229,7 @@ ith_mappings <- function(p, i, local_only = FALSE) {
 #' ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 ith_mappings_use <- function(p, mappings, i, local_only = FALSE) {
   aes_map <- get_mappings(get_layer(p, i = i), local_only)
-  names(mappings) %in% names(aes_map) &&
+  all(names(mappings) %in% names(aes_map)) &&
     identical_aes(mappings, aes_map[names(mappings)])
 }
 
@@ -255,6 +260,7 @@ ith_mappings_use <- function(p, mappings, i, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()

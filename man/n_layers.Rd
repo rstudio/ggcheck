@@ -16,6 +16,7 @@ Numeric. The number of layers.
 How many layers are in a plot?
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

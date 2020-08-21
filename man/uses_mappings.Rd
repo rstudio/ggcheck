@@ -27,6 +27,7 @@ their plot. Unlike, \code{\link{mappings_match}}, \code{use_mappings} ignores
 whether or not the student also supplied additional mappings.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 uses_mappings(p, aes(x = displ))

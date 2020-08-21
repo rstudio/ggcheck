@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
@@ -41,6 +42,7 @@ n_layers <- function(p) {
 #'@export
 #'
 #' @examples
+#' require(ggplot2)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()

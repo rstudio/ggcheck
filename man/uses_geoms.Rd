@@ -22,6 +22,7 @@ The geoms can appear in any order in the plot and can be accompanied by other
 geoms that are not checked for.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

@@ -1,5 +1,5 @@
 context("Coordinate Systems")
-library(ggplot2)
+require(ggplot2)
 
 p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +

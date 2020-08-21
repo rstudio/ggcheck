@@ -43,6 +43,8 @@ get_global_data_from_layer <- function(l) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
+#' d2 <- head(mpg)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
@@ -52,10 +54,12 @@ get_data <- function(p, local_only = FALSE) {
   UseMethod("get_data")
 }
 
+#' @export
 get_data.ggplot <- function(p, local_only = FALSE) {
   p$data
 }
 
+#' @export
 get_data.layer_to_check <- function(p, local_only = FALSE) {
 
   data <- p$layer$data
@@ -101,6 +105,8 @@ get_data.layer_to_check <- function(p, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
+#' d2 <- head(mpg)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
@@ -137,6 +143,8 @@ uses_data <- function(p, data, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
+#' d2 <- head(mpg)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
@@ -179,6 +187,8 @@ ith_data <- function(p, i, local_only = FALSE) {
 #' @export
 #'
 #' @examples
+#' require(ggplot2)
+#' d2 <- head(mpg)
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()

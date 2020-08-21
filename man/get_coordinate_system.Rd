@@ -17,6 +17,7 @@ A character string that corresponds to the suffix of a ggplot2
 Which coordinate system does a plot use?
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth() +

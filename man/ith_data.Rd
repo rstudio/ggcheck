@@ -33,6 +33,8 @@ to call \code{get_layer} to check a specific layer in a plot, e.g. \code{p
 \%>\% get_layer(geom = "point") \%>\% get_data()}.
 }
 \examples{
+require(ggplot2)
+d2 <- head(mpg)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = d2, color = "red") +
   geom_point()

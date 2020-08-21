@@ -34,6 +34,8 @@ layer, whether or not that data was defined globally in
 \code{\link[ggplot2]{ggplot}} or locally.
 }
 \examples{
+require(ggplot2)
+d2 <- head(mpg)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = d2, color = "red") +
   geom_point()

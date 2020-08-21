@@ -33,6 +33,7 @@ FALSE}, \code{get_mappings} will return the combination of global and local
 methods that will be used to plot a layer.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 get_mappings(p)

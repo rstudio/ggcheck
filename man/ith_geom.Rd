@@ -20,6 +20,7 @@ A character string that corresponds to the suffix of a ggplot2
 \code{ith_geom} returns the type of geom used by the ith layer.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

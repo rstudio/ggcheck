@@ -33,6 +33,7 @@ designed to eliminate the need to call \code{get_layer} to check a specific
 layer in a plot, e.g. \code{p \%>\% get_layer(geom = "point") \%>\% get_mappings()}.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

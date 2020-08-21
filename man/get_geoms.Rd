@@ -18,6 +18,7 @@ of a ggplot2 \code{geom_} function, e.g. \code{c("point", "line", "smooth")}.
 strings, that describes which geoms in which order are used by a plot.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

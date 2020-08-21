@@ -26,6 +26,7 @@ A logical value
 supplied mappings in their plot.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 mappings_match(p, aes(x = displ, y = hwy))

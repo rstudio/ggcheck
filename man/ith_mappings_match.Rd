@@ -33,6 +33,7 @@ supplied mappings in the ith layer of their plot. Functions that use the
 get_layer(geom = "point") \%>\% mappings_match(aes(color = class))}.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()

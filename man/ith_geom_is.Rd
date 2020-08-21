@@ -23,6 +23,7 @@ geom used by the ith layer.}
 \code{ith_geom_is} checks whether the ith layer uses the prescribed type of geom.
 }
 \examples{
+require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
