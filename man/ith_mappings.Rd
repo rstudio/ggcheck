@@ -18,9 +18,6 @@ aesthetics used by the ith layer.}
 mappings defined locally in a layer for the presence of \code{mappings}. If
 \code{FALSE}, \code{ith_mappings_use} will check for \code{mappings} in the
 combination of global and local methods that will be used to plot a layer.}
-
-\item{mappings}{One or more aesthetic mappings created with
-\code{\link[ggplot2]{aes}}.}
 }
 \value{
 A list with class uneval, as returned by \code{\link[ggplot2]{aes}}

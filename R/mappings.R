@@ -157,8 +157,6 @@ mappings_match <- function(p, mappings, local_only = FALSE) {
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
-#' @param mappings One or more aesthetic mappings created with
-#'   \code{\link[ggplot2]{aes}}.
 #' @param i A numerical index that corresponds to the first layer of a plot (1),
 #'   the second layer (2), and so on. \code{ith_mappings_use} will check the
 #'   aesthetics used by the ith layer.
