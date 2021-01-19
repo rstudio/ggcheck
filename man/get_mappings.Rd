@@ -42,10 +42,8 @@ get_mappings(get_layer(p, i = 1), local_only = FALSE)
 \seealso{
 Other functions for checking mappings: 
 \code{\link{identical_aes}()},
-\code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
 \code{\link{ith_mappings}()},
-\code{\link{mappings_match}()},
 \code{\link{uses_mappings}()}
 }
 \concept{functions for checking mappings}

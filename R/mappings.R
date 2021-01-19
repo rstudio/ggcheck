@@ -19,13 +19,17 @@
 #' @export
 identical_aes <- function(a1, a2) {
   # remove environments
-  a1 <- lapply(a1, `attributes<-`, NULL)
-  a2 <- lapply(a2, `attributes<-`, NULL)
+  # a1 <- lapply(a1, `attributes<-`, NULL)
+  # a2 <- lapply(a2, `attributes<-`, NULL)
+  # TODO-Nischal: looks like we can use rlang::quo_get_expr instead but let's add tests to verify.
+  a1 <- lapply(a1, rlang::quo_get_expr)
+  a2 <- lapply(a2, rlang::quo_get_expr)
   identical(a1, a2)
 }
 
 
 aes_c <- function(a1, a2) {
+  # TODO document this
   aesthetics <- names(a2)
   a1[aesthetics] <- a2
   a1
@@ -87,8 +91,9 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #' Does a plot or layer use one or more mappings?
 #'
 #' \code{uses_mappings} checks whether the student used one or more mappings in
-#' their plot. Unlike, \code{\link{mappings_match}}, \code{use_mappings} ignores
-#' whether or not the student also supplied additional mappings.
+#' their plot. \code{uses_mappings} by default ignores whether or not the student
+#' also supplied additional mappings. If \code{exact} is \code{TRUE}, then all mappings
+#' have to match.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
@@ -98,6 +103,7 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #'   mappings defined locally in a layer for the presence of \code{mappings}. If
 #'   \code{FALSE}, \code{uses_mappings} will check for \code{mappings} in the
 #'   combination of global and local methods that will be used to plot a layer.
+#' @param exact If \code{TRUE}, mappings need to be mapped exactly
 #'
 #' @return A logical value.
 #'
@@ -112,41 +118,17 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #' uses_mappings(p, aes(x = displ))
 #' uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = FALSE)
 #' uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
-uses_mappings <- function(p, mappings, local_only = FALSE) {
+#' uses_mappings(p, aes(x = displ, y = hwy), exact = TRUE)
+uses_mappings <- function(p, mappings, local_only = FALSE, exact = FALSE) {
   aes_map <- get_mappings(p, local_only)
-  all(names(mappings) %in% names(aes_map)) &&
-    identical_aes(mappings, aes_map[names(mappings)])
-}
-
-#' Do the mappings of a plot or layer exactly match the set supplied?
-#'
-#' \code{mappings_match} checks whether the student used the exact set of
-#' supplied mappings in their plot.
-#'
-#' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
-#' @param mappings One or more aesthetic mappings created with
-#'   \code{\link[ggplot2]{aes}}.
-#' @param local_only If \code{TRUE}, \code{mappings_match} will check only the
-#'   mappings defined locally in a layer for the presence of \code{mappings}. If
-#'   \code{FALSE}, \code{mappings_match} will check for \code{mappings} in the
-#'   combination of global and local methods that will be used to plot a layer.
-#'
-#' @return A logical value
-#'
-#' @family functions for checking mappings
-#'
-#' @export
-#'
-#' @examples
-#' require(ggplot2)
-#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#'   geom_point(mapping = aes(color = class))
-#' mappings_match(p, aes(x = displ, y = hwy))
-#' mappings_match(get_layer(p, i = 1), aes(x = displ,  y = hwy, color = class), local_only = FALSE)
-#' mappings_match(get_layer(p, i = 1), aes(x = displ, y = hwy, color = class), local_only = TRUE)
-mappings_match <- function(p, mappings, local_only = FALSE) {
-  identical_aes(mappings, get_mappings(p, local_only))
+  if (exact) {
+    return(identical_aes(mappings, get_mappings(p, local_only)))
+  } else {
+    return(
+      all(names(mappings) %in% names(aes_map)) &&
+        identical_aes(mappings, aes_map[names(mappings)])
+    )
+  }
 }
 
 #' Return the aesthetic mappings used by the ith layer
@@ -194,7 +176,8 @@ ith_mappings <- function(p, i, local_only = FALSE) {
 #' Does the ith layer use one or more aesthetic mappings?
 #'
 #' \code{ith_mappings_use} checks whether the student uses the supplied mappings
-#' in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
+#' in the ith layer of their plot.
+#'
 #' \code{ith_mappings_use} ignores whether or not the student supplied
 #' additional mappings as well. Functions that use the \code{ith_} prefix are
 #' designed to eliminate the need to call \code{get_layer} to check a specific
@@ -212,6 +195,7 @@ ith_mappings <- function(p, i, local_only = FALSE) {
 #'   mappings defined locally in a layer for the presence of \code{mappings}. If
 #'   \code{FALSE}, \code{ith_mappings_use} will check for \code{mappings} in the
 #'   combination of global and local methods that will be used to plot a layer.
+#' @param exact If \code{TRUE}, mappings need to be mapped exactly
 #'
 #' @return A logical value
 #'
@@ -227,47 +211,18 @@ ith_mappings <- function(p, i, local_only = FALSE) {
 #' ith_mappings_use(p, i = 1, aes(x = displ), local_only = FALSE)
 #' ith_mappings_use(p, i = 1, aes(x = displ), local_only = TRUE)
 #' ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
-ith_mappings_use <- function(p, mappings, i, local_only = FALSE) {
-  aes_map <- get_mappings(get_layer(p, i = i), local_only)
-  all(names(mappings) %in% names(aes_map)) &&
-    identical_aes(mappings, aes_map[names(mappings)])
+ith_mappings_use <- function(p, mappings, i, local_only = FALSE, exact = FALSE) {
+  layer <- get_layer(p, i = i)
+  aes_map <- get_mappings(layer, local_only)
+  if (exact) {
+    return(identical_aes(mappings, aes_map))
+  } else {
+    return(
+     all(names(mappings) %in% names(aes_map)) &&
+       identical_aes(mappings, aes_map[names(mappings)])
+    )
+  }
 }
 
-#' Do the mappings of the ith layer exactly match the set supplied?
-#'
-#' \code{ith_mappings_match} checks whether the student used the exact set of
-#' supplied mappings in the ith layer of their plot. Functions that use the
-#' \code{ith_} prefix are designed to eliminate the need to call
-#' \code{get_layer} to check a specific layer in a plot, e.g. \code{p %>%
-#' get_layer(geom = "point") %>% mappings_match(aes(color = class))}.
-#'
-#' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
-#' @param mappings One or more aesthetic mappings created with
-#'   \code{\link[ggplot2]{aes}}.
-#' @param i A numerical index that corresponds to the first layer of a plot (1),
-#'   the second layer (2), and so on. \code{ith_mappings_match} will check the
-#'   aesthetics used by the ith layer.
-#' @param local_only If \code{TRUE}, \code{ith_mappings_match} will check only the
-#'   mappings defined locally in a layer for the presence of \code{mappings}. If
-#'   \code{FALSE}, \code{ith_mappings_match} will check for \code{mappings} in the
-#'   combination of global and local methods that will be used to plot a layer.
-#'
-#' @return A logical value
-#'
-#' @family functions for checking mappings
-#'
-#' @export
-#'
-#' @examples
-#' require(ggplot2)
-#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#'   geom_point(mapping = aes(color = class)) +
-#'   geom_smooth()
-#' ith_mappings_match(p, i = 1, aes(x = displ,  y = hwy, color = class), local_only = FALSE)
-#' ith_mappings_match(p, i = 1, aes(color = class), local_only = TRUE)
-#' ith_mappings_match(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
-ith_mappings_match <- function(p, mappings, i, local_only = FALSE) {
-  identical_aes(mappings, get_mappings(get_layer(p, i = i), local_only))
-}
+# TODO implement a function that checks if student provided extra mappings?
 

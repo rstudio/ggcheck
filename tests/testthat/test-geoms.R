@@ -50,9 +50,9 @@ test_that("Checks whether a geom is used", {
 })
 
 test_that("Checks whether a sequence of geoms is used", {
-  expect_true(geoms_match(p, c("point", "smooth")))
-  expect_false(geoms_match(p, "point"))
-  expect_false(geoms_match(p, "smooth"))
-  expect_false(geoms_match(p, c("point", "line")))
+  expect_true(uses_geoms(p, c("point", "smooth"), exact = TRUE))
+  expect_false(uses_geoms(p, "point", exact = TRUE))
+  expect_false(uses_geoms(p, "smooth", exact = TRUE))
+  expect_false(uses_geoms(p, c("point", "line"), exact = TRUE))
 })
 

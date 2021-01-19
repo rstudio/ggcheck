@@ -23,32 +23,6 @@ get_geoms <- function(p) {
   vapply(seq_len(n), ith_geom, "a", p = p)
 }
 
-#' Does a plot use an exact set of geoms?
-#'
-#' \code{geoms_match} tests whether the geoms used by a plot exactly match the
-#' set of geoms described by \code{geoms} in both order and type.
-#'
-#' @param p A ggplot object
-#' @param geoms A vector of character strings. Each element should correspond to
-#'   the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
-#'   "line", "smooth")}.
-#'
-#' @return \code{TRUE} or \code{FALSE}
-#'
-#' @family functions for checking geoms
-#'
-#' @export
-#'
-#' @examples
-#' require(ggplot2)
-#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#'   geom_point(mapping = aes(color = class)) +
-#'   geom_smooth()
-#' geoms_match(p, geoms = c("point", "smooth"))
-geoms_match <- function(p, geoms) {
-  identical(geoms, get_geoms(p))
-}
-
 #' Does a plot use one or more geoms?
 #'
 #' \code{use_geoms} tests whether a plot uses one or more geoms in its layers.
@@ -59,6 +33,7 @@ geoms_match <- function(p, geoms) {
 #' @param geoms A vector of character strings. Each element should correspond to
 #'   the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
 #'   "line", "smooth")}.
+#' @param exact if \code{TRUE}, use exact matching
 #'
 #' @return \code{TRUE} or \code{FALSE}
 #'
@@ -72,8 +47,12 @@ geoms_match <- function(p, geoms) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' uses_geoms(p, geoms = "point")
-uses_geoms <- function(p, geoms) {
-  all(geoms %in% get_geoms(p))
+uses_geoms <- function(p, geoms, exact = FALSE) {
+  if (exact) {
+    return(identical(geoms, get_geoms(p)))
+  } else {
+    return(all(geoms %in% get_geoms(p)))
+  }
 }
 
 #' Which geom is used in the ith layer?
@@ -98,14 +77,14 @@ uses_geoms <- function(p, geoms) {
 #'   geom_smooth()
 #' ith_geom_is(p, geom = "smooth", i = 2)
 ith_geom <- function(p, i) {
-
   if(!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
-
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
 }
+
+# TODO-Nischal implement an ith_stat or modify this function so we can do: tolower(class(.result$layers[[1]]$stat)[1])
 
 #' Is the ith geom what it should be?
 #'

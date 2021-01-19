@@ -35,6 +35,7 @@ n_layers <- function(p) {
 #'@param p A ggplot object
 #'@param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
+#'  TODO-Nischal do we want to do suffix? seems easier to stick to function names...
 #'@param i A numerical index, e.g. \code{1}.
 #'
 #'@return An object with class \code{layer_to_check} to be manipulated further
@@ -65,6 +66,7 @@ get_layer <- function(p, geom = NULL, i = NULL) {
     index <- which(get_geoms(p) == geom)[i]
   }
 
+  # index may be `NA` so we can check for that
   if (index > length(p$layers)) {
     stop("Grading error: cannot find specified layer. (For the grader) use checks to check that desired layer exists before inspecting the layer.")
   }

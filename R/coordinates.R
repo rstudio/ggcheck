@@ -45,3 +45,4 @@ get_coordinate_system <- function(p) {
 uses_coordinate_system <- function(p, coordinates) {
   coordinates == get_coordinate_system(p)
 }
+

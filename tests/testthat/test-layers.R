@@ -13,3 +13,10 @@ test_that("Identifies number of layers", {
     2
   )
 })
+
+test_that("Correctly throws an error for getting a layer", {
+  expect_error(get_layer(p))
+  expect_error(get_layer(p, i = 0))
+  expect_error(get_layer(p, ""))
+  expect_error(get_layer(p, "line"))
+})

@@ -26,7 +26,6 @@ get_geoms(p)
 }
 \seealso{
 Other functions for checking geoms: 
-\code{\link{geoms_match}()},
 \code{\link{ith_geom_is}()},
 \code{\link{ith_geom}()},
 \code{\link{uses_geoms}()}

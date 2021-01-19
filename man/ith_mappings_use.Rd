@@ -4,7 +4,7 @@
 \alias{ith_mappings_use}
 \title{Does the ith layer use one or more aesthetic mappings?}
 \usage{
-ith_mappings_use(p, mappings, i, local_only = FALSE)
+ith_mappings_use(p, mappings, i, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
@@ -21,13 +21,17 @@ aesthetics used by the ith layer.}
 mappings defined locally in a layer for the presence of \code{mappings}. If
 \code{FALSE}, \code{ith_mappings_use} will check for \code{mappings} in the
 combination of global and local methods that will be used to plot a layer.}
+
+\item{exact}{If \code{TRUE}, mappings need to be mapped exactly}
 }
 \value{
 A logical value
 }
 \description{
 \code{ith_mappings_use} checks whether the student uses the supplied mappings
-in the ith layer of their plot. Unlike \code{\link{ith_mappings_match}},
+in the ith layer of their plot.
+}
+\details{
 \code{ith_mappings_use} ignores whether or not the student supplied
 additional mappings as well. Functions that use the \code{ith_} prefix are
 designed to eliminate the need to call \code{get_layer} to check a specific
@@ -47,9 +51,7 @@ ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
-\code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings}()},
-\code{\link{mappings_match}()},
 \code{\link{uses_mappings}()}
 }
 \concept{functions for checking mappings}

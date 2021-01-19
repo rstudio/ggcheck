@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms)
+uses_geoms(p, geoms, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -12,6 +12,8 @@ uses_geoms(p, geoms)
 \item{geoms}{A vector of character strings. Each element should correspond to
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
+
+\item{exact}{if \code{TRUE}, use exact matching}
 }
 \value{
 \code{TRUE} or \code{FALSE}
@@ -30,7 +32,6 @@ uses_geoms(p, geoms = "point")
 }
 \seealso{
 Other functions for checking geoms: 
-\code{\link{geoms_match}()},
 \code{\link{get_geoms}()},
 \code{\link{ith_geom_is}()},
 \code{\link{ith_geom}()}

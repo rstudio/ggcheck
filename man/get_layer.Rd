@@ -10,7 +10,8 @@ get_layer(p, geom = NULL, i = NULL)
 \item{p}{A ggplot object}
 
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
-e.g. \code{"point"}.}
+e.g. \code{"point"}.
+TODO-Nischal do we want to do suffix? seems easier to stick to function names...}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }

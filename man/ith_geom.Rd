@@ -28,7 +28,6 @@ ith_geom_is(p, geom = "smooth", i = 2)
 }
 \seealso{
 Other functions for checking geoms: 
-\code{\link{geoms_match}()},
 \code{\link{get_geoms}()},
 \code{\link{ith_geom_is}()},
 \code{\link{uses_geoms}()}
