@@ -24,7 +24,7 @@ require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
-ith_geom_is(p, geom = "smooth", i = 2)
+ith_geom(p, i = 2)
 }
 \seealso{
 Other functions for checking geoms: 

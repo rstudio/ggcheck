@@ -3,6 +3,7 @@
 #' @param p_chunk Source text for the ggplot code
 #' @param p A ggplot object
 #' @param ... 1 or more \code{gradethis_condition}
+#' @export
 grade_plot <- function(p_chunk, p, ...) {
   # env args
   run_result <- list(

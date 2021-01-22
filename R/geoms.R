@@ -1,3 +1,4 @@
+
 #' List the geoms used by a plot
 #'
 #' \code{get_geoms} returns a vector of geom names, written as character
@@ -20,7 +21,7 @@
 #' get_geoms(p)
 get_geoms <- function(p) {
   n <- n_layers(p)
-  vapply(seq_len(n), ith_geom, "a", p = p)
+  vapply(seq_len(n), ith_geom, character(1), p = p)
 }
 
 #' Does a plot use one or more geoms?
@@ -48,6 +49,7 @@ get_geoms <- function(p) {
 #'   geom_smooth()
 #' uses_geoms(p, geoms = "point")
 uses_geoms <- function(p, geoms, exact = FALSE) {
+  # TODO handle the case where author meant to call `use_stats`
   if (exact) {
     return(identical(geoms, get_geoms(p)))
   } else {
@@ -75,7 +77,7 @@ uses_geoms <- function(p, geoms, exact = FALSE) {
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
-#' ith_geom_is(p, geom = "smooth", i = 2)
+#' ith_geom(p, i = 2)
 ith_geom <- function(p, i) {
   if(!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
@@ -83,8 +85,6 @@ ith_geom <- function(p, i) {
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
 }
-
-# TODO-Nischal implement an ith_stat or modify this function so we can do: tolower(class(.result$layers[[1]]$stat)[1])
 
 #' Is the ith geom what it should be?
 #'
@@ -113,8 +113,3 @@ ith_geom_is <- function(p, geom, i = 1) {
   geom_i <- ith_geom(p, i)
   geom_i == geom
 }
-
-
-
-
-
