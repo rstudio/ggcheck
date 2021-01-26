@@ -187,14 +187,13 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
 uses_variables <- function(p, vars, i = 1, exact = FALSE) {
   layers <- get_layer(p, i = i)
   # TODO-Nischal do we always want to grab all variables or be able to isolate certain layer?
-  pmaps_names <- c(names(layers$layer$mapping), names(layers$global_mapping))
+  pmaps_names <- c(names(layers$global_mapping), names(layers$layer$mapping))
   # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize here
   pmaps_names[which(pmaps_names == "colour")] <- "color"
   vars[which(vars == "colour")] <- "color"
-  # TODO-Nischal check other locations where we use %in% because we should switch to this
-  matches <- pmaps_names %in% vars
+  matches <- vars %in% pmaps_names
   if (exact) {
-    return(all(matches))
+    return(identical(vars, pmaps_names))
   } else {
     return(any(matches))
   }
