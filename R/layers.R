@@ -18,6 +18,9 @@ n_layers <- function(p) {
 
 #'Isolate a layer from a plot
 #'
+#' TODO-Nischal layer can be either geom/stat, we should rethink about how to
+#' make this more general to handle both.
+#'
 #'\code{get_layer} returns a layer from a plot along with the global data sets
 #'and aesthetic mappings that the layer may inherit from.
 #'

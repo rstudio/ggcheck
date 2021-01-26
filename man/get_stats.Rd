@@ -22,7 +22,7 @@ require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
-get_stats(p, c("identity", "smooth"))
+get_stats(p)
 }
 \seealso{
 Other functions for checking stats: 

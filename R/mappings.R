@@ -18,15 +18,11 @@
 #'
 #' @export
 identical_aes <- function(a1, a2) {
-  # remove environments
-  # a1 <- lapply(a1, `attributes<-`, NULL)
-  # a2 <- lapply(a2, `attributes<-`, NULL)
-  # TODO-Nischal: looks like we can use rlang::quo_get_expr instead but let's add tests to verify.
-  a1 <- lapply(a1, rlang::quo_get_expr)
-  a2 <- lapply(a2, rlang::quo_get_expr)
+  # ignore environments associated with the aesthetics
+  a1 <- lapply(a1, rlang::as_name)
+  a2 <- lapply(a2, rlang::as_name)
   identical(a1, a2)
 }
-
 
 aes_c <- function(a1, a2) {
   # TODO document this
@@ -80,7 +76,6 @@ get_mappings.ggplot <- function(p, local_only = FALSE) {
 #' @export
 get_mappings.layer_to_check <- function(p, local_only = FALSE) {
   local_mappings <- p$layer$mapping
-
   if (local_only) {
     return(local_mappings)
   } else {
@@ -120,15 +115,84 @@ get_mappings.layer_to_check <- function(p, local_only = FALSE) {
 #' uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
 #' uses_mappings(p, aes(x = displ, y = hwy), exact = TRUE)
 uses_mappings <- function(p, mappings, local_only = FALSE, exact = FALSE) {
+  #TODO-Nischal for exact case, should we return how many items don't match, e.g. a list(matched = TRUE, extra = 1)
   aes_map <- get_mappings(p, local_only)
+  mapping_names <- names(mappings)
   if (exact) {
     return(identical_aes(mappings, get_mappings(p, local_only)))
   } else {
     return(
-      all(names(mappings) %in% names(aes_map)) &&
-        identical_aes(mappings, aes_map[names(mappings)])
+      all(mapping_names %in% names(aes_map)) && identical_aes(mappings, aes_map[mapping_names])
     )
   }
+}
+
+#' Does the plot uses extra aesthetic mappings?
+#'
+#' \code{uses_extra_mappings} checks if a student's plot contains more than the
+#' required aesthetic mappings. Note that we still return \code{TRUE} if
+#' the student's plot differs from the required aesthetic mappings because they
+#' are technically extra mappings from required set. We recommend you use
+#' \code{uses_mapping} checks for checking required mappings before \code{uses_extra_mappings}.
+#'
+#' @param p A ggplot object or a layer extracted from a ggplot object with
+#'   \code{\link{get_layer}}.
+#' @param mappings One or more aesthetic mappings created with
+#'   \code{\link[ggplot2]{aes}}.
+#' @param local_only If \code{TRUE}, \code{uses_extra_mappings} will check only the
+#'   mappings defined locally in a layer for the presence of \code{mappings}. If
+#'   \code{FALSE}, \code{uses_extra_mappings} will check for \code{mappings} in the
+#'   combination of global and local methods that will be used to plot a layer.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+#'   geom_qq()
+#' uses_extra_mappings(p, aes(sample = price))
+uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
+  aes_map <- get_mappings(p, local_only)
+  mapping_names <- names(mappings)
+  aes_names <- names(aes_map)
+  return(length(aes_names[!(aes_names %in% mapping_names)]) > 0)
+}
+
+#' Does a plot use one or more variables?
+#'
+#' TODO-Nischal need to fix error when running example, suspicion: get_layer breaks because it
+#' is relying on get_geom and is not aware of get_stats cases. Might be worth rethinking the
+#' entire geom_ vs stat_ dynamics.
+#'
+#' \code{uses_variables} checks whether the student used one or more variables in
+#' their plot aesthetics. It is not an exact match, so it will return \code{TRUE}
+#' if any of the variables are used.
+#'
+#'
+#' @param p A ggplot object or a layer extracted from a ggplot object with
+#'   \code{\link{get_layer}}.
+#' @param vars character vector of variables to check for, e.g. c("x")
+#' @param i the ith layer to check
+#' @param local_only  If \code{TRUE}, \code{uses_variables} will check only the
+#'   mappings defined locally in a layer for the presence of \code{mappings}. If
+#'   \code{FALSE}, \code{uses_variables} will check for \code{mappings} in the
+#'   combination of global and local methods that will be used to plot a layer.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' require(ggplot2)
+#' p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+#'   geom_qq()
+#' uses_variables(p, c("x", "y"))
+#' }
+uses_variables <- function(p, vars, i = 1, local_only = FALSE) {
+  layers <- get_layer(p, i = i, local_only)
+  pmaps <- c(layers$layer$mapping, layers$global_mapping)
+  any(vars %in% names(pmaps))
 }
 
 #' Return the aesthetic mappings used by the ith layer

@@ -15,4 +15,5 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     testthat,
-    ggplot2
+    ggplot2,
+    rlang

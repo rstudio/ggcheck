@@ -19,7 +19,7 @@
 #' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
-#' get_stats(p, c("identity", "smooth"))
+#' get_stats(p)
 get_stats <- function(p) {
   n <- n_layers(p)
   vapply(seq_len(n), ith_stat, character(1), p = p)

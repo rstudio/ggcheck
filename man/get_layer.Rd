@@ -20,10 +20,13 @@ An object with class \code{layer_to_check} to be manipulated further
 with ggcheck functions.
 }
 \description{
-\code{get_layer} returns a layer from a plot along with the global data sets
-and aesthetic mappings that the layer may inherit from.
+TODO-Nischal layer can be either geom/stat, we should rethink about how to
+make this more general to handle both.
 }
 \details{
+\code{get_layer} returns a layer from a plot along with the global data sets
+and aesthetic mappings that the layer may inherit from.
+
 Users can specify a layer in one of three ways:
 
 \enumerate{

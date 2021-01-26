@@ -52,15 +52,31 @@ test_that("Identifies local mappings", {
 })
 
 test_that("Checks whether layer mappings exactly match", {
-  expect_true(ith_mappings_use(p2, aes(x = displ, y = hwy, color = class), i = 2, local_only = FALSE, exact = TRUE))
-  expect_true(ith_mappings_use(p2, aes(y = hwy, x = displ, color = class), i = 2, local_only = FALSE, exact = TRUE))
-  expect_false(ith_mappings_use(p2, aes(x = displ, y = hwy), i = 2, local_only = TRUE, exact = TRUE))
-  expect_false(ith_mappings_use(p2, aes(x = displ, y = hwy, color = class), i = 2, local_only = TRUE, exact = TRUE))
-  expect_true(ith_mappings_use(p2, aes(color = class), i = 2, local_only = TRUE, exact = TRUE))
+  expect_true(
+    ith_mappings_use(p2, aes(x = displ, y = hwy, color = class), i = 2, local_only = FALSE, exact = TRUE)
+  )
+  expect_true(
+    ith_mappings_use(p2, aes(y = hwy, x = displ, color = class), i = 2, local_only = FALSE, exact = TRUE)
+  )
+  expect_false(
+    ith_mappings_use(p2, aes(x = displ, y = hwy), i = 2, local_only = TRUE, exact = TRUE)
+  )
+  expect_false(
+    ith_mappings_use(p2, aes(x = displ, y = hwy, color = class), i = 2, local_only = TRUE, exact = TRUE)
+  )
+  expect_true(
+    ith_mappings_use(p2, aes(color = class), i = 2, local_only = TRUE, exact = TRUE)
+  )
 })
 
 test_that("Checks whether layer uses a mapping", {
-  expect_true(ith_mappings_use(p2, aes(x = displ), i = 2, local_only = FALSE))
-  expect_true(ith_mappings_use(p2, aes(color = class), i = 2, local_only = FALSE))
-  expect_false(ith_mappings_use(p2, aes(x = displ), i = 2, local_only = TRUE))
+  expect_true(
+    ith_mappings_use(p2, aes(x = displ), i = 2, local_only = FALSE)
+  )
+  expect_true(
+    ith_mappings_use(p2, aes(color = class), i = 2, local_only = FALSE)
+  )
+  expect_false(
+    ith_mappings_use(p2, aes(x = displ), i = 2, local_only = TRUE)
+  )
 })
