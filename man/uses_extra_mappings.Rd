@@ -19,7 +19,7 @@ mappings defined locally in a layer for the presence of \code{mappings}. If
 combination of global and local methods that will be used to plot a layer.}
 }
 \value{
-
+A logical value.
 }
 \description{
 \code{uses_extra_mappings} checks if a student's plot contains more than the
@@ -30,7 +30,7 @@ are technically extra mappings from required set. We recommend you use
 }
 \examples{
 require(ggplot2)
-p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
   geom_qq()
 uses_extra_mappings(p, aes(sample = price))
 }

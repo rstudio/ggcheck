@@ -80,3 +80,42 @@ test_that("Checks whether layer uses a mapping", {
     ith_mappings_use(p2, aes(x = displ), i = 2, local_only = TRUE)
   )
 })
+
+test_that("Checks whether layer uses extra mappings", {
+  expect_true(
+    uses_extra_mappings(p, aes(color = class), local_only = FALSE)
+  )
+  # first geom_point does not use any extra mappings
+  expect_false(
+    uses_extra_mappings(get_layer(p2, i = 1), aes(x = displ, y = hwy), local_only = FALSE)
+  )
+  # but second geom_point does
+  expect_true(
+    uses_extra_mappings(get_layer(p2, i = 2), aes(x = displ, y = hwy), local_only = FALSE)
+  )
+})
+
+test_that("Checks whether layer uses certain variables", {
+  # loose
+  expect_true(
+    uses_variables(p, "x")
+  )
+  expect_true(
+    uses_variables(p, c("x", "y"))
+  )
+  # exact
+  expect_false(
+    uses_variables(p, "x", exact = TRUE)
+  )
+  # this misses out on the color aesthetic
+  expect_false(
+    uses_variables(p, c("x", "y"), exact = TRUE)
+  )
+  # spelling of color vs colour should not matter
+  expect_true(
+    uses_variables(p, c("x", "y", "colour"), exact = TRUE)
+  )
+  expect_true(
+    uses_variables(p, c("x", "y", "color"), exact = TRUE)
+  )
+})

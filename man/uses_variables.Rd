@@ -4,7 +4,7 @@
 \alias{uses_variables}
 \title{Does a plot use one or more variables?}
 \usage{
-uses_variables(p, vars, i = 1, local_only = FALSE)
+uses_variables(p, vars, i = 1, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
@@ -14,13 +14,10 @@ uses_variables(p, vars, i = 1, local_only = FALSE)
 
 \item{i}{the ith layer to check}
 
-\item{local_only}{If \code{TRUE}, \code{uses_variables} will check only the
-mappings defined locally in a layer for the presence of \code{mappings}. If
-\code{FALSE}, \code{uses_variables} will check for \code{mappings} in the
-combination of global and local methods that will be used to plot a layer.}
+\item{exact}{If \code{TRUE}, variables need to be mapped exactly}
 }
 \value{
-
+A logical value.
 }
 \description{
 TODO-Nischal need to fix error when running example, suspicion: get_layer breaks because it
@@ -29,14 +26,13 @@ entire geom_ vs stat_ dynamics.
 }
 \details{
 \code{uses_variables} checks whether the student used one or more variables in
-their plot aesthetics. It is not an exact match, so it will return \code{TRUE}
-if any of the variables are used.
+their plot aesthetics. By default, \code{uses_variables} requires that only one of the
+variables need to be used. Set \code{exact} to \code{TRUE} to check if all of the variables
+have to be used.
 }
 \examples{
-\dontrun{
 require(ggplot2)
-p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
   geom_qq()
 uses_variables(p, c("x", "y"))
-}
 }

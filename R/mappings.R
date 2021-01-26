@@ -144,12 +144,12 @@ uses_mappings <- function(p, mappings, local_only = FALSE, exact = FALSE) {
 #'   \code{FALSE}, \code{uses_extra_mappings} will check for \code{mappings} in the
 #'   combination of global and local methods that will be used to plot a layer.
 #'
-#' @return
+#' @return A logical value.
 #' @export
 #'
 #' @examples
 #' require(ggplot2)
-#' p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+#' p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
 #'   geom_qq()
 #' uses_extra_mappings(p, aes(sample = price))
 uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
@@ -166,33 +166,38 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
 #' entire geom_ vs stat_ dynamics.
 #'
 #' \code{uses_variables} checks whether the student used one or more variables in
-#' their plot aesthetics. It is not an exact match, so it will return \code{TRUE}
-#' if any of the variables are used.
-#'
+#' their plot aesthetics. By default, \code{uses_variables} requires that only one of the
+#' variables need to be used. Set \code{exact} to \code{TRUE} to check if all of the variables
+#' have to be used.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
 #' @param vars character vector of variables to check for, e.g. c("x")
 #' @param i the ith layer to check
-#' @param local_only  If \code{TRUE}, \code{uses_variables} will check only the
-#'   mappings defined locally in a layer for the presence of \code{mappings}. If
-#'   \code{FALSE}, \code{uses_variables} will check for \code{mappings} in the
-#'   combination of global and local methods that will be used to plot a layer.
+#' @param exact If \code{TRUE}, variables need to be mapped exactly
 #'
-#' @return
+#' @return A logical value.
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' require(ggplot2)
-#' p <- ggplot(data = diamonds, aes(x = cut, sample = price))
+#' p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
 #'   geom_qq()
 #' uses_variables(p, c("x", "y"))
-#' }
-uses_variables <- function(p, vars, i = 1, local_only = FALSE) {
-  layers <- get_layer(p, i = i, local_only)
-  pmaps <- c(layers$layer$mapping, layers$global_mapping)
-  any(vars %in% names(pmaps))
+uses_variables <- function(p, vars, i = 1, exact = FALSE) {
+  layers <- get_layer(p, i = i)
+  # TODO-Nischal do we always want to grab all variables or be able to isolate certain layer?
+  pmaps_names <- c(names(layers$layer$mapping), names(layers$global_mapping))
+  # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize here
+  pmaps_names[which(pmaps_names == "colour")] <- "color"
+  vars[which(vars == "colour")] <- "color"
+  # TODO-Nischal check other locations where we use %in% because we should switch to this
+  matches <- pmaps_names %in% vars
+  if (exact) {
+    return(all(matches))
+  } else {
+    return(any(matches))
+  }
 }
 
 #' Return the aesthetic mappings used by the ith layer
