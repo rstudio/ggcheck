@@ -25,9 +25,9 @@ A logical value.
 }
 \description{
 \code{uses_mappings} checks whether the student used one or more mappings in
-their plot. \code{uses_mappings} by default ignores whether or not the student
-also supplied additional mappings. If \code{exact} is \code{TRUE}, then all mappings
-have to match.
+their plot. By default, \code{uses_mappings} ignores whether or not the student
+also supplied additional mappings. Use \code{uses_extra_mappings} to check if they did.
+If \code{exact} is \code{TRUE}, then all of the mappings have to match exactly.
 }
 \examples{
 require(ggplot2)

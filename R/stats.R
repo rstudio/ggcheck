@@ -1,4 +1,3 @@
-# TODO-Nischal reduce duplication
 
 #' List the stats used by a plot
 #'

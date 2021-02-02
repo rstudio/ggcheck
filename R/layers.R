@@ -18,9 +18,6 @@ n_layers <- function(p) {
 
 #'Isolate a layer from a plot
 #'
-#' TODO-Nischal layer can be either geom/stat, we should rethink about how to
-#' make this more general to handle both.
-#'
 #'\code{get_layer} returns a layer from a plot along with the global data sets
 #'and aesthetic mappings that the layer may inherit from.
 #'
@@ -38,7 +35,6 @@ n_layers <- function(p) {
 #'@param p A ggplot object
 #'@param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#'  TODO-Nischal do we want to do suffix? seems easier to stick to function names...
 #'@param i A numerical index, e.g. \code{1}.
 #'
 #'@return An object with class \code{layer_to_check} to be manipulated further
@@ -54,7 +50,6 @@ n_layers <- function(p) {
 #' get_layer(p, i = 1)
 #' get_layer(p, geom = "smooth")
 get_layer <- function(p, geom = NULL, i = NULL) {
-
   if(!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }

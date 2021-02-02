@@ -10,8 +10,7 @@ get_layer(p, geom = NULL, i = NULL)
 \item{p}{A ggplot object}
 
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
-e.g. \code{"point"}.
-TODO-Nischal do we want to do suffix? seems easier to stick to function names...}
+e.g. \code{"point"}.}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
@@ -20,13 +19,10 @@ An object with class \code{layer_to_check} to be manipulated further
 with ggcheck functions.
 }
 \description{
-TODO-Nischal layer can be either geom/stat, we should rethink about how to
-make this more general to handle both.
-}
-\details{
 \code{get_layer} returns a layer from a plot along with the global data sets
 and aesthetic mappings that the layer may inherit from.
-
+}
+\details{
 Users can specify a layer in one of three ways:
 
 \enumerate{

@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms, exact = FALSE)
+uses_geoms(p, geoms, stat = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -13,15 +13,22 @@ uses_geoms(p, geoms, exact = FALSE)
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
 
+\item{stat}{if \code{TRUE}, check that the \code{stat} argument was not set beyond default}
+
 \item{exact}{if \code{TRUE}, use exact matching}
 }
 \value{
 \code{TRUE} or \code{FALSE}
 }
 \description{
-\code{use_geoms} tests whether a plot uses one or more geoms in its layers.
+\code{use_geoms} tests whether a plot uses one or more geoms in its layers created
+using a \code{geom} function without setting the \code{stat} parameter. If checking
+for a layer that is created using a \code{stat} function, please use \code{uses_stats} instead.
+}
+\details{
 The geoms can appear in any order in the plot and can be accompanied by other
-geoms that are not checked for.
+geoms that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
+the plot will have to exactly match the target geoms.
 }
 \examples{
 require(ggplot2)

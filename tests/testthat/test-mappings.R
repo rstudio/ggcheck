@@ -93,29 +93,33 @@ test_that("Checks whether layer uses extra mappings", {
   expect_true(
     uses_extra_mappings(get_layer(p2, i = 2), aes(x = displ, y = hwy), local_only = FALSE)
   )
+  # and it does not have more than required
+  expect_false(
+    uses_extra_mappings(get_layer(p2, i = 2), aes(x = displ, y = hwy, color = class), local_only = FALSE)
+  )
 })
 
 test_that("Checks whether layer uses certain variables", {
   # loose
   expect_true(
-    uses_variables(p, "x")
+    uses_aesthetics(p, "x")
   )
   expect_true(
-    uses_variables(p, c("x", "y"))
+    uses_aesthetics(p, c("x", "y"))
   )
   # exact
   expect_false(
-    uses_variables(p, "x", exact = TRUE)
+    uses_aesthetics(p, "x", exact = TRUE)
   )
   # this misses out on the color aesthetic
   expect_false(
-    uses_variables(p, c("x", "y"), exact = TRUE)
+    uses_aesthetics(p, c("x", "y"), exact = TRUE)
   )
   # spelling of color vs colour should not matter
   expect_true(
-    uses_variables(p, c("x", "y", "colour"), exact = TRUE)
+    uses_aesthetics(p, c("x", "y", "colour"), exact = TRUE)
   )
   expect_true(
-    uses_variables(p, c("x", "y", "color"), exact = TRUE)
+    uses_aesthetics(p, c("x", "y", "color"), exact = TRUE)
   )
 })
