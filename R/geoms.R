@@ -94,39 +94,6 @@ ith_geom <- function(p, i) {
   gsub("geom", "", tolower(geom))
 }
 
-# Problem: most instructors might use uses_geoms to grade for a plot, but layers can be created with both
-# geom_ and stat_ functions and the underlying geom class is not necessarily the name of plot (e.g. geom_qq -> "point")
-
-# naive idea: just manually maintain the default mapping btw geom/stat with a table or some such.
-# TODO add column that is just the plot type
-# (but do we even need to do that if instructors would more often refer to plot by geom type?)
-
-# reprex::reprex({
-#   library(dplyr)
-#   all_geoms_stats <- tribble(
-#     ~geom_fn, ~geom, ~stat,
-#     "point", "point", "identity",
-#     "density2d", "density2d", "density2d",
-#     "qq", "point", "qq",
-#     "boxplot", "boxplot", "boxplot",
-#     "line", "line", "identity",
-#     "bar", "bar", "count",
-#     "col", "col", "identity",
-#   )
-#   layer <- filter(all_geoms_stats, geom_fn == "qq")
-#   layer$geom
-#   layer$stat
-# })
-#
-#
-# # if looking for geom_qq then you can try and see if there is a stat associated with it
-# subset(all_geom_stats, geom == "qq")$stat
-#
-# # there are independent stat_ functions that set a default geom
-# # e.g. stat_summary() uses "geom_pointrange" but geom_pointrange() has "stat_identity"
-# # so we can still add a row for that case and get geom if we need
-# subset(all_geom_stats, stat == "summary")$geom
-
 #' Is the ith geom what it should be?
 #'
 #' \code{ith_geom_is} checks whether the ith layer uses the prescribed type of geom.
