@@ -28,6 +28,7 @@ ith_stat(p, i = 1)
 \seealso{
 Other functions for checking stats: 
 \code{\link{get_stats}()},
+\code{\link{ith_stat_is}()},
 \code{\link{uses_stats}()}
 }
 \concept{functions for checking stats}

@@ -10,7 +10,6 @@
 #'   of a ggplot2 \code{geom_} function, e.g. \code{c("point", "line", "smooth")}.
 #'
 #' @family functions for checking geoms
-#'
 #' @export
 #'
 #' @examples
@@ -24,11 +23,32 @@ get_geoms <- function(p) {
   vapply(seq_len(n), ith_geom, character(1), p = p)
 }
 
+#' List the geom and stat combination used by all layers of a plot.
+#'
+#' @param p A ggplot object
+#'
+#' @return A list of lists with a GEOM and STAT character.
+#'   e.g. list(list(GEOM = "point", STAT = "identity"))
+#'
+#' @family functions for checking geoms
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_point(mapping = aes(color = class)) +
+#'   geom_smooth()
+#' get_geoms_stats(p)
+get_geoms_stats <- function(p) {
+  n <- n_layers(p)
+  lapply(seq_len(n), ith_geom_stat, p = p)
+}
+
 #' Does a plot use one or more geoms?
 #'
-#' \code{use_geoms} tests whether a plot uses one or more geoms in its layers created
-#' using a \code{geom} function without setting the \code{stat} parameter. If checking
-#' for a layer that is created using a \code{stat} function, please use \code{uses_stats} instead.
+#' \code{use_geoms} tests whether a plot uses one or more geoms created using a \code{geom}.
+#' If checking for a layer that is created using a \code{stat} function, please use
+#' \code{uses_stats} instead.
 #'
 #' The geoms can appear in any order in the plot and can be accompanied by other
 #' geoms that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
@@ -39,12 +59,10 @@ get_geoms <- function(p) {
 #'   the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
 #'   "line", "smooth")}.
 #' @param exact if \code{TRUE}, use exact matching
-#' @param stat if \code{TRUE}, check that the \code{stat} argument was not set beyond default
 #'
 #' @return \code{TRUE} or \code{FALSE}
 #'
 #' @family functions for checking geoms
-#'
 #' @export
 #'
 #' @examples
@@ -53,15 +71,14 @@ get_geoms <- function(p) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' uses_geoms(p, geoms = "point")
-uses_geoms <- function(p, geoms, stat = FALSE, exact = FALSE) {
-  # TODO: test the stat combo case
-  # map the GEOM + STAT from instructor's `geoms`
-  geoms <- map_geoms(geoms, stat)
-  pgeoms <- get_geoms(p)
+uses_geoms <- function(p, geoms, exact = FALSE) {
+  # map the GEOM + STAT for the instructor's target geoms
+  geoms <- lapply(geoms, map_geom)
+  pgeoms <- get_geoms_stats(p)
   if (exact) {
-    return(identical(geoms, get_geoms(p)))
+    return(identical(geoms, pgeoms))
   } else {
-    return(all(geoms %in% get_geoms(p)))
+    return(all(geoms %in% pgeoms))
   }
 }
 
@@ -77,7 +94,6 @@ uses_geoms <- function(p, geoms, stat = FALSE, exact = FALSE) {
 #'   \code{geom_} function, e.g. \code{"point"}.
 #'
 #' @family functions for checking geoms
-#'
 #' @export
 #'
 #' @examples
@@ -92,6 +108,40 @@ ith_geom <- function(p, i) {
   }
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
+}
+
+#' Which geom/stat combination is used in the ith layer?
+#'
+#' \code{ith_geom_stat} returns the type of geom used by the ith layer
+#' according to a geom/stat combination.
+#'
+#' @param p A ggplot object
+#' @param i A numerical index that corresponds to the first layer of a plot (1),
+#'   the second layer (2), and so on.
+#'
+#' @return A list of lists with a GEOM and STAT strings, each corresponding to the suffix of a ggplot2
+#'   \code{geom_} function (e.g. \code{"point"}), and  \code{stat_} function (e.g. \code{"identity"}).
+#'   e.g. list(list(GEOM = "point", STAT = "identity"))
+#'
+#' @family functions for checking geoms
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_point(mapping = aes(color = class)) +
+#'   geom_smooth()
+#' ith_geom_stat(p, i = 2)
+ith_geom_stat <- function(p, i) {
+  if(!inherits(p, "ggplot")) {
+    stop("p should be a ggplot object")
+  }
+  geom <- class(p$layers[[i]]$geom)[1]
+  stat <- class(p$layers[[i]]$stat)[1]
+  list(
+    GEOM = gsub("geom", "", tolower(geom)),
+    STAT = gsub("stat", "", tolower(stat))
+  )
 }
 
 #' Is the ith geom what it should be?

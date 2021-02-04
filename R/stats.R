@@ -27,8 +27,10 @@ get_stats <- function(p) {
 #' Does a plot use one or more stats?
 #'
 #' \code{uses_stats} tests whether a plot uses one or more stats in its layers.
+#'
 #' The stats can appear in any order in the plot and can be accompanied by other
-#' stats that are not checked for.
+#' stats that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
+#' the plot will have to exactly match the target stats.
 #'
 #' @param p A ggplot object
 #' @param stats A vector of character strings. Each element should correspond to
@@ -47,11 +49,15 @@ get_stats <- function(p) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' uses_stats(p, stats = "smooth")
+#' uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
 uses_stats <- function(p, stats, exact = FALSE) {
+  # map the GEOM + STAT for plot and the instructor's target stats
+  stats <- lapply(stats, map_stat)
+  pstats <- lapply(get_stats(p), map_stat)
   if (exact) {
-    return(identical(stats, get_stats(p)))
+    return(identical(stats, pstats))
   } else {
-    return(all(stats %in% get_stats(p)))
+    return(all(stats %in% pstats))
   }
 }
 
@@ -81,4 +87,31 @@ ith_stat <- function(p, i) {
   }
   stat <- class(p$layers[[i]]$stat)[1]
   gsub("stat", "", tolower(stat))
+}
+
+#' Is the ith stat what it should be?
+#'
+#' \code{ith_stat_is} checks whether the ith layer uses the prescribed type of stat
+#'
+#' @param p A ggplot object
+#' @param stat A character string that corresponds to
+#'   the suffix of a ggplot2 \code{stat_} function, e.g. \code{"identity"}.
+#' @param i A numerical index that corresponds to the first layer of a plot (1),
+#'   the second layer (2), and so on. \code{ith_stat_is} will check the
+#'   stat used by the ith layer.
+#'
+#' @return \code{TRUE} or \code{FALSE}
+#'
+#' @family functions for checking stats
+#'
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = diamonds, aes(sample = price)) +
+#'   geom_qq()
+#' ith_stat_is(p, i = 1, "qq")
+ith_stat_is <- function(p, stat, i = 1) {
+  stat_i <- ith_stat(p, i)
+  stat_i == stat
 }

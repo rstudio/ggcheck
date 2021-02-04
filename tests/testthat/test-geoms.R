@@ -49,6 +49,11 @@ test_that("Checks whether a geom is used", {
   expect_false(uses_geoms(p, c("point", "line")))
 })
 
+test_that("Throws a grading error when checking an invalid geom", {
+  expect_error(uses_geoms(p, "lline"))
+  expect_error(uses_geoms(p, c("point", "lline")))
+})
+
 test_that("Checks whether a sequence of geoms is used", {
   expect_true(uses_geoms(p, c("point", "smooth"), exact = TRUE))
   expect_false(uses_geoms(p, "point", exact = TRUE))

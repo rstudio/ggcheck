@@ -19,8 +19,11 @@ the suffix of a ggplot2 \code{stat_} function, e.g. \code{c("identity", "smooth"
 }
 \description{
 \code{uses_stats} tests whether a plot uses one or more stats in its layers.
+}
+\details{
 The stats can appear in any order in the plot and can be accompanied by other
-stats that are not checked for.
+stats that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
+the plot will have to exactly match the target stats.
 }
 \examples{
 require(ggplot2)
@@ -28,10 +31,12 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
 uses_stats(p, stats = "smooth")
+uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
 }
 \seealso{
 Other functions for checking stats: 
 \code{\link{get_stats}()},
+\code{\link{ith_stat_is}()},
 \code{\link{ith_stat}()}
 }
 \concept{functions for checking stats}

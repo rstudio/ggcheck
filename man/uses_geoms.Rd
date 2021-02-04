@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms, stat = FALSE, exact = FALSE)
+uses_geoms(p, geoms, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -13,17 +13,15 @@ uses_geoms(p, geoms, stat = FALSE, exact = FALSE)
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
 
-\item{stat}{if \code{TRUE}, check that the \code{stat} argument was not set beyond default}
-
 \item{exact}{if \code{TRUE}, use exact matching}
 }
 \value{
 \code{TRUE} or \code{FALSE}
 }
 \description{
-\code{use_geoms} tests whether a plot uses one or more geoms in its layers created
-using a \code{geom} function without setting the \code{stat} parameter. If checking
-for a layer that is created using a \code{stat} function, please use \code{uses_stats} instead.
+\code{use_geoms} tests whether a plot uses one or more geoms created using a \code{geom}.
+If checking for a layer that is created using a \code{stat} function, please use
+\code{uses_stats} instead.
 }
 \details{
 The geoms can appear in any order in the plot and can be accompanied by other
@@ -39,8 +37,10 @@ uses_geoms(p, geoms = "point")
 }
 \seealso{
 Other functions for checking geoms: 
+\code{\link{get_geoms_stats}()},
 \code{\link{get_geoms}()},
 \code{\link{ith_geom_is}()},
+\code{\link{ith_geom_stat}()},
 \code{\link{ith_geom}()}
 }
 \concept{functions for checking geoms}

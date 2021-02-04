@@ -26,6 +26,7 @@ get_stats(p)
 }
 \seealso{
 Other functions for checking stats: 
+\code{\link{ith_stat_is}()},
 \code{\link{ith_stat}()},
 \code{\link{uses_stats}()}
 }

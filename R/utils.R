@@ -1,10 +1,7 @@
 
-# ggplot2 default mappings between geom and stat
-# NOTE: this mapping is geom-centric, meaning it accurately represents the mapping
-# when creating a layer using a `geom_` function. This means that when using some stat
-# functions to create a layer, the Geom_ class is not the same as when calling the respective
-# geom_ function. This is the case for the stat_sf* functions, for example.
-# A potential workaround is to create another stat_lookup table that maintains stat => geom mapping.
+# ggplot2 default mappings between geom and stat class names when
+# creating a layer using a `geom_` function.
+# NOTE: this could be dynamically generated as well but would require extra dependency of {sf} package
 geom_lookup <- data.frame(
   geom = c(
     "abline",
@@ -162,84 +159,147 @@ geom_lookup <- data.frame(
   stringsAsFactors = FALSE
 )
 
+# ggplot2 default mappings between geom and stat class names when
+# creating a layer using a `stat_` function.
+# NOTE: this could be dynamically generated as well and would not require any extra dependencies
+stat_lookup <- data.frame(
+  stat = c(
+    "bin",
+    "bin_2d",
+    "bin_hex",
+    "bin2d",
+    "binhex",
+    "boxplot",
+    "contour",
+    "contour_filled",
+    "count",
+    "density",
+    "density_2d",
+    "density_2d_filled",
+    "density2d",
+    "density2d_filled",
+    "ecdf",
+    "ellipse",
+    "function",
+    "identity",
+    "qq",
+    "qq_line",
+    "quantile",
+    "sf",
+    "sf_coordinates",
+    "smooth",
+    "spoke",
+    "sum",
+    "summary",
+    "summary_2d",
+    "summary_bin",
+    "summary_hex",
+    "summary2d",
+    "unique",
+    "ydensity"
+  ),
+  GEOM = c(
+    "bar",
+    "tile",
+    "hex",
+    "tile",
+    "hex",
+    "boxplot",
+    "contour",
+    "contourfilled",
+    "bar",
+    "area",
+    "density2d",
+    "density2dfilled",
+    "density2d",
+    "density2dfilled",
+    "step",
+    "path",
+    "function",
+    "point",
+    "point",
+    "path",
+    "quantile",
+    "rect",
+    "point",
+    "smooth",
+    "spoke",
+    "point",
+    "pointrange",
+    "tile",
+    "pointrange",
+    "hex",
+    "tile",
+    "point",
+    "violin"
+  ),
+  STAT = c(
+    "bin",
+    "bin2d",
+    "binhex",
+    "bin2d",
+    "binhex",
+    "boxplot",
+    "contour",
+    "contourfilled",
+    "count",
+    "density",
+    "density2d",
+    "density2dfilled",
+    "density2d",
+    "density2dfilled",
+    "ecdf",
+    "ellipse",
+    "function",
+    "identity",
+    "qq",
+    "qqline",
+    "quantile",
+    "sf",
+    "sfcoordinates",
+    "smooth",
+    "identity",
+    "sum",
+    "summary",
+    "summary2d",
+    "summarybin",
+    "summaryhex",
+    "summary2d",
+    "unique",
+    "ydensity"
+  ),
+  stringsAsFactors = FALSE
+)
+
 # maps user supplied geom suffixes to ggplot2 geom/stat suffixes using the `geom_lookup`
 # lookup table that maps the default geom/stat combinations.
-map_geoms <- function(geoms, stat = FALSE) {
-  if (is.null(geoms)) {
-    stop("A geom must be specified to map to ggplot2 geom(s).")
+map_geom <- function(geom) {
+  # check if the geom suffix doe not exist
+  if (!(geom %in% geom_lookup$geom)) {
+    stop("Grading error: the supplied geom '", geom, "' does not exist.")
   }
-
-  # check if any of the geoms suffixes do not exist
-  invalid_geoms <- Filter(function(x) !(x %in% geom_lookup$geom), geoms)
-  if (length(invalid_geoms) > 0) {
-    stop(
-      "The following suffixes do not map to any ggplot2 geom: ",
-        paste0(invalid_geoms, collapse = ", ")
+  # return GEOM + STAT combination
+  return(
+    list(
+      GEOM = geom_lookup$GEOM[which(geom_lookup$geom == geom)],
+      STAT = geom_lookup$STAT[which(geom_lookup$geom == geom)]
     )
-  }
-  combo <- list(
-    GEOM = geom_lookup$GEOM[which(geom_lookup$geom %in% geoms)],
-    STAT = geom_lookup$STAT[which(geom_lookup$geom %in% geoms)]
-  )
-  # if stat is TRUE, return the GEOM/STAT combo
-  if (stat) {
-    return(combo)
-  } else {
-    # else, return the GEOM only
-    return(combo$GEOM)
-  }
-}
-
-# helper function to return all geom_, stat_ function names from the ggplot2 package
-available_layers <- function() {
-  require(ggplot2)
-  ggplot_names <- lsf.str("package:ggplot2")
-  # collection of ggplot geom/stat functions
-  list(
-    geom_functions = ggplot_names[grepl(pattern = "^geom_", x =  ggplot_names)],
-    stat_functions = ggplot_names[grepl(pattern = "^stat_", x =  ggplot_names)]
   )
 }
 
-# helper function that returns all Geom_ objects by executing names returned from `available_layers`
-get_all_geom_objects <- function() {
-  require(sf)
-  all_layers <- available_layers()
-  stripped_geom_names <- lapply(all_layers$geom_functions, function(x) gsub("geom_", "", x))
-  # call all geom_ functions for further inspection of objects
-  geom_stats <- lapply(
-    all_layers$geom_functions,
-    function(l) {
-      tryCatch({
-        if (l == "geom_map") {
-          do.call(l, list(map = data.frame(x = 1, y = 1, id = 1)))
-        } else if (l == "geom_sf") {
-          do.call(l, list())[[1]]
-        } else {
-          do.call(l, list())
-        }
-      },
-      error = function(e) {
-        paste0(l)
-      }
-      )
-    }
-  )
-  names(geom_stats) <- stripped_geom_names
-  geom_stats
-}
-all_geoms <- NULL
-
-# helper function to return geom and stat class given a geom suffix name.
-# TODO: we could switch to only using this instead of a lookup table, but
-# it would require an additional {sf} package dependency for `geom_sf_` functions
-geom_class <- function(suffix) {
-  if (is.null(all_geoms)) {
-    all_geoms <- get_all_geom_objects()
+# maps user supplied geom suffixes to ggplot2 geom/stat suffixes using the
+# `stat_lookup` table that holds the default geom/stat combinations.
+map_stat <- function(stat) {
+  # check if the stat suffix doe not exist
+  if (!(stat %in% stat_lookup$stat)) {
+    stop("Grading error: the supplied stat '", stat, "' does not exist.")
   }
-  list(
-    GEOM = class(all_geoms[[suffix]]$geom)[1],
-    STAT = class(all_geoms[[suffix]]$stat)[1]
+  # return GEOM + STAT combination
+  return(
+    list(
+      GEOM = stat_lookup$GEOM[which(stat_lookup$stat == stat)],
+      STAT = stat_lookup$STAT[which(stat_lookup$stat == stat)]
+    )
   )
 }
 
