@@ -1,5 +1,5 @@
 
-# ggplot2 default mappings between geom and stat class names when
+# ggplot2 default mappings from a `geom_` suffix to geom and stat class names when
 # creating a layer using a `geom_` function.
 # NOTE: this could be dynamically generated as well but would require extra dependency of {sf} package
 geom_lookup <- data.frame(
@@ -159,7 +159,7 @@ geom_lookup <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# ggplot2 default mappings between geom and stat class names when
+# ggplot2 default mappings from a `stat_` suffix to geom and stat class names when
 # creating a layer using a `stat_` function.
 # NOTE: this could be dynamically generated as well and would not require any extra dependencies
 stat_lookup <- data.frame(
@@ -271,10 +271,10 @@ stat_lookup <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# maps user supplied geom suffixes to ggplot2 geom/stat suffixes using the `geom_lookup`
-# lookup table that maps the default geom/stat combinations.
+# Given a geom_ function suffix (e.g. "point"), `map_stat` returns the ggplot2 geom/stat class names
+# using the `geom_lookup` table (e.g. list(GEOM = "point", STAT = "identity"))
 map_geom <- function(geom) {
-  # check if the geom suffix doe not exist
+  # check if the geom suffix does not exist
   if (!(geom %in% geom_lookup$geom)) {
     stop("Grading error: the supplied geom '", geom, "' does not exist.")
   }
@@ -287,10 +287,10 @@ map_geom <- function(geom) {
   )
 }
 
-# maps user supplied geom suffixes to ggplot2 geom/stat suffixes using the
-# `stat_lookup` table that holds the default geom/stat combinations.
+# Given a stat_ function suffix (e.g. "qq"), `map_stat` returns the ggplot2 geom/stat class names
+# using the `stat_lookup` table (e.g. list(GEOM = "point", STAT = "qq"))
 map_stat <- function(stat) {
-  # check if the stat suffix doe not exist
+  # check if the stat suffix does not exist
   if (!(stat %in% stat_lookup$stat)) {
     stop("Grading error: the supplied stat '", stat, "' does not exist.")
   }
