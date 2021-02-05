@@ -99,7 +99,7 @@ test_that("Checks whether layer uses extra mappings", {
   )
 })
 
-test_that("Checks whether layer uses certain variables", {
+test_that("Checks whether layer uses certain aesthetics", {
   # loose
   expect_true(
     uses_aesthetics(p, "x")
@@ -111,15 +111,23 @@ test_that("Checks whether layer uses certain variables", {
   expect_false(
     uses_aesthetics(p, "x", exact = TRUE)
   )
-  # this misses out on the color aesthetic
-  expect_false(
+  # at the global layer, this is correct
+  expect_true(
     uses_aesthetics(p, c("x", "y"), exact = TRUE)
+  )
+  # at the local layer, this is false because it is missing the color aesthetic
+  expect_false(
+    uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = TRUE)
+  )
+  # unless you want to include global layer via `local_only` = FALSE
+  expect_true(
+    uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = FALSE)
   )
   # spelling of color vs colour should not matter
   expect_true(
-    uses_aesthetics(p, c("x", "y", "colour"), exact = TRUE)
+    uses_aesthetics(get_layer(p, "point"), c("x", "y", "colour"), local_only = TRUE)
   )
   expect_true(
-    uses_aesthetics(p, c("x", "y", "color"), exact = TRUE)
+    uses_aesthetics(get_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
   )
 })

@@ -4,10 +4,12 @@
 \alias{get_geoms_stats}
 \title{List the geom and stat combination used by all layers of a plot.}
 \usage{
-get_geoms_stats(p)
+get_geoms_stats(p, stat = F)
 }
 \arguments{
 \item{p}{A ggplot object}
+
+\item{stat}{A boolean to indicate whether we want a layer's stat or a geom}
 }
 \value{
 A list of lists with a GEOM and STAT character.

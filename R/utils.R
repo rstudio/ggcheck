@@ -20,6 +20,7 @@ geom_lookup <- data.frame(
     "density2d_filled",
     "dotplot",
     "errorbarh",
+    "function",
     "hex",
     "freqpoly",
     "histogram",
@@ -64,13 +65,14 @@ geom_lookup <- data.frame(
     "blank",
     "boxplot",
     "contour",
-    "contour_filled",
-    "density",
+    "contourfilled",
     "point",
+    "density",
     "density2d",
-    "density2d_filled",
+    "density2dfilled",
     "dotplot",
     "errorbarh",
+    "function",
     "hex",
     "path",
     "bar",
@@ -111,21 +113,22 @@ geom_lookup <- data.frame(
     "identity",
     "count",
     "identity",
-    "bin_2d",
+    "bin2d",
     "identity",
     "boxplot",
     "contour",
-    "contour_filled",
+    "contourfilled",
     "sum",
     "density",
-    "identity",
     "density2d",
-    "density2d_filled",
-    "binplot",
+    "density2dfilled",
+    "bindot",
+    "function",
     "identity",
     "binhex",
     "bin",
     "bin",
+    "identity",
     "identity",
     "identity",
     "identity",
@@ -278,13 +281,12 @@ map_geom <- function(geom) {
   if (!(geom %in% geom_lookup$geom)) {
     stop("Grading error: the supplied geom '", geom, "' does not exist.")
   }
-  # return GEOM + STAT combination
-  return(
-    list(
-      GEOM = geom_lookup$GEOM[which(geom_lookup$geom == geom)],
-      STAT = geom_lookup$STAT[which(geom_lookup$geom == geom)]
-    )
+  # GEOM + STAT combination
+  geom_stat <- list(
+    GEOM = geom_lookup$GEOM[which(geom_lookup$geom == geom)],
+    STAT = geom_lookup$STAT[which(geom_lookup$geom == geom)]
   )
+  return(geom_stat)
 }
 
 # Given a stat_ function suffix (e.g. "qq"), `map_stat` returns the ggplot2 geom/stat class names
@@ -294,13 +296,12 @@ map_stat <- function(stat) {
   if (!(stat %in% stat_lookup$stat)) {
     stop("Grading error: the supplied stat '", stat, "' does not exist.")
   }
-  # return GEOM + STAT combination
-  return(
-    list(
-      GEOM = stat_lookup$GEOM[which(stat_lookup$stat == stat)],
-      STAT = stat_lookup$STAT[which(stat_lookup$stat == stat)]
-    )
+  # GEOM + STAT combination
+  geom_stat <- list(
+    GEOM = stat_lookup$GEOM[which(stat_lookup$stat == stat)],
+    STAT = stat_lookup$STAT[which(stat_lookup$stat == stat)]
   )
+  return(geom_stat)
 }
 
 #' Grade a ggplot object with \code{gradethis::grade_result} conditions.

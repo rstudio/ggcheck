@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms, exact = FALSE)
+uses_geoms(p, geoms, stats = NULL, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -13,7 +13,10 @@ uses_geoms(p, geoms, exact = FALSE)
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
 
-\item{exact}{if \code{TRUE}, use exact matching}
+\item{stats}{A character vector to check for the stats corresponding to geoms
+e.g. c("identity", "smooth") if checking c("point", "smooth")}
+
+\item{exact}{A boolean to indicate whether to use exact matching}
 }
 \value{
 \code{TRUE} or \code{FALSE}
@@ -34,6 +37,8 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
 uses_geoms(p, geoms = "point")
+uses_geoms(p, geoms = c("point", "smooth"), exact = TRUE)
+uses_geoms(p, geoms = c("point", "smooth"), stats = c("identity", "smooth"))
 }
 \seealso{
 Other functions for checking geoms: 

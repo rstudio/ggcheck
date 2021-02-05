@@ -26,6 +26,7 @@ get_geoms <- function(p) {
 #' List the geom and stat combination used by all layers of a plot.
 #'
 #' @param p A ggplot object
+#' @param stat A boolean to indicate whether we want a layer's stat or a geom
 #'
 #' @return A list of lists with a GEOM and STAT character.
 #'   e.g. list(list(GEOM = "point", STAT = "identity"))
@@ -39,9 +40,12 @@ get_geoms <- function(p) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' get_geoms_stats(p)
-get_geoms_stats <- function(p) {
+get_geoms_stats <- function(p, stat = F) {
+  if(!inherits(p, "ggplot")) {
+    stop("p should be a ggplot object")
+  }
   n <- n_layers(p)
-  lapply(seq_len(n), ith_geom_stat, p = p)
+  lapply(seq_len(n), ith_geom_stat, p = p, stat = stat)
 }
 
 #' Does a plot use one or more geoms?
@@ -58,7 +62,9 @@ get_geoms_stats <- function(p) {
 #' @param geoms A vector of character strings. Each element should correspond to
 #'   the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
 #'   "line", "smooth")}.
-#' @param exact if \code{TRUE}, use exact matching
+#' @param exact A boolean to indicate whether to use exact matching
+#' @param stats A character vector to check for the stats corresponding to geoms
+#'   e.g. c("identity", "smooth") if checking c("point", "smooth")
 #'
 #' @return \code{TRUE} or \code{FALSE}
 #'
@@ -71,9 +77,25 @@ get_geoms_stats <- function(p) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' uses_geoms(p, geoms = "point")
-uses_geoms <- function(p, geoms, exact = FALSE) {
+#' uses_geoms(p, geoms = c("point", "smooth"), exact = TRUE)
+#' uses_geoms(p, geoms = c("point", "smooth"), stats = c("identity", "smooth"))
+uses_geoms <- function(p, geoms, stats = NULL, exact = FALSE) {
   # map the GEOM + STAT for the instructor's target geoms
   geoms <- lapply(geoms, map_geom)
+  # if stats is specified override the STAT(s) defaults of geoms
+  if (!is.null(stats)) {
+    # number of stats have to be the same as layers
+    if (length(stats) != length(geoms)) {
+      stop("Grading error: stats supplied don't match number of layers.")
+    }
+    # map user supplied stats to actual class names
+    stats <- lapply(stats, map_stat)
+    geoms <- lapply(seq_along(geoms), function(g) {
+      geoms[[g]]$STAT <- stats[[g]]$STAT
+      geoms[[g]]
+    })
+  }
+  # extract the GEOM + STAT for the plot
   pgeoms <- get_geoms_stats(p)
   if (exact) {
     return(identical(geoms, pgeoms))
@@ -118,6 +140,7 @@ ith_geom <- function(p, i) {
 #' @param p A ggplot object
 #' @param i A numerical index that corresponds to the first layer of a plot (1),
 #'   the second layer (2), and so on.
+#' @param stat A boolean to indicate whether we want a layer's stat or a geom
 #'
 #' @return A list of lists with a GEOM and STAT strings, each corresponding to the suffix of a ggplot2
 #'   \code{geom_} function (e.g. \code{"point"}), and  \code{stat_} function (e.g. \code{"identity"}).
@@ -132,16 +155,15 @@ ith_geom <- function(p, i) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' ith_geom_stat(p, i = 2)
-ith_geom_stat <- function(p, i) {
-  if(!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
-  geom <- class(p$layers[[i]]$geom)[1]
-  stat <- class(p$layers[[i]]$stat)[1]
-  list(
-    GEOM = gsub("geom", "", tolower(geom)),
-    STAT = gsub("stat", "", tolower(stat))
-  )
+ith_geom_stat <- function(p, i, stat = F) {
+  # extract geom/stat classes
+  geom_class <- gsub("geom", "", tolower(class(p$layers[[i]]$geom)[1]))
+  stat_class <- gsub("stat", "", tolower(class(p$layers[[i]]$stat)[1]))
+  # return combination
+  return(list(
+    GEOM = geom_class,
+    STAT = stat_class
+  ))
 }
 
 #' Is the ith geom what it should be?

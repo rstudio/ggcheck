@@ -4,15 +4,16 @@
 \alias{uses_aesthetics}
 \title{Does a plot use one or more aesthetics?}
 \usage{
-uses_aesthetics(p, vars, i = 1, exact = FALSE)
+uses_aesthetics(p, aesthetics, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
 \code{\link{get_layer}}.}
 
-\item{vars}{character vector of variables to check for, e.g. "x" or c("x")}
+\item{aesthetics}{character vector of variables to check for, e.g. "x" or c("x")}
 
-\item{i}{the ith layer to check}
+\item{local_only}{\code{TRUE} or \code{FALSE}. Should \code{uses_aesthetics} only
+return mappings defined locally in the layer?}
 
 \item{exact}{If \code{TRUE}, variables need to be mapped exactly}
 }
@@ -26,10 +27,4 @@ A logical value.
 By default, \code{uses_aesthetics} requires that only one of the
 aesthetics need to be used. Set \code{exact} to \code{TRUE} to check if all of
 the variables have to be matched exactly.
-}
-\examples{
-require(ggplot2)
-p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
-  geom_qq()
-uses_aesthetics(p, "x")
 }

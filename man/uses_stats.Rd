@@ -4,13 +4,16 @@
 \alias{uses_stats}
 \title{Does a plot use one or more stats?}
 \usage{
-uses_stats(p, stats, exact = FALSE)
+uses_stats(p, stats, geoms = NULL, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object}
 
 \item{stats}{A vector of character strings. Each element should correspond to
 the suffix of a ggplot2 \code{stat_} function, e.g. \code{c("identity", "smooth")}.}
+
+\item{geoms}{A character vector to check for the geoms corresponding to stats
+e.g. c("point", "smooth") if checking c("identity", "smooth")}
 
 \item{exact}{if \code{TRUE}, use exact matching}
 }
@@ -32,6 +35,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth()
 uses_stats(p, stats = "smooth")
 uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
+uses_stats(p, c("smooth", "identity"), geoms = c("smooth", "point"))
 }
 \seealso{
 Other functions for checking stats: 

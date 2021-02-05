@@ -36,6 +36,8 @@ get_stats <- function(p) {
 #' @param stats A vector of character strings. Each element should correspond to
 #'   the suffix of a ggplot2 \code{stat_} function, e.g. \code{c("identity", "smooth")}.
 #' @param exact if \code{TRUE}, use exact matching
+#' @param geoms A character vector to check for the geoms corresponding to stats
+#'   e.g. c("point", "smooth") if checking c("identity", "smooth")
 #'
 #' @return \code{TRUE} or \code{FALSE}
 #'
@@ -50,10 +52,24 @@ get_stats <- function(p) {
 #'   geom_smooth()
 #' uses_stats(p, stats = "smooth")
 #' uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
-uses_stats <- function(p, stats, exact = FALSE) {
+#' uses_stats(p, c("smooth", "identity"), geoms = c("smooth", "point"))
+uses_stats <- function(p, stats, geoms = NULL, exact = FALSE) {
   # map the GEOM + STAT for plot and the instructor's target stats
   stats <- lapply(stats, map_stat)
-  pstats <- lapply(get_stats(p), map_stat)
+  # if stats is specified override the STAT(s) defaults of geoms
+  if (!is.null(geoms)) {
+    # number of stats have to be the same as layers
+    if (length(geoms) != length(stats)) {
+      stop("Grading error: geoms supplied don't match number of layers.")
+    }
+    # map user supplied geoms to actual geom names
+    geoms <- lapply(geoms, map_geom)
+    stats <- lapply(seq_along(stats), function(s) {
+      stats[[s]]$GEOM <- geoms[[s]]$GEOM
+      stats[[s]]
+    })
+  }
+  pstats <- get_geoms_stats(p, stat = TRUE)
   if (exact) {
     return(identical(stats, pstats))
   } else {

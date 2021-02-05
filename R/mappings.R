@@ -152,7 +152,6 @@ uses_mappings <- function(p, mappings, local_only = FALSE, exact = FALSE) {
 #'   geom_qq()
 #' uses_extra_mappings(p, aes(sample = price))
 uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
-  # TODO-Nischal add in an `i` param so we can be specific about the layer?
   aes_map <- get_mappings(p, local_only)
   aes_names <- names(aes_map)
   mapping_names <- names(mappings)
@@ -170,31 +169,49 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
 #'   \code{\link{get_layer}}.
-#' @param vars character vector of variables to check for, e.g. "x" or c("x")
-#' @param i the ith layer to check
+#' @param aesthetics character vector of variables to check for, e.g. "x" or c("x")
 #' @param exact If \code{TRUE}, variables need to be mapped exactly
+#' @param local_only \code{TRUE} or \code{FALSE}. Should \code{uses_aesthetics} only
+#'   return mappings defined locally in the layer?
 #'
 #' @return A logical value.
 #' @export
 #'
 #' @examples
 #' require(ggplot2)
-#' p <- ggplot(data = diamonds, aes(x = cut, sample = price)) +
-#'   geom_qq()
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_point(mapping = aes(color = class))
 #' uses_aesthetics(p, "x")
-uses_aesthetics <- function(p, vars, i = 1, exact = FALSE) {
-  # TODO we could handle the case that they might pass in aes() instead
-  # NOTE revisit uses_mappings bc variables might be interpreted column names
-  # maybe i = NULL then either get the global or if i != NULL get the layer specific one
-  layers <- get_layer(p, i = i)
-  # TODO-Nischal do we always want to grab all variables or be able to isolate certain layer?
-  pmaps_names <- c(names(layers$global_mapping), names(layers$layer$mapping))
+#' uses_aesthetics(p, c("x", "y"))
+#' uses_aesthetics(get_layer(p, "point), c("x", "y", "color"), local_only = TRUE)
+#' uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = FALSE)
+uses_aesthetics <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
+  UseMethod("uses_aesthetics")
+}
+
+#' @export
+uses_aesthetics.ggplot <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
+  pmaps_names <- names(p$mapping)
+  identical_aesthetic_names(pmaps_names, aesthetics, exact = exact)
+}
+
+#' @export
+uses_aesthetics.layer_to_check <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
+  if (local_only) {
+    pmaps_names <- names(p$layer$mapping)
+  } else {
+    pmaps_names <- names(p$global_mapping)
+  }
+  identical_aesthetic_names(pmaps_names, aesthetics, exact = exact)
+}
+
+identical_aesthetic_names <- function(aes_names, aesthetics, exact = FALSE) {
   # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize here
-  pmaps_names[which(pmaps_names == "colour")] <- "color"
-  vars[which(vars == "colour")] <- "color"
-  matches <- vars %in% pmaps_names
+  aes_names[which(aes_names == "colour")] <- "color"
+  aesthetics[which(aesthetics == "colour")] <- "color"
+  matches <- aesthetics %in% aes_names
   if (exact) {
-    return(identical(vars, pmaps_names))
+    return(identical(aesthetics, aes_names))
   } else {
     return(any(matches))
   }
