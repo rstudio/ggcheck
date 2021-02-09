@@ -26,7 +26,6 @@ get_geoms <- function(p) {
 #' List the geom and stat combination used by all layers of a plot.
 #'
 #' @param p A ggplot object
-#' @param stat A boolean to indicate whether we want a layer's stat or a geom
 #'
 #' @return A list of lists with a GEOM and STAT character.
 #'   e.g. list(list(GEOM = "point", STAT = "identity"))
@@ -40,12 +39,12 @@ get_geoms <- function(p) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' get_geoms_stats(p)
-get_geoms_stats <- function(p, stat = F) {
-  if(!inherits(p, "ggplot")) {
+get_geoms_stats <- function(p) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
   n <- n_layers(p)
-  lapply(seq_len(n), ith_geom_stat, p = p, stat = stat)
+  lapply(seq_len(n), ith_geom_stat, p = p)
 }
 
 #' Does a plot use one or more geoms?
@@ -63,7 +62,7 @@ get_geoms_stats <- function(p, stat = F) {
 #'   the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
 #'   "line", "smooth")}.
 #' @param exact A boolean to indicate whether to use exact matching
-#' @param stats A character vector to check for the stats corresponding to geoms
+#' @param stats A character vector to optionally check for the stats corresponding to geoms
 #'   e.g. c("identity", "smooth") if checking c("point", "smooth")
 #'
 #' @return \code{TRUE} or \code{FALSE}
@@ -125,7 +124,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = FALSE) {
 #'   geom_smooth()
 #' ith_geom(p, i = 2)
 ith_geom <- function(p, i) {
-  if(!inherits(p, "ggplot")) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
   geom <- class(p$layers[[i]]$geom)[1]
@@ -140,8 +139,6 @@ ith_geom <- function(p, i) {
 #' @param p A ggplot object
 #' @param i A numerical index that corresponds to the first layer of a plot (1),
 #'   the second layer (2), and so on.
-#' @param stat A boolean to indicate whether we want a layer's stat or a geom
-#'
 #' @return A list of lists with a GEOM and STAT strings, each corresponding to the suffix of a ggplot2
 #'   \code{geom_} function (e.g. \code{"point"}), and  \code{stat_} function (e.g. \code{"identity"}).
 #'   e.g. list(list(GEOM = "point", STAT = "identity"))
@@ -155,7 +152,7 @@ ith_geom <- function(p, i) {
 #'   geom_point(mapping = aes(color = class)) +
 #'   geom_smooth()
 #' ith_geom_stat(p, i = 2)
-ith_geom_stat <- function(p, i, stat = F) {
+ith_geom_stat <- function(p, i) {
   # extract geom/stat classes
   geom_class <- gsub("geom", "", tolower(class(p$layers[[i]]$geom)[1]))
   stat_class <- gsub("stat", "", tolower(class(p$layers[[i]]$stat)[1]))

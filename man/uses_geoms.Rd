@@ -13,7 +13,7 @@ uses_geoms(p, geoms, stats = NULL, exact = FALSE)
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
 
-\item{stats}{A character vector to check for the stats corresponding to geoms
+\item{stats}{A character vector to optionally check for the stats corresponding to geoms
 e.g. c("identity", "smooth") if checking c("point", "smooth")}
 
 \item{exact}{A boolean to indicate whether to use exact matching}

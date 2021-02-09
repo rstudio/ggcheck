@@ -12,7 +12,7 @@ uses_stats(p, stats, geoms = NULL, exact = FALSE)
 \item{stats}{A vector of character strings. Each element should correspond to
 the suffix of a ggplot2 \code{stat_} function, e.g. \code{c("identity", "smooth")}.}
 
-\item{geoms}{A character vector to check for the geoms corresponding to stats
+\item{geoms}{A character vector to optionally check for the geoms corresponding to stats
 e.g. c("point", "smooth") if checking c("identity", "smooth")}
 
 \item{exact}{if \code{TRUE}, use exact matching}

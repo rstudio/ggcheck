@@ -183,35 +183,16 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
 #'   geom_point(mapping = aes(color = class))
 #' uses_aesthetics(p, "x")
 #' uses_aesthetics(p, c("x", "y"))
-#' uses_aesthetics(get_layer(p, "point), c("x", "y", "color"), local_only = TRUE)
+#' uses_aesthetics(get_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
 #' uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = FALSE)
 uses_aesthetics <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
-  UseMethod("uses_aesthetics")
-}
-
-#' @export
-uses_aesthetics.ggplot <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
-  pmaps_names <- names(p$mapping)
-  identical_aesthetic_names(pmaps_names, aesthetics, exact = exact)
-}
-
-#' @export
-uses_aesthetics.layer_to_check <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
-  if (local_only) {
-    pmaps_names <- names(p$layer$mapping)
-  } else {
-    pmaps_names <- names(p$global_mapping)
-  }
-  identical_aesthetic_names(pmaps_names, aesthetics, exact = exact)
-}
-
-identical_aesthetic_names <- function(aes_names, aesthetics, exact = FALSE) {
-  # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize here
-  aes_names[which(aes_names == "colour")] <- "color"
+  pmaps_names <- names(get_mappings(p, local_only = local_only))
+  # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize it to 'color'
+  pmaps_names[which(pmaps_names == "colour")] <- "color"
   aesthetics[which(aesthetics == "colour")] <- "color"
-  matches <- aesthetics %in% aes_names
+  matches <- aesthetics %in% pmaps_names
   if (exact) {
-    return(identical(aesthetics, aes_names))
+    return(identical(aesthetics, pmaps_names))
   } else {
     return(any(matches))
   }
@@ -252,7 +233,7 @@ identical_aesthetic_names <- function(aes_names, aesthetics, exact = FALSE) {
 #' ith_mappings(p, i = 1, local_only = TRUE)
 #' ith_mappings(p, i = 2, local_only = FALSE)
 ith_mappings <- function(p, i, local_only = FALSE) {
-  if(!inherits(p, "ggplot")) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
   get_mappings(get_layer(p, i = i), local_only)
@@ -303,8 +284,8 @@ ith_mappings_use <- function(p, mappings, i, local_only = FALSE, exact = FALSE) 
     return(identical_aes(mappings, aes_map))
   } else {
     return(
-     all(names(mappings) %in% names(aes_map)) &&
-       identical_aes(mappings, aes_map[names(mappings)])
+      all(names(mappings) %in% names(aes_map)) &&
+        identical_aes(mappings, aes_map[names(mappings)])
     )
   }
 }

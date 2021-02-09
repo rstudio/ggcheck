@@ -36,7 +36,7 @@ get_stats <- function(p) {
 #' @param stats A vector of character strings. Each element should correspond to
 #'   the suffix of a ggplot2 \code{stat_} function, e.g. \code{c("identity", "smooth")}.
 #' @param exact if \code{TRUE}, use exact matching
-#' @param geoms A character vector to check for the geoms corresponding to stats
+#' @param geoms A character vector to optionally check for the geoms corresponding to stats
 #'   e.g. c("point", "smooth") if checking c("identity", "smooth")
 #'
 #' @return \code{TRUE} or \code{FALSE}
@@ -69,7 +69,7 @@ uses_stats <- function(p, stats, geoms = NULL, exact = FALSE) {
       stats[[s]]
     })
   }
-  pstats <- get_geoms_stats(p, stat = TRUE)
+  pstats <- get_geoms_stats(p)
   if (exact) {
     return(identical(stats, pstats))
   } else {
@@ -98,7 +98,7 @@ uses_stats <- function(p, stats, geoms = NULL, exact = FALSE) {
 #'   geom_qq()
 #' ith_stat(p, i = 1)
 ith_stat <- function(p, i) {
-  if(!inherits(p, "ggplot")) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
   stat <- class(p$layers[[i]]$stat)[1]

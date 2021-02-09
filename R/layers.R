@@ -16,30 +16,30 @@ n_layers <- function(p) {
   length(p$layers)
 }
 
-#'Isolate a layer from a plot
+#' Isolate a layer from a plot
 #'
-#'\code{get_layer} returns a layer from a plot along with the global data sets
-#'and aesthetic mappings that the layer may inherit from.
+#' \code{get_layer} returns a layer from a plot along with the global data sets
+#' and aesthetic mappings that the layer may inherit from.
 #'
-#'Users can specify a layer in one of three ways:
+#' Users can specify a layer in one of three ways:
 #'
-#'\enumerate{
+#' \enumerate{
 #'  \item By order of appearance with \code{i}. The first layer to appear in the
 #'  plot (the one drawn first, on the bottom) corresponds to \code{i = 1}.
 #'  \item By type of geom with \code{geom}. \code{get_layer} will return the
 #'  first layer that uses the geom.
 #'  \item By a combination of \code{geom} and
 #'  \code{i}. \code{get_layer} will return the ith layer that uses the geom.
-#'}
+#' }
 #'
-#'@param p A ggplot object
-#'@param geom A character string found in the suffix of a ggplot2 geom function,
+#' @param p A ggplot object
+#' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#'@param i A numerical index, e.g. \code{1}.
+#' @param i A numerical index, e.g. \code{1}.
 #'
-#'@return An object with class \code{layer_to_check} to be manipulated further
+#' @return An object with class \code{layer_to_check} to be manipulated further
 #'  with ggcheck functions.
-#'@export
+#' @export
 #'
 #' @examples
 #' require(ggplot2)
@@ -50,7 +50,7 @@ n_layers <- function(p) {
 #' get_layer(p, i = 1)
 #' get_layer(p, geom = "smooth")
 get_layer <- function(p, geom = NULL, i = NULL) {
-  if(!inherits(p, "ggplot")) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
 

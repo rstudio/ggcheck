@@ -61,7 +61,6 @@ get_data.ggplot <- function(p, local_only = FALSE) {
 
 #' @export
 get_data.layer_to_check <- function(p, local_only = FALSE) {
-
   data <- p$layer$data
 
   # if no local data
@@ -150,8 +149,7 @@ uses_data <- function(p, data, local_only = FALSE) {
 #'   geom_point()
 #' ith_data(p, i = 1)
 ith_data <- function(p, i, local_only = FALSE) {
-
-  if(!inherits(p, "ggplot")) {
+  if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
 
@@ -196,4 +194,3 @@ ith_data <- function(p, i, local_only = FALSE) {
 ith_data_is <- function(p, data, i, local_only = FALSE) {
   identical(data, ith_data(p, i, local_only))
 }
-

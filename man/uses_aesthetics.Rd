@@ -28,3 +28,12 @@ By default, \code{uses_aesthetics} requires that only one of the
 aesthetics need to be used. Set \code{exact} to \code{TRUE} to check if all of
 the variables have to be matched exactly.
 }
+\examples{
+require(ggplot2)
+p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class))
+uses_aesthetics(p, "x")
+uses_aesthetics(p, c("x", "y"))
+uses_aesthetics(get_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
+uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = FALSE)
+}

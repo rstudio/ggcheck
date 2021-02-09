@@ -4,15 +4,13 @@
 \alias{ith_geom_stat}
 \title{Which geom/stat combination is used in the ith layer?}
 \usage{
-ith_geom_stat(p, i, stat = F)
+ith_geom_stat(p, i)
 }
 \arguments{
 \item{p}{A ggplot object}
 
 \item{i}{A numerical index that corresponds to the first layer of a plot (1),
 the second layer (2), and so on.}
-
-\item{stat}{A boolean to indicate whether we want a layer's stat or a geom}
 }
 \value{
 A list of lists with a GEOM and STAT strings, each corresponding to the suffix of a ggplot2
