@@ -30,11 +30,17 @@ test_that("Identifies ith geom", {
 test_that("Identifies ith geom and stat combination", {
   expect_equal(
     ith_geom_stat(p, 1),
-    list(GEOM = "point", STAT = "identity")
+    structure(
+      list(GEOM = "point", STAT = "identity"),
+      class = "GEOM_STAT"
+    )
   )
   expect_equal(
     ith_geom_stat(p, 2),
-    list(GEOM = "smooth", STAT = "smooth")
+    structure(
+      list(GEOM = "smooth", STAT = "smooth"),
+      class = "GEOM_STAT"
+    )
   )
 })
 
@@ -56,8 +62,14 @@ test_that("Identifies sequence of geom and stat combinations", {
   expect_equal(
     get_geoms_stats(p),
     list(
-      list(GEOM = "point", STAT = "identity"),
-      list(GEOM = "smooth", STAT = "smooth")
+      structure(
+        list(GEOM = "point", STAT = "identity"),
+        class = "GEOM_STAT"
+      ),
+      structure(
+        list(GEOM = "smooth", STAT = "smooth"),
+        class = "GEOM_STAT"
+      )
     )
   )
 })

@@ -83,11 +83,11 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = FALSE) {
   geoms <- lapply(geoms, map_geom)
   # if stats is specified override the STAT(s) defaults of geoms
   if (!is.null(stats)) {
-    # number of stats have to be the same as layers
+    # number of stats have to be the same as number of layers
     if (length(stats) != length(geoms)) {
       stop("Grading error: stats supplied don't match number of layers.")
     }
-    # map user supplied stats to actual class names
+    # map user supplied stats suffixes to actual class names
     stats <- lapply(stats, map_stat)
     geoms <- lapply(seq_along(geoms), function(g) {
       geoms[[g]]$STAT <- stats[[g]]$STAT
@@ -157,10 +157,10 @@ ith_geom_stat <- function(p, i) {
   geom_class <- gsub("geom", "", tolower(class(p$layers[[i]]$geom)[1]))
   stat_class <- gsub("stat", "", tolower(class(p$layers[[i]]$stat)[1]))
   # return combination
-  return(list(
-    GEOM = geom_class,
-    STAT = stat_class
-  ))
+  geom_stat(
+    geom = geom_class,
+    stat = stat_class
+  )
 }
 
 #' Is the ith geom what it should be?

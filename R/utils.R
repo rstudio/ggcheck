@@ -274,32 +274,63 @@ stat_lookup <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Given a geom_ function suffix (e.g. "point"), `map_stat` returns the ggplot2 geom/stat class names
-# using the `geom_lookup` table (e.g. list(GEOM = "point", STAT = "identity"))
+#' Helper function to create the GEOM_STAT list structure
+#'
+#' @param geom A character (e.g. "point")
+#' @param stat A character (e.g. "qq")
+#'
+#' @return list structure with "GEOM_STAT" class
+#'
+#' @examples
+#' geom_stat(geom = "point", stat = "qq")
+#' @noRd
+geom_stat <- function(geom, stat) {
+  structure(
+    list(GEOM = geom, STAT = stat),
+    class = "GEOM_STAT"
+  )
+}
+
+#' Given a geom_ function suffix (e.g. "point"), \code{map_geom} returns the ggplot2
+#' geom/stat class names. using the \code{geom_lookup} table.
+#'
+#' @param geom A character (e.g. "point")
+#'
+#' @return a \code{GEOM_STAT} list structure
+#'
+#' @examples
+#' map_geom("qq")
+#' @noRd
 map_geom <- function(geom) {
   # check if the geom suffix does not exist
   if (!(geom %in% geom_lookup$geom)) {
     stop("Grading error: the supplied geom '", geom, "' does not exist.")
   }
   # GEOM + STAT combination
-  geom_stat <- list(
-    GEOM = geom_lookup$GEOM[which(geom_lookup$geom == geom)],
-    STAT = geom_lookup$STAT[which(geom_lookup$geom == geom)]
+  geom_stat(
+    geom = geom_lookup$GEOM[which(geom_lookup$geom == geom)],
+    stat = geom_lookup$STAT[which(geom_lookup$geom == geom)]
   )
-  return(geom_stat)
 }
 
-# Given a stat_ function suffix (e.g. "qq"), `map_stat` returns the ggplot2 geom/stat class names
-# using the `stat_lookup` table (e.g. list(GEOM = "point", STAT = "qq"))
+#' Given a stat_ function suffix (e.g. "qq"), \code{map_stat} returns the ggplot2
+#' geom/stat class names using the \code{stat_lookup} table.
+#'
+#' @param stat A character (e.g. "qq")
+#'
+#' @return a \code{GEOM_STAT} list structure
+#'
+#' @examples
+#' map_stat("qq")
+#' @noRd
 map_stat <- function(stat) {
   # check if the stat suffix does not exist
   if (!(stat %in% stat_lookup$stat)) {
     stop("Grading error: the supplied stat '", stat, "' does not exist.")
   }
   # GEOM + STAT combination
-  geom_stat <- list(
-    GEOM = stat_lookup$GEOM[which(stat_lookup$stat == stat)],
-    STAT = stat_lookup$STAT[which(stat_lookup$stat == stat)]
+  geom_stat(
+    geom = stat_lookup$GEOM[which(stat_lookup$stat == stat)],
+    stat = stat_lookup$STAT[which(stat_lookup$stat == stat)]
   )
-  return(geom_stat)
 }

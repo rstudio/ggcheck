@@ -56,13 +56,13 @@ get_stats <- function(p) {
 uses_stats <- function(p, stats, geoms = NULL, exact = FALSE) {
   # map the GEOM + STAT for plot and the instructor's target stats
   stats <- lapply(stats, map_stat)
-  # if stats is specified override the STAT(s) defaults of geoms
+  # if geoms is specified override the GEOM(s) defaults of geoms
   if (!is.null(geoms)) {
-    # number of stats have to be the same as layers
+    # number of geoms have to be the same as number of layers
     if (length(geoms) != length(stats)) {
       stop("Grading error: geoms supplied don't match number of layers.")
     }
-    # map user supplied geoms to actual geom names
+    # map user supplied geoms suffixes to actual class names
     geoms <- lapply(geoms, map_geom)
     stats <- lapply(seq_along(stats), function(s) {
       stats[[s]]$GEOM <- geoms[[s]]$GEOM
