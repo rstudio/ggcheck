@@ -25,7 +25,9 @@ identical_aes <- function(a1, a2) {
 }
 
 aes_c <- function(a1, a2) {
-  # TODO document this
+  # override the a1 aesthetics with the a2 aesthetics
+  # NOTE: this is used internally for `get_mappings.layer_to_check` when
+  # retrieving the aesthetics for a particular layer by overriding global aesthetics.
   aesthetics <- names(a2)
   a1[aesthetics] <- a2
   a1
@@ -156,7 +158,7 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
   aes_names <- names(aes_map)
   mapping_names <- names(mappings)
   # the plot has any variables beyond target mappings
-  return(any((aes_names %in% mapping_names) == FALSE))
+  any((aes_names %in% mapping_names) == FALSE)
 }
 
 #' Does a plot use one or more aesthetics?
@@ -190,11 +192,10 @@ uses_aesthetics <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
   # NOTE: ggplot2 seems to switch aesthetic color to colour, so we standardize it to 'color'
   pmaps_names[which(pmaps_names == "colour")] <- "color"
   aesthetics[which(aesthetics == "colour")] <- "color"
-  matches <- aesthetics %in% pmaps_names
   if (exact) {
     return(identical(aesthetics, pmaps_names))
   } else {
-    return(any(matches))
+    return(any(aesthetics %in% pmaps_names))
   }
 }
 

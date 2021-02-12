@@ -41,12 +41,12 @@ test_that("Identifies sequence of stats", {
 })
 
 test_that("Checks whether a sequence of stats are used", {
-  expect_true(uses_stats(p, "boxplot"))
+  expect_true(uses_stats(p, "boxplot", exact = FALSE))
   # order does not matter if exact = FALSE
-  expect_true(uses_stats(p, c("summary", "boxplot")))
-  # order matters if exact = TRUE
-  expect_false(uses_stats(p, c("summary", "boxplot"), exact = TRUE))
-  expect_true(uses_stats(p, c("boxplot", "summary"), exact = TRUE))
+  expect_true(uses_stats(p, c("summary", "boxplot"), exact = FALSE))
+  # order matters in default case because exact = TRUE
+  expect_false(uses_stats(p, c("summary", "boxplot")))
+  expect_true(uses_stats(p, c("boxplot", "summary")))
   expect_true(uses_stats(p2, "qq"))
 })
 
@@ -62,7 +62,7 @@ test_that("Checks whether stat and geom combinations are used", {
   expect_error(uses_stats(p, stats = c("boxplot", "summary"), geoms = c("boxplot", "summary")))
   # throw error if length of stats does not match total number of geoms
   expect_error(uses_stats(p, stats = c("boxplot", "summary"), geoms = c("boxplot")))
-  # expect_error(uses_stats(p2, stats = "qq", geoms = NULL))
+  expect_error(uses_stats(p2, stats = "qq", geoms = c("qq", "point")))
 })
 
 test_that("Throws a grading error when checking an invalid stat", {

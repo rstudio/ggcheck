@@ -28,9 +28,8 @@ get_stats <- function(p) {
 #'
 #' \code{uses_stats} tests whether a plot uses one or more stats in its layers.
 #'
-#' The stats can appear in any order in the plot and can be accompanied by other
-#' stats that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
-#' the plot will have to exactly match the target stats.
+#' By default, the plot must have the exact stats or geom/stat combinations and in the same order.
+#' However, if \code{exact} is set to \code{FALSE}, the plot stats or geom/stat combinations do not have to be exact.
 #'
 #' @param p A ggplot object
 #' @param stats A vector of character strings. Each element should correspond to
@@ -53,14 +52,14 @@ get_stats <- function(p) {
 #' uses_stats(p, stats = "smooth")
 #' uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
 #' uses_stats(p, c("smooth", "identity"), geoms = c("smooth", "point"))
-uses_stats <- function(p, stats, geoms = NULL, exact = FALSE) {
+uses_stats <- function(p, stats, geoms = NULL, exact = TRUE) {
   # map the GEOM + STAT for plot and the instructor's target stats
   stats <- lapply(stats, map_stat)
   # if geoms is specified override the GEOM(s) defaults of geoms
   if (!is.null(geoms)) {
-    # number of geoms have to be the same as number of layers
+    # number of geoms have to be the same as number of stats.
     if (length(geoms) != length(stats)) {
-      stop("Grading error: geoms supplied don't match number of layers.")
+      stop("Grading error: number of geoms supplied don't match number of stats.")
     }
     # map user supplied geoms suffixes to actual class names
     geoms <- lapply(geoms, map_geom)

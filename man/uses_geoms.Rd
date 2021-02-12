@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms, stats = NULL, exact = FALSE)
+uses_geoms(p, geoms, stats = NULL, exact = TRUE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -27,9 +27,8 @@ If checking for a layer that is created using a \code{stat} function, please use
 \code{uses_stats} instead.
 }
 \details{
-The geoms can appear in any order in the plot and can be accompanied by other
-geoms that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
-the plot will have to exactly match the target geoms.
+By default, the plot must have the exact geoms or geom/stat combinations and in the same order.
+However, if \code{exact} is set to \code{FALSE}, the plot geoms or geom/stat combinations do not have to be exact.
 }
 \examples{
 require(ggplot2)

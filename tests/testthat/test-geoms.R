@@ -75,18 +75,20 @@ test_that("Identifies sequence of geom and stat combinations", {
 })
 
 test_that("Checks whether a geom is used", {
-  expect_true(uses_geoms(p, "point"))
-  expect_true(uses_geoms(p, "smooth"))
+  expect_true(uses_geoms(p, "point", exact = FALSE))
+  expect_true(uses_geoms(p, "smooth", exact = FALSE))
   expect_true(uses_geoms(p, c("point", "smooth")))
   expect_false(uses_geoms(p, "line"))
   expect_false(uses_geoms(p, c("point", "line")))
+  expect_true(uses_geoms(p2, c("point", "point", "point"), exact = FALSE))
+  expect_false(uses_geoms(p2, c("point", "point", "point")))
 })
 
 test_that("Checks whether a sequence of geoms is used", {
-  expect_true(uses_geoms(p, c("point", "smooth"), exact = TRUE))
-  expect_false(uses_geoms(p, "point", exact = TRUE))
-  expect_false(uses_geoms(p, "smooth", exact = TRUE))
-  expect_false(uses_geoms(p, c("point", "line"), exact = TRUE))
+  expect_true(uses_geoms(p, c("point", "smooth")))
+  expect_false(uses_geoms(p, "point"))
+  expect_false(uses_geoms(p, "smooth"))
+  expect_false(uses_geoms(p, c("point", "line")))
 })
 
 test_that("Checks whether geom and stat combinations are used", {

@@ -4,7 +4,7 @@
 \alias{uses_stats}
 \title{Does a plot use one or more stats?}
 \usage{
-uses_stats(p, stats, geoms = NULL, exact = FALSE)
+uses_stats(p, stats, geoms = NULL, exact = TRUE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -24,9 +24,8 @@ e.g. c("point", "smooth") if checking c("identity", "smooth")}
 \code{uses_stats} tests whether a plot uses one or more stats in its layers.
 }
 \details{
-The stats can appear in any order in the plot and can be accompanied by other
-stats that are not checked for. However, if \code{exact} is set to \code{TRUE}, the
-the plot will have to exactly match the target stats.
+By default, the plot must have the exact stats or geom/stat combinations and in the same order.
+However, if \code{exact} is set to \code{FALSE}, the plot stats or geom/stat combinations do not have to be exact.
 }
 \examples{
 require(ggplot2)
