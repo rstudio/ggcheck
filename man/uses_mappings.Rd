@@ -4,7 +4,7 @@
 \alias{uses_mappings}
 \title{Does a plot or layer use one or more mappings?}
 \usage{
-uses_mappings(p, mappings, local_only = FALSE)
+uses_mappings(p, mappings, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
@@ -17,14 +17,17 @@ uses_mappings(p, mappings, local_only = FALSE)
 mappings defined locally in a layer for the presence of \code{mappings}. If
 \code{FALSE}, \code{uses_mappings} will check for \code{mappings} in the
 combination of global and local methods that will be used to plot a layer.}
+
+\item{exact}{If \code{TRUE}, mappings need to be mapped exactly}
 }
 \value{
 A logical value.
 }
 \description{
 \code{uses_mappings} checks whether the student used one or more mappings in
-their plot. Unlike, \code{\link{mappings_match}}, \code{use_mappings} ignores
-whether or not the student also supplied additional mappings.
+their plot. By default, \code{uses_mappings} ignores whether or not the student
+also supplied additional mappings. Use \code{uses_extra_mappings} to check if they did.
+If \code{exact} is \code{TRUE}, then all of the mappings have to match exactly.
 }
 \examples{
 require(ggplot2)
@@ -33,14 +36,13 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 uses_mappings(p, aes(x = displ))
 uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = FALSE)
 uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
+uses_mappings(p, aes(x = displ, y = hwy), exact = TRUE)
 }
 \seealso{
 Other functions for checking mappings: 
 \code{\link{get_mappings}()},
 \code{\link{identical_aes}()},
-\code{\link{ith_mappings_match}()},
 \code{\link{ith_mappings_use}()},
-\code{\link{ith_mappings}()},
-\code{\link{mappings_match}()}
+\code{\link{ith_mappings}()}
 }
 \concept{functions for checking mappings}

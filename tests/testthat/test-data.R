@@ -5,7 +5,7 @@ p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
+  labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
 d2 <- head(mpg)
 
@@ -14,7 +14,7 @@ p2 <-
   geom_point(data = d2, color = "red") +
   geom_point(mapping = aes(color = class)) +
   geom_smooth(se = FALSE) +
-  labs(title = "TITLE", subtitle = "SUBTITLE", caption ="CAPTION")
+  labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
 test_that("Identifies global data", {
   expect_equal(
@@ -96,11 +96,11 @@ test_that("Identifies the data set used by ith layer", {
 
 test_that("Checks the data used by ith layer", {
   expect_true(p2 %>% ith_data_is(data = d2, i = 1))
-  expect_true(p2 %>% ith_data_is(data = d2, i =1, local_only = FALSE))
+  expect_true(p2 %>% ith_data_is(data = d2, i = 1, local_only = FALSE))
   expect_true(p2 %>% ith_data_is(data = mpg, i = 2, local_only = FALSE))
   expect_true(p2 %>% ith_data_is(data = NULL, i = 2, local_only = TRUE))
   expect_false(p2 %>% ith_data_is(data = mpg, i = 1))
-  expect_false(p2 %>% ith_data_is(data = mpg, i =1, local_only = FALSE))
+  expect_false(p2 %>% ith_data_is(data = mpg, i = 1, local_only = FALSE))
   expect_false(p2 %>% ith_data_is(data = NULL, i = 2, local_only = FALSE))
   expect_false(p2 %>% ith_data_is(data = mpg, i = 2, local_only = TRUE))
 })

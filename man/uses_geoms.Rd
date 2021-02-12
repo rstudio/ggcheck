@@ -4,7 +4,7 @@
 \alias{uses_geoms}
 \title{Does a plot use one or more geoms?}
 \usage{
-uses_geoms(p, geoms)
+uses_geoms(p, geoms, stats = NULL, exact = TRUE)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -12,14 +12,23 @@ uses_geoms(p, geoms)
 \item{geoms}{A vector of character strings. Each element should correspond to
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
   "line", "smooth")}.}
+
+\item{stats}{A character vector to optionally check for the stats corresponding to geoms
+e.g. c("identity", "smooth") if checking c("point", "smooth")}
+
+\item{exact}{A boolean to indicate whether to use exact matching}
 }
 \value{
 \code{TRUE} or \code{FALSE}
 }
 \description{
-\code{use_geoms} tests whether a plot uses one or more geoms in its layers.
-The geoms can appear in any order in the plot and can be accompanied by other
-geoms that are not checked for.
+\code{use_geoms} tests whether a plot uses one or more geoms created using a \code{geom}.
+If checking for a layer that is created using a \code{stat} function, please use
+\code{uses_stats} instead.
+}
+\details{
+By default, the plot must have the exact geoms or geom/stat combinations and in the same order.
+However, if \code{exact} is set to \code{FALSE}, the plot geoms or geom/stat combinations do not have to be exact.
 }
 \examples{
 require(ggplot2)
@@ -27,12 +36,15 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
   geom_smooth()
 uses_geoms(p, geoms = "point")
+uses_geoms(p, geoms = c("point", "smooth"), exact = TRUE)
+uses_geoms(p, geoms = c("point", "smooth"), stats = c("identity", "smooth"))
 }
 \seealso{
 Other functions for checking geoms: 
-\code{\link{geoms_match}()},
+\code{\link{get_geoms_stats}()},
 \code{\link{get_geoms}()},
 \code{\link{ith_geom_is}()},
+\code{\link{ith_geom_stat}()},
 \code{\link{ith_geom}()}
 }
 \concept{functions for checking geoms}
