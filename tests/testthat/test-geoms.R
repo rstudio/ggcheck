@@ -16,6 +16,9 @@ p2 <-
   geom_smooth(se = FALSE) +
   labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
+p3 <- ggplot(data = diamonds, aes(x = cut, y = price)) +
+  geom_boxplot(outlier.alpha = 0.01)
+
 test_that("Identifies ith geom", {
   expect_equal(
     ith_geom(p, 1),
@@ -109,3 +112,11 @@ test_that("Throws a grading error when checking an invalid geom and stat combina
   # invalid stat
   expect_error(uses_geoms(p, geoms = c("point", "smooth"), stats = c("point", "smooth")))
 })
+
+test_that("Checks whether a geom uses a specfic parameter value", {
+  expect_true(uses_geom_param(p, geom = "smooth", param = list(se = FALSE)))
+  # check a default parameter
+  expect_true(uses_geom_param(p, geom = "smooth", param = list(na.rm = FALSE)))
+  expect_true(uses_geom_param(p3, geom = "boxplot", param = list(outlier.alpha = 0.01)))
+})
+

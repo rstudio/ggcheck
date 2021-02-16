@@ -102,6 +102,33 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
   }
 }
 
+#' Does a layer use a specific geom parameter?
+#'
+#' \code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
+#'
+#' To specify a specific geom layer, either specify the position using the \code{i} index or
+#' by a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
+#' uses the geom.
+#'
+#' @param p A ggplot object
+#' @param geom A character string found in the suffix of a ggplot2 geom function,
+#'  e.g. \code{"point"}.
+#' @param param A named list, e.g. list(outlier.alpha)
+#' @param i A numerical index, e.g. \code{1}.
+#'
+#' @return A boolean
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
+#'   geom_boxplot(outlier.alpha = 0.01)
+#' uses_geom_param(p, geom = "boxplot", param = list(outlier.alpha = 0.01))
+uses_geom_param <- function(p, geom, param, i = NULL) {
+  layer <- get_layer(p, geom, i)$layer
+  param %in% layer$geom_params
+}
+
 #' Which geom is used in the ith layer?
 #'
 #' \code{ith_geom} returns the type of geom used by the ith layer.
