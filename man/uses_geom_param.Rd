@@ -4,7 +4,7 @@
 \alias{uses_geom_param}
 \title{Does a layer use a specific geom parameter?}
 \usage{
-uses_geom_param(p, geom, param, i = NULL)
+uses_geom_param(p, geom, params, i = NULL)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -12,7 +12,7 @@ uses_geom_param(p, geom, param, i = NULL)
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
 
-\item{param}{A named list, e.g. list(outlier.alpha)}
+\item{params}{A named list of parameter values, e.g. \code{list(outlier.alpha = 0.01)}}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
@@ -30,6 +30,6 @@ uses the geom.
 \examples{
 require(ggplot2)
 p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
-  geom_boxplot(outlier.alpha = 0.01)
-uses_geom_param(p, geom = "boxplot", param = list(outlier.alpha = 0.01))
+  geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
+uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
 }

@@ -113,7 +113,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#' @param param A named list, e.g. list(outlier.alpha)
+#' @param params A named list of parameter values, e.g. \code{list(outlier.alpha = 0.01)}
 #' @param i A numerical index, e.g. \code{1}.
 #'
 #' @return A boolean
@@ -122,11 +122,15 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' @examples
 #' require(ggplot2)
 #' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
-#'   geom_boxplot(outlier.alpha = 0.01)
-#' uses_geom_param(p, geom = "boxplot", param = list(outlier.alpha = 0.01))
-uses_geom_param <- function(p, geom, param, i = NULL) {
+#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
+#' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
+uses_geom_param <- function(p, geom, params, i = NULL) {
   layer <- get_layer(p, geom, i)$layer
-  param %in% layer$geom_params
+  if (any(!(names(params) %in% names(layer$geom_params)))) {
+    stop("Grading error: the supplied geom parameters do not exist.")
+  }
+  # check the geom's specific parameters contained in `params`
+  identical(params, layer$geom_params[names(params)])
 }
 
 #' Which geom is used in the ith layer?

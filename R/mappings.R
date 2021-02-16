@@ -158,7 +158,7 @@ uses_extra_mappings <- function(p, mappings, local_only = FALSE) {
   aes_names <- names(aes_map)
   mapping_names <- names(mappings)
   # the plot has any variables beyond target mappings
-  any((aes_names %in% mapping_names) == FALSE)
+  any(!(aes_names %in% mapping_names))
 }
 
 #' Does a plot use one or more aesthetics?
