@@ -110,10 +110,16 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' by a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 #' uses the geom.
 #'
+#' The \code{params} argument accepts a list that contains geom or stat parameters. This offers
+#' flexibility in certain situations where setting a parameter on a \code{geom_} function is
+#' actually setting a stat parameter. For e.g., in \code{geom_histogram(binwidth = 500)},
+#' the \code{binwidth} is a stat parameter. \code{uses_geom_param} will take this into account
+#' and check both geom and stat parameters.
+#'
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#' @param params A named list of parameter values, e.g. \code{list(outlier.alpha = 0.01)}
+#' @param params A named list of geom or stat parameter values, e.g. \code{list(outlier.alpha = 0.01)}
 #' @param i A numerical index, e.g. \code{1}.
 #'
 #' @return A boolean
@@ -126,11 +132,19 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
 uses_geom_param <- function(p, geom, params, i = NULL) {
   layer <- get_layer(p, geom, i)$layer
-  if (any(!(names(params) %in% names(layer$geom_params)))) {
-    stop("Grading error: the supplied geom parameters do not exist.")
+  user_params <- names(params)
+  # collect geom and stat parameters
+  all_params <- c(layer$geom_params, layer$stat_params)
+  p_params <- names(all_params)
+  invalid_params <- !(user_params %in% p_params)
+  if (any(invalid_params)) {
+    stop(
+      "Grading error: the supplied parameters ",
+       paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
+    )
   }
-  # check the geom's specific parameters contained in `params`
-  identical(params, layer$geom_params[names(params)])
+  # check both the geom and stat specific parameters contained in `params`
+  identical(params, all_params[user_params])
 }
 
 #' Which geom is used in the ith layer?

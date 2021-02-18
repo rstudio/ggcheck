@@ -59,8 +59,10 @@ get_layer <- function(p, geom = NULL, i = NULL) {
   } else if (is.null(geom)) {
     index <- i
   } else if (is.null(i)) {
+    geom <- map_geom(geom)$GEOM
     index <- which(get_geoms(p) == geom)[1]
   } else {
+    geom <- map_geom(geom)$GEOM
     index <- which(get_geoms(p) == geom)[i]
   }
 

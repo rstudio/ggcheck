@@ -12,7 +12,7 @@ uses_geom_param(p, geom, params, i = NULL)
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
 
-\item{params}{A named list of parameter values, e.g. \code{list(outlier.alpha = 0.01)}}
+\item{params}{A named list of geom or stat parameter values, e.g. \code{list(outlier.alpha = 0.01)}}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
@@ -26,6 +26,12 @@ A boolean
 To specify a specific geom layer, either specify the position using the \code{i} index or
 by a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 uses the geom.
+
+The \code{params} argument accepts a list that contains geom or stat parameters. This offers
+flexibility in certain situations where setting a parameter on a \code{geom_} function is
+actually setting a stat parameter. For e.g., in \code{geom_histogram(binwidth = 500)},
+the \code{binwidth} is a stat parameter. \code{uses_geom_param} will take this into account
+and check both geom and stat parameters.
 }
 \examples{
 require(ggplot2)
