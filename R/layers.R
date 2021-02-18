@@ -30,11 +30,17 @@ n_layers <- function(p) {
 #'  first layer that uses the geom.
 #'  \item By a combination of \code{geom} and
 #'  \code{i}. \code{get_layer} will return the ith layer that uses the geom.
+#'  \item By type of stat with \code{stat}. \code{get_layer} will return the
+#'  first layer that uses the stat
+#'  \item By a combination of \code{stat} and
+#'  \code{i}. \code{get_layer} will return the ith layer that uses the stat.
 #' }
 #'
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
+#' @param stat A character string found in the suffix of a ggplot2 stat function,
+#'  e.g. \code{"bin"}.
 #' @param i A numerical index, e.g. \code{1}.
 #'
 #' @return An object with class \code{layer_to_check} to be manipulated further
@@ -49,21 +55,27 @@ n_layers <- function(p) {
 #'
 #' get_layer(p, i = 1)
 #' get_layer(p, geom = "smooth")
-get_layer <- function(p, geom = NULL, i = NULL) {
+get_layer <- function(p, geom = NULL, stat = NULL, i = NULL) {
   if (!inherits(p, "ggplot")) {
     stop("p should be a ggplot object")
   }
 
-  if (is.null(geom) && is.null(i)) {
-    stop("Grading error: cannot identify which layer to grade. (For the grader) please specify at least one of geom or i.")
-  } else if (is.null(geom)) {
+  if (is.null(geom) && is.null(stat) && is.null(i)) {
+    stop("Grading error: cannot identify which layer to grade. (For the grader) please specify at least one of geom, stat or i.")
+  } else if (is.null(geom) && is.null(stat)) {
     index <- i
-  } else if (is.null(i)) {
+  } else if (is.null(i) && is.null(stat)) {
     geom <- map_geom(geom)$GEOM
     index <- which(get_geoms(p) == geom)[1]
-  } else {
+  } else if (is.null(stat)) {
     geom <- map_geom(geom)$GEOM
     index <- which(get_geoms(p) == geom)[i]
+  } else if (is.null(i)) {
+    stat <- map_stat(stat)$STAT
+    index <- which(get_stats(p) == stat)[1]
+  } else {
+    stat <- map_stat(stat)$STAT
+    index <- which(get_stats(p) == stat)[i]
   }
 
   # index may be `NA` so we can check for that

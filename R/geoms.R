@@ -106,8 +106,8 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #'
 #' \code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
 #'
-#' To specify a specific geom layer, either specify the position using the \code{i} index or
-#' by a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
+#' To specify a specific geom layer, either specify using position using the \code{i} index or
+#' by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 #' uses the geom.
 #'
 #' The \code{params} argument accepts a list that contains geom or stat parameters. This offers
@@ -136,6 +136,7 @@ uses_geom_param <- function(p, geom, params, i = NULL) {
   # collect geom and stat parameters
   all_params <- c(layer$geom_params, layer$stat_params)
   p_params <- names(all_params)
+  # check if user supplied invalid parameters
   invalid_params <- !(user_params %in% p_params)
   if (any(invalid_params)) {
     stop(
@@ -143,7 +144,7 @@ uses_geom_param <- function(p, geom, params, i = NULL) {
        paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
     )
   }
-  # check both the geom and stat specific parameters contained in `params`
+  # check both the user parameters contained in plot's geom and stat parameters
   identical(params, all_params[user_params])
 }
 

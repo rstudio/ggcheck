@@ -4,13 +4,16 @@
 \alias{get_layer}
 \title{Isolate a layer from a plot}
 \usage{
-get_layer(p, geom = NULL, i = NULL)
+get_layer(p, geom = NULL, stat = NULL, i = NULL)
 }
 \arguments{
 \item{p}{A ggplot object}
 
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
+
+\item{stat}{A character string found in the suffix of a ggplot2 stat function,
+e.g. \code{"bin"}.}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
@@ -32,6 +35,10 @@ plot (the one drawn first, on the bottom) corresponds to \code{i = 1}.
 first layer that uses the geom.
 \item By a combination of \code{geom} and
 \code{i}. \code{get_layer} will return the ith layer that uses the geom.
+\item By type of stat with \code{stat}. \code{get_layer} will return the
+first layer that uses the stat
+\item By a combination of \code{stat} and
+\code{i}. \code{get_layer} will return the ith layer that uses the stat.
 }
 }
 \examples{

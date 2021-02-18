@@ -23,8 +23,8 @@ A boolean
 \code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
 }
 \details{
-To specify a specific geom layer, either specify the position using the \code{i} index or
-by a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
+To specify a specific geom layer, either specify using position using the \code{i} index or
+by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 uses the geom.
 
 The \code{params} argument accepts a list that contains geom or stat parameters. This offers
