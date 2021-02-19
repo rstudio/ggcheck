@@ -26,7 +26,7 @@ with ggcheck functions.
 and aesthetic mappings that the layer may inherit from.
 }
 \details{
-Users can specify a layer in one of three ways:
+Users can specify a layer in several ways:
 
 \enumerate{
 \item By order of appearance with \code{i}. The first layer to appear in the

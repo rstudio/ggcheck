@@ -21,7 +21,7 @@ n_layers <- function(p) {
 #' \code{get_layer} returns a layer from a plot along with the global data sets
 #' and aesthetic mappings that the layer may inherit from.
 #'
-#' Users can specify a layer in one of three ways:
+#' Users can specify a layer in several ways:
 #'
 #' \enumerate{
 #'  \item By order of appearance with \code{i}. The first layer to appear in the
@@ -61,26 +61,37 @@ get_layer <- function(p, geom = NULL, stat = NULL, i = NULL) {
   }
 
   if (is.null(geom) && is.null(stat) && is.null(i)) {
-    stop("Grading error: cannot identify which layer to grade. (For the grader) please specify at least one of geom, stat or i.")
-  } else if (is.null(geom) && is.null(stat)) {
-    index <- i
-  } else if (is.null(i) && is.null(stat)) {
-    geom <- map_geom(geom)$GEOM
-    index <- which(get_geoms(p) == geom)[1]
-  } else if (is.null(stat)) {
-    geom <- map_geom(geom)$GEOM
-    index <- which(get_geoms(p) == geom)[i]
-  } else if (is.null(i)) {
-    stat <- map_stat(stat)$STAT
-    index <- which(get_stats(p) == stat)[1]
-  } else {
-    stat <- map_stat(stat)$STAT
-    index <- which(get_stats(p) == stat)[i]
+    stop("Grading error: cannot identify which layer to grade. Please specify at least one of geom, stat or i.")
   }
 
-  # index may be `NA` so we can check for that
+  if (!is.null(geom) && !is.null(stat)) {
+    stop("Grading error: cannot identify a layer with a combination of geom and stat name. Please pick one or the other.")
+  }
+
+  if(is.null(geom) && is.null(stat)) {
+    # index is a position
+    index <- i
+  } else if (!is.null(geom)) {
+    # index is a geom layer
+    geom <- map_geom(geom)$GEOM
+    if (is.null(i)) {
+      index <- which(get_geoms(p) == geom)[1]
+    } else {
+      index <- which(get_geoms(p) == geom)[i]
+    }
+  } else if (!is.null(stat)) {
+    # index is a stat layer
+    stat <- map_stat(stat)$STAT
+    if (is.null(i)) {
+      index <- which(get_stats(p) == stat)[1]
+    } else {
+      index <- which(get_stats(p) == stat)[i]
+    }
+  }
+
+  # index has to be valid
   if (index > length(p$layers)) {
-    stop("Grading error: cannot find specified layer. (For the grader) use checks to check that desired layer exists before inspecting the layer.")
+    stop("Grading error: cannot find specified layer. Use checks to check that desired layer exists before inspecting the layer.")
   }
 
   l <- list(
