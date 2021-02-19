@@ -8,7 +8,7 @@ ith_mappings(p, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.}
 
 \item{i}{A numerical index that corresponds to the first layer of a plot (1),
 the second layer (2), and so on. \code{ith_mappings_use} will check the
@@ -25,12 +25,12 @@ Components of the list are either quosures or constants.
 }
 \description{
 \code{ith_mappings} returns the mappings used by a ggplot object or a single
-layer extracted from the object with \code{\link{get_layer}}.
+layer extracted from the object with \code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.
 }
 \details{
 Functions that use the \code{ith_} prefix are
 designed to eliminate the need to call \code{get_layer} to check a specific
-layer in a plot, e.g. \code{p \%>\% get_layer(geom = "point") \%>\% get_mappings()}.
+layer in a plot, e.g. \code{p \%>\% get_geom_layer(geom = "point") \%>\% get_mappings()}.
 }
 \examples{
 require(ggplot2)

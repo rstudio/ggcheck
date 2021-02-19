@@ -100,7 +100,7 @@ uses_stats <- function(p, stats, geoms = NULL, exact = TRUE) {
 #'   stat_bin(bins = 200)
 #' uses_stat_param(p, stat = "bin", params = list(bins = 200))
 uses_stat_param <- function(p, stat, params, i = NULL) {
-  layer <- get_layer(p, stat = stat, i)$layer
+  layer <- get_stat_layer(p, stat = stat, i)$layer
   user_params <- names(params)
   # collect geom and stat parameters
   all_params <- c(layer$geom_params, layer$stat_params)

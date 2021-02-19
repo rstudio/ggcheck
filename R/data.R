@@ -17,7 +17,7 @@ get_global_data_from_layer <- function(l) {
 #' Get the data set used by a plot or layer
 #'
 #' \code{get_data} returns the data set used by a ggplot object or a single
-#' layer extracted from the object with \code{\link{get_layer}}.
+#' layer extracted from the object with \code{\link{get_geom_layer}}.
 #'
 #' When passed a ggplot object (i.e. a plot), \code{get_data} will return only
 #' the data that has been set globally with \code{\link[ggplot2]{ggplot}}.
@@ -31,7 +31,7 @@ get_global_data_from_layer <- function(l) {
 #' \code{\link[ggplot2]{ggplot}} or locally.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
+#'   \code{\link{get_geom_layer}}.
 #' @param local_only \code{TRUE} or \code{FALSE}. Should \code{get_data} onbly
 #'   return data defined locally in the layer?
 #'
@@ -49,7 +49,7 @@ get_global_data_from_layer <- function(l) {
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
 #' get_data(p)
-#' get_data(get_layer(p, i = 1))
+#' get_data(get_geom_layer(p, i = 1))
 get_data <- function(p, local_only = FALSE) {
   UseMethod("get_data")
 }
@@ -93,7 +93,7 @@ get_data.layer_to_check <- function(p, local_only = FALSE) {
 #' \code{\link[ggplot2]{ggplot}} or locally.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
+#'   \code{\link{get_geom_layer}}.
 #' @param data A data frame
 #' @param local_only \code{TRUE} or \code{FALSE}. See the details.
 #'
@@ -110,7 +110,7 @@ get_data.layer_to_check <- function(p, local_only = FALSE) {
 #'   geom_point(data = d2, color = "red") +
 #'   geom_point()
 #' uses_data(p, mpg)
-#' uses_data(get_layer(p, i = 1), data = head(mpg))
+#' uses_data(get_geom_layer(p, i = 1), data = head(mpg))
 uses_data <- function(p, data, local_only = FALSE) {
   identical(data, get_data(p, local_only))
 }
@@ -126,11 +126,11 @@ uses_data <- function(p, data, local_only = FALSE) {
 #' \code{\link[ggplot2]{ggplot}} or locally.
 #'
 #' Functions that use the \code{ith_} prefix are designed to eliminate the need
-#' to call \code{get_layer} to check a specific layer in a plot, e.g. \code{p
-#' %>% get_layer(geom = "point") %>% get_data()}.
+#' to call \code{get_geom_layer} to check a specific layer in a plot, e.g. \code{p
+#' %>% get_geom_layer(geom = "point") %>% get_data()}.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
+#'   \code{\link{get_geom_layer}}.
 #' @param i A numerical index that corresponds to the first layer of a plot (1),
 #'   the second layer (2), and so on.
 #' @param local_only \code{TRUE} or \code{FALSE}. See the details.
@@ -153,7 +153,7 @@ ith_data <- function(p, i, local_only = FALSE) {
     stop("p should be a ggplot object")
   }
 
-  get_data(get_layer(p, i = i), local_only)
+  get_data(get_geom_layer(p, i = i), local_only)
 }
 
 #' Does the ith layer use the correct data set?
@@ -162,8 +162,8 @@ ith_data <- function(p, i, local_only = FALSE) {
 #' the ith layer of their plot.
 #'
 #' Functions that use the \code{ith_} prefix are designed to eliminate the need
-#' to call \code{get_layer} to check a specific layer in a plot, e.g. \code{p
-#' %>% get_layer(geom = "point") %>% uses_data(mpg)}.
+#' to call \code{get_geom_layer} to check a specific layer in a plot, e.g. \code{p
+#' %>% get_geom_layer(geom = "point") %>% uses_data(mpg)}.
 #'
 #' If \code{local_only = TRUE}, \code{ith_data_is} will check only the data set,
 #' if any, that was defined locally in the function that created the ith layer.
@@ -172,7 +172,7 @@ ith_data <- function(p, i, local_only = FALSE) {
 #' \code{\link[ggplot2]{ggplot}} or locally.
 #'
 #' @param p A ggplot object or a layer extracted from a ggplot object with
-#'   \code{\link{get_layer}}.
+#'   \code{\link{get_geom_layer}}.
 #' @param data A data frame
 #' @param i A numerical index that corresponds to the first layer of a plot (1),
 #'   the second layer (2), and so on.

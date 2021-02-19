@@ -8,7 +8,7 @@ uses_extra_mappings(p, mappings, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.}
 
 \item{mappings}{One or more aesthetic mappings created with
 \code{\link[ggplot2]{aes}}.}

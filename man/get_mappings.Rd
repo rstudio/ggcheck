@@ -8,7 +8,7 @@ get_mappings(p, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.}
 
 \item{local_only}{\code{TRUE} or \code{FALSE}. Should \code{get_mappings}
 return only the mappings defined locally in a layer. This has no effect
@@ -20,7 +20,7 @@ Components of the list are either quosures or constants.
 }
 \description{
 \code{get_mappings} returns the mappings used by a ggplot object or a single
-layer extracted from the object with \code{\link{get_layer}}.
+layer extracted from the object with \code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.
 }
 \details{
 When passed a ggplot object (i.e. a plot), \code{get_mappings} will return
@@ -37,7 +37,7 @@ require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 get_mappings(p)
-get_mappings(get_layer(p, i = 1), local_only = FALSE)
+get_mappings(get_geom_layer(p, i = 1), local_only = FALSE)
 }
 \seealso{
 Other functions for checking mappings: 

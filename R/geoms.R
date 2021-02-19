@@ -131,7 +131,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
 #' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
 uses_geom_param <- function(p, geom, params, i = NULL) {
-  layer <- get_layer(p, geom, i)$layer
+  layer <- get_geom_layer(p, geom = geom, i = i)$layer
   user_params <- names(params)
   # collect geom and stat parameters
   all_params <- c(layer$geom_params, layer$stat_params)

@@ -8,7 +8,7 @@ ith_data_is(p, data, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}}.}
 
 \item{data}{A data frame}
 
@@ -26,8 +26,8 @@ the ith layer of their plot.
 }
 \details{
 Functions that use the \code{ith_} prefix are designed to eliminate the need
-to call \code{get_layer} to check a specific layer in a plot, e.g. \code{p
-\%>\% get_layer(geom = "point") \%>\% uses_data(mpg)}.
+to call \code{get_geom_layer} to check a specific layer in a plot, e.g. \code{p
+\%>\% get_geom_layer(geom = "point") \%>\% uses_data(mpg)}.
 
 If \code{local_only = TRUE}, \code{ith_data_is} will check only the data set,
 if any, that was defined locally in the function that created the ith layer.

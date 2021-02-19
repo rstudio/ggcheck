@@ -30,49 +30,49 @@ test_that("Checks whether data is used globally", {
 
 test_that("Identifies local data", {
   expect_equal(
-    p %>% get_layer(geom = "point") %>% get_data(local_only = TRUE),
+    p %>% get_geom_layer(geom = "point") %>% get_data(local_only = TRUE),
     NULL
   )
   expect_equal(
-    p %>% get_layer(geom = "point") %>% get_data(local_only = FALSE),
+    p %>% get_geom_layer(geom = "point") %>% get_data(local_only = FALSE),
     mpg
   )
   expect_equal(
-    p %>% get_layer(i = 1) %>% get_data(local_only = FALSE),
+    p %>% get_geom_layer(i = 1) %>% get_data(local_only = FALSE),
     mpg
   )
   expect_equal(
-    p2 %>% get_layer(geom = "point") %>% get_data(),
+    p2 %>% get_geom_layer(geom = "point") %>% get_data(),
     d2
   )
   expect_equal(
-    p2 %>% get_layer(geom = "point") %>% get_data(local_only = FALSE),
+    p2 %>% get_geom_layer(geom = "point") %>% get_data(local_only = FALSE),
     d2
   )
   expect_equal(
-    p2 %>% get_layer(i = 1) %>% get_data(),
+    p2 %>% get_geom_layer(i = 1) %>% get_data(),
     d2
   )
   expect_equal(
-    p2 %>% get_layer(i = 1) %>% get_data(local_only = FALSE),
+    p2 %>% get_geom_layer(i = 1) %>% get_data(local_only = FALSE),
     d2
   )
   expect_equal(
-    p2 %>% get_layer(geom = "point", i = 2) %>% get_data(local_only = TRUE),
+    p2 %>% get_geom_layer(geom = "point", i = 2) %>% get_data(local_only = TRUE),
     NULL
   )
   expect_equal(
-    p2 %>% get_layer(geom = "point", i = 2) %>% get_data(local_only = FALSE),
+    p2 %>% get_geom_layer(geom = "point", i = 2) %>% get_data(local_only = FALSE),
     mpg
   )
 })
 
 test_that("Checks whether data is used by layer", {
-  expect_true(p2 %>% get_layer(i = 1) %>% uses_data(d2))
-  expect_true(p2 %>% get_layer(i = 2) %>% uses_data(mpg))
-  expect_false(p2 %>% get_layer(i = 2) %>% uses_data(mpg, local_only = TRUE))
-  expect_false(p2 %>% get_layer(i = 1) %>% uses_data(mpg))
-  expect_false(p2 %>% get_layer(i = 2) %>% uses_data(d2))
+  expect_true(p2 %>% get_geom_layer(i = 1) %>% uses_data(d2))
+  expect_true(p2 %>% get_geom_layer(i = 2) %>% uses_data(mpg))
+  expect_false(p2 %>% get_geom_layer(i = 2) %>% uses_data(mpg, local_only = TRUE))
+  expect_false(p2 %>% get_geom_layer(i = 1) %>% uses_data(mpg))
+  expect_false(p2 %>% get_geom_layer(i = 2) %>% uses_data(d2))
 })
 
 test_that("Identifies the data set used by ith layer", {
