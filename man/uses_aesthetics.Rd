@@ -8,7 +8,7 @@ uses_aesthetics(p, aesthetics, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}..}
 
 \item{aesthetics}{character vector of variables to check for, e.g. "x" or c("x")}
 
@@ -34,6 +34,6 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 uses_aesthetics(p, "x")
 uses_aesthetics(p, c("x", "y"))
-uses_aesthetics(get_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
-uses_aesthetics(get_layer(p, "point"), c("x", "y"), local_only = FALSE)
+uses_aesthetics(get_geom_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
+uses_aesthetics(get_geom_layer(p, "point"), c("x", "y"), local_only = FALSE)
 }

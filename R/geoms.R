@@ -102,6 +102,52 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
   }
 }
 
+#' Does a layer use a specific geom parameter?
+#'
+#' \code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
+#'
+#' To specify a specific geom layer, either specify using position using the \code{i} index or
+#' by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
+#' uses the geom.
+#'
+#' The \code{params} argument accepts a list that contains geom or stat parameters. This offers
+#' flexibility in certain situations where setting a parameter on a \code{geom_} function is
+#' actually setting a stat parameter. For e.g., in \code{geom_histogram(binwidth = 500)},
+#' the \code{binwidth} is a stat parameter. \code{uses_geom_param} will take this into account
+#' and check both geom and stat parameters.
+#'
+#' @param p A ggplot object
+#' @param geom A character string found in the suffix of a ggplot2 geom function,
+#'  e.g. \code{"point"}.
+#' @param params A named list of geom or stat parameter values, e.g. \code{list(outlier.alpha = 0.01)}
+#' @param i A numerical index, e.g. \code{1}.
+#'
+#' @return A boolean
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
+#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
+#' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
+uses_geom_param <- function(p, geom, params, i = NULL) {
+  layer <- get_geom_layer(p, geom = geom, i = i)$layer
+  user_params <- names(params)
+  # collect geom and stat parameters
+  all_params <- c(layer$geom_params, layer$stat_params)
+  p_params <- names(all_params)
+  # check if user supplied invalid parameters
+  invalid_params <- !(user_params %in% p_params)
+  if (any(invalid_params)) {
+    stop(
+      "Grading error: the supplied parameters ",
+       paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
+    )
+  }
+  # check both the user parameters contained in plot's geom and stat parameters
+  identical(params, all_params[user_params])
+}
+
 #' Which geom is used in the ith layer?
 #'
 #' \code{ith_geom} returns the type of geom used by the ith layer.

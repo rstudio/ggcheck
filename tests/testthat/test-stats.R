@@ -79,3 +79,20 @@ test_that("Throws a grading error when checking an invalid stat", {
   expect_error(uses_stats(p, stats = c("boxplot", "summary"), geoms = c("boxplot", "summary")))
   expect_error(uses_stats(p2, stats = "qq", geoms = "qqq"))
 })
+
+test_that("Checks whether a stat uses a specfic parameter value", {
+  # check a default parameter
+  expect_true(uses_stat_param(p, stat = "boxplot", params = list(na.rm = FALSE, coef = 1.5)))
+  expect_true(uses_stat_param(p, stat = "summary", params = list(fun = NULL)))
+  # check set parameters
+  expect_true(uses_stat_param(p, stat = "boxplot", params = list(outlier.alpha = 0.01)))
+})
+
+test_that("Throws a grading error when checking an invalid geom parameter", {
+  # typo
+  expect_error(uses_stat_param(p, stat = "boxplot", params = list(coeff = FALSE)))
+  # invalid parameter for stat
+  expect_error(uses_stat_param(p, stat = "summary", params = list(outlier.alpha = 0.01)))
+  expect_error(uses_stat_param(p, stat = "boxplot", params = list(bad_param = NULL)))
+  expect_error(uses_stat_param(p, stat = "summary", params = list(bad1 = 1, bad2 = 2)))
+})
