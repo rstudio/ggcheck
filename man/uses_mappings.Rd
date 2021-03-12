@@ -8,7 +8,7 @@ uses_mappings(p, mappings, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.}
 
 \item{mappings}{One or more aesthetic mappings created with
 \code{\link[ggplot2]{aes}}.}
@@ -34,8 +34,8 @@ require(ggplot2)
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class))
 uses_mappings(p, aes(x = displ))
-uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = FALSE)
-uses_mappings(get_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
+uses_mappings(get_geom_layer(p, i = 1), aes(x = displ, color = class), local_only = FALSE)
+uses_mappings(get_geom_layer(p, i = 1), aes(x = displ, color = class), local_only = TRUE)
 uses_mappings(p, aes(x = displ, y = hwy), exact = TRUE)
 }
 \seealso{

@@ -8,7 +8,7 @@ ith_data(p, i, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}}.}
 
 \item{i}{A numerical index that corresponds to the first layer of a plot (1),
 the second layer (2), and so on.}
@@ -29,8 +29,8 @@ the ith layer, whether or not that data was defined globally in
 \code{\link[ggplot2]{ggplot}} or locally.
 
 Functions that use the \code{ith_} prefix are designed to eliminate the need
-to call \code{get_layer} to check a specific layer in a plot, e.g. \code{p
-\%>\% get_layer(geom = "point") \%>\% get_data()}.
+to call \code{get_geom_layer} to check a specific layer in a plot, e.g. \code{p
+\%>\% get_geom_layer(geom = "point") \%>\% get_data()}.
 }
 \examples{
 require(ggplot2)

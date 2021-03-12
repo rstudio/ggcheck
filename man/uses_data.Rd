@@ -8,7 +8,7 @@ uses_data(p, data, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}}.}
 
 \item{data}{A data frame}
 
@@ -40,7 +40,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = d2, color = "red") +
   geom_point()
 uses_data(p, mpg)
-uses_data(get_layer(p, i = 1), data = head(mpg))
+uses_data(get_geom_layer(p, i = 1), data = head(mpg))
 }
 \seealso{
 Other functions for checking data: 

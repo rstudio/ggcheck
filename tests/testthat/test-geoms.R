@@ -16,6 +16,12 @@ p2 <-
   geom_smooth(se = FALSE) +
   labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
+p3 <- ggplot(data = diamonds, aes(x = cut, y = price)) +
+  geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
+
+p4 <- ggplot(data = diamonds, aes(price)) +
+  geom_histogram(bins = 20, binwidth = 500)
+
 test_that("Identifies ith geom", {
   expect_equal(
     ith_geom(p, 1),
@@ -109,3 +115,24 @@ test_that("Throws a grading error when checking an invalid geom and stat combina
   # invalid stat
   expect_error(uses_geoms(p, geoms = c("point", "smooth"), stats = c("point", "smooth")))
 })
+
+test_that("Checks whether a geom uses a specfic parameter value", {
+  # check a default parameter
+  expect_true(uses_geom_param(p, geom = "smooth", params = list(na.rm = FALSE)))
+  # check set parameters
+  expect_true(uses_geom_param(p, geom = "smooth", params = list(se = FALSE)))
+  expect_true(uses_geom_param(p3, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01)))
+  # check parameter of a geom which is a stat parameter
+  expect_true(uses_geom_param(p4, geom = "histogram", params = list(bins = 20, binwidth = 500)))
+})
+
+test_that("Throws a grading error when checking an invalid geom parameter", {
+  # typo
+  expect_error(uses_geom_param(p, geom = "smooth", params = list(see = FALSE)))
+  # invalid parameter for geom
+  expect_error(uses_geom_param(p3, geom = "boxplot", params = list(bins = 20, outlier.alpha = 0.01)))
+  expect_error(uses_geom_param(p4, geom = "histogram", params = list(bins = 20, outlier.alpha = 0.01)))
+  # multiple invalid parameters
+  expect_error(uses_geom_param(p3, geom = "boxplot", params = list(varwidthh = TRUE, outlierr.alpha = 0.01)))
+})
+

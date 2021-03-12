@@ -8,7 +8,7 @@ get_data(p, local_only = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}}.}
 
 \item{local_only}{\code{TRUE} or \code{FALSE}. Should \code{get_data} onbly
 return data defined locally in the layer?}
@@ -19,7 +19,7 @@ A data frame. If no data set is found, \code{get_data} returns
 }
 \description{
 \code{get_data} returns the data set used by a ggplot object or a single
-layer extracted from the object with \code{\link{get_layer}}.
+layer extracted from the object with \code{\link{get_geom_layer}}.
 }
 \details{
 When passed a ggplot object (i.e. a plot), \code{get_data} will return only
@@ -40,7 +40,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = d2, color = "red") +
   geom_point()
 get_data(p)
-get_data(get_layer(p, i = 1))
+get_data(get_geom_layer(p, i = 1))
 }
 \seealso{
 Other functions for checking data: 

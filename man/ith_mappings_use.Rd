@@ -8,7 +8,7 @@ ith_mappings_use(p, mappings, i, local_only = FALSE, exact = FALSE)
 }
 \arguments{
 \item{p}{A ggplot object or a layer extracted from a ggplot object with
-\code{\link{get_layer}}.}
+\code{\link{get_geom_layer}} or \code{\link{get_stat_layer}}.}
 
 \item{mappings}{One or more aesthetic mappings created with
 \code{\link[ggplot2]{aes}}.}
@@ -35,7 +35,7 @@ in the ith layer of their plot.
 \code{ith_mappings_use} ignores whether or not the student supplied
 additional mappings as well. Functions that use the \code{ith_} prefix are
 designed to eliminate the need to call \code{get_layer} to check a specific
-layer in a plot, e.g. \code{p %>% get_layer(geom = "point") %>%
+layer in a plot, e.g. \code{p %>% get_geom_layer(geom = "point") %>%
 uses_mappings(aes(color = class))}.
 }
 \examples{
