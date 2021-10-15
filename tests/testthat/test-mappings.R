@@ -131,3 +131,29 @@ test_that("Checks whether layer uses certain aesthetics", {
     uses_aesthetics(get_geom_layer(p, "point"), c("x", "y", "color"), local_only = TRUE)
   )
 })
+
+test_that("Aesthetics mapped to strings and column names are distinguished", {
+  p3 <-
+    ggplot(data = mpg, mapping = aes(x = displ, y = "hwy")) +
+    geom_point(mapping = aes(color = "class"))
+  # y = "hwy" should be different than y = hwy
+  expect_false(
+    uses_mappings(p3, mappings = aes(y = hwy))
+  )
+  expect_false(
+    uses_mappings(p, mappings = aes(y = "hwy"))
+  )
+  expect_true(
+    uses_mappings(p3, mappings = aes(y = "hwy"))
+  )
+  # should distinguish between strings
+  expect_false(
+    uses_mappings(p3, mappings = aes(y = "cty"))
+  )
+  expect_false(
+    ith_mappings_use(p3, mappings = aes(color = class), i = 1)
+  )
+  expect_true(
+    ith_mappings_use(p3, mappings = aes(color = "class"), i = 1)
+  )
+})
