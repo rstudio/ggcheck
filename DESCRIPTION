@@ -2,7 +2,9 @@ Package: ggcheck
 Title: Functions that facilitate grading ggplot2 objects
 Version: 0.0.0.9000
 Authors@R: c(
-    person("Garrett", "Grolemund", , "garrett@rstudio.com", role = c("ccp", "aut", "cre"),
+    person("Garrick", "Aden-Buie", , "garrick@rstudio.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7111-0077")),
+    person("Garrett", "Grolemund", , "garrett@rstudio.com", role = c("ccp", "aut"),
            comment = c(ORCID = "0000-0002-7765-6011")),
     person("Nischal", "Shrestha", , "nsrocker92@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-3321-1712"))
