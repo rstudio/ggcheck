@@ -19,8 +19,8 @@
 #' @export
 identical_aes <- function(a1, a2) {
   # strip environments associated with the aesthetics before comparing
-  a1 <- lapply(a1, rlang::as_label)
-  a2 <- lapply(a2, rlang::as_label)
+  a1 <- lapply(a1, deparse)
+  a2 <- lapply(a2, deparse)
   identical(a1, a2)
 }
 
