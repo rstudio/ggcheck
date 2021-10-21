@@ -89,7 +89,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
     # map user supplied stats suffixes to actual class names
     stats <- lapply(stats, map_stat)
     geoms <- lapply(seq_along(geoms), function(g) {
-      geoms[[g]]$STAT <- stats[[g]]$STAT
+      geoms[[g]][["STAT"]] <- stats[[g]][["STAT"]]
       geoms[[g]]
     })
   }

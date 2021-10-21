@@ -135,4 +135,3 @@ test_that("Throws a grading error when checking an invalid geom parameter", {
   # multiple invalid parameters
   expect_error(uses_geom_param(p3, geom = "boxplot", params = list(varwidthh = TRUE, outlierr.alpha = 0.01)))
 })
-

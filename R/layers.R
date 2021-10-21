@@ -61,7 +61,7 @@ get_layer <- function(p, geom = NULL, stat = NULL, i = NULL) {
     stop("Grading error: cannot identify a layer with a combination of geom and stat name. Please pick one or the other.")
   }
 
-  if(is.null(geom) && is.null(stat)) {
+  if (is.null(geom) && is.null(stat)) {
     # index is a position
     index <- i
   } else if (!is.null(geom)) {
