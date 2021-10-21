@@ -1,0 +1,63 @@
+destination: reference
+
+template:
+  package: quillt
+  opengraph:
+    # image:
+    #   src: https://github.com/rstudio/ggcheck/raw/master/man/figures/logo.png
+    #   alt: "ggcheck package"
+    twitter:
+      creator: "@rstudio"
+      card: summary
+
+development:
+  version_tooltip: "auto"
+
+home:
+  strip_header: false
+
+navbar:
+  title: ~
+  type: default
+  structure:
+    left:  [intro, examples, articles]
+    right: [reference, news, github]
+  components:
+    home: ~
+    # examples:
+    #   text: Examples
+    #   href: articles/articles/examples.html
+    # articles:
+    #   text: Articles
+    #   menu:
+    #     - text: "No vignettes"
+    reference:
+      text: Reference
+      href: reference/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/rstudio/tblcheck
+    # news:
+    #   text: News
+    #   menu:
+    #     - text: "Changelog"
+    #       href: news/index.html
+    #     - text: "------------------"
+    #     - text: "Blog posts"
+    #     - text: "Version 1.0"
+    #       href: https://blog.rstudio.com/2021/01/18/blogdown-v1.0/
+    #     - text: "Version 0.1"
+    #       href: https://blog.rstudio.com/2017/09/11/announcing-blogdown/
+
+reference:
+- title: Get Plot Components
+  contents:
+  - starts_with("get_")
+- title: Locate Components by Layer
+  contents:
+  - n_layers
+  - starts_with("ith_")
+- title: Test that a Plot Uses a Component
+  contents:
+  - identical_aes
+  - starts_with("uses_")
