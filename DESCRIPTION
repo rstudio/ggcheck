@@ -1,5 +1,5 @@
 Package: ggcheck
-Title: Functions that facilitate grading ggplot2 objects
+Title: Grade 'ggplot2' Plots in Learning Exercises
 Version: 0.0.0.9000
 Authors@R: c(
     person("Garrick", "Aden-Buie", , "garrick@rstudio.com", role = c("aut", "cre"),
@@ -9,13 +9,15 @@ Authors@R: c(
     person("Nischal", "Shrestha", , "nsrocker92@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-3321-1712"))
   )
-Description: ggcheck provides functions that inspect ggplot2 objects to
+Description: 'ggcheck' provides functions that inspect 'ggplot2' objects to
     make it easier for teachers to check that student plots meet
-    expectations.
+    expectations. Designed primarily for automated grading via 'gradethis' in
+    interactive 'learnr' tutorials.
 License: GPL-3
 Suggests: 
     ggplot2,
     testthat
+Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
 Config/Needs/website: r-lib/pkgdown, rstudio/quillt
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
