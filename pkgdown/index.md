@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- index.md is generated from index.Rmd. Please edit that file -->
 
 # ggcheck
 
@@ -51,7 +51,7 @@ p
 #> `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="man/figures/README-expected-plot-1.png" width="100%" />
+<img src="../man/figures/README-expected-plot-1.png" width="100%" />
 
 We can use ggcheck to test that students used `geom_point()`
 
@@ -94,11 +94,3 @@ Please note that the tblcheck project is released with a [Contributor
 Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
-
------
-
-ggcheck is built for use with
-[learnr](https://rstudio.github.io/learnr/) interactive tutorials.
-learnr is a part of the **R Markdown** ecosystem of packages for
-creating computational documents in R. Learn more at
-[rmarkdown.rstudio.com](https://rmarkdown.rstudio.com).
