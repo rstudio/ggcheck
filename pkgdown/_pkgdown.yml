@@ -9,6 +9,13 @@ template:
     twitter:
       creator: "@rstudio"
       card: summary
+  params:
+    footer: >
+      ggcheck is built for use with
+      <a href="https://rstudio.github.io/learnr">learnr</a> interactive tutorials.
+      <strongr>learnr</strong> is a part of the <strong>R Markdown</strong>
+      ecosystem of packages for creating computational documents in R. Learn more at
+      <a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.
 
 development:
   version_tooltip: "auto"
