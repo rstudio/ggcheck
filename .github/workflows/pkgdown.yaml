@@ -2,13 +2,13 @@ on:
   push:
     branches:
      - main
-     # - master
-     # - rc-**
-     # - pkgdown/**
-  # pull_request:
-  #   branches:
-  #    - main
-  #    - master
+     - master
+     - rc-**
+     - pkgdown/**
+  pull_request:
+    branches:
+     - main
+     - master
 
 name: pkgdown
 
