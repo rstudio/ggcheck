@@ -28,6 +28,9 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      # TODO: remove this when https://github.com/r-lib/actions/issues/386 is fixed
+      - uses: r-lib/actions/setup-r-dependencies@v1
+
       - uses: r-lib/actions/setup-r-dependencies@v1
         with:
           needs: |
