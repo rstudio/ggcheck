@@ -87,3 +87,27 @@ uses_geom_param(p, "smooth", list(se = FALSE, method = "lm"))
 
 There’s a lot more that ggcheck can do. Read more in the [full function
 listing](https://rstudio.github.io/ggcheck/).
+
+## Code of Conduct
+
+Please note that the tblcheck project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+<!-- hide content on pkgdown, shown on GitHub -->
+<style>.container.template-home { display: none; }</style>
+
+<div class="footer">
+
+<hr />
+<p>
+ggcheck is built for use with
+<a href="https://rstudio.github.io/learnr">learnr</a> interactive
+tutorials. <strongr>learnr</strong> is a part of the <strong>R
+Markdown</strong> ecosystem of packages for creating computational
+documents in R. Learn more at
+<a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.
+</p>
+
+</div>
