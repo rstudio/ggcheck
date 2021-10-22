@@ -67,7 +67,7 @@ jobs:
             }
           }
 
-      - name: Deploy package
+      - name: Deploy package to gh-pages branch
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
