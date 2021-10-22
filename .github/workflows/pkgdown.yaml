@@ -37,10 +37,8 @@ jobs:
         shell: Rscript {0}
         run: |
           needs <- pak::local_dev_deps(dependencies = "Config/Needs/website")[["ref"]]
-          if (Sys.info()[["sysname"]] == "Linux") {
-            for (dep in needs) {
-              pak::pkg_system_requirements(dep, execute = TRUE)
-            }
+          for (dep in needs) {
+            pak::pkg_system_requirements(dep, execute = TRUE)
           }
           pak::pkg_install(needs)
 
