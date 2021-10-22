@@ -9,10 +9,10 @@ Authors@R: c(
     person("Nischal", "Shrestha", , "nsrocker92@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0003-3321-1712"))
   )
-Description: 'ggcheck' provides functions that inspect 'ggplot2' objects to
-    make it easier for teachers to check that student plots meet
-    expectations. Designed primarily for automated grading via 'gradethis' in
-    interactive 'learnr' tutorials.
+Description: 'ggcheck' provides functions that inspect 'ggplot2' objects
+    to make it easier for teachers to check that student plots meet
+    expectations. Designed primarily for automated grading via 'gradethis'
+    in interactive 'learnr' tutorials.
 License: GPL-3
 Suggests: 
     ggplot2,
