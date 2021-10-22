@@ -48,12 +48,6 @@ jobs:
             devtools
             rmarkdown
 
-      - name: URL redirects
-        if: github.event_name == 'push'
-        run: |
-          Rscript -e 'pak::pkg_install("r-lib/urlchecker"); urlchecker::url_update()'
-          git add -u && git commit -m 'Update links (GitHub Actions)' || echo "No link changes to commit"
-
       - name: Tidy Description
         run: |
           Rscript -e 'usethis::use_tidy_description()'
@@ -72,6 +66,12 @@ jobs:
           else
             echo "No README.Rmd to build"
           fi
+
+      - name: URL redirects
+        if: github.event_name == 'push'
+        run: |
+          Rscript -e 'pak::pkg_install("r-lib/urlchecker"); urlchecker::url_update()'
+          git add -u && git commit -m 'Update links (GitHub Actions)' || echo "No link changes to commit"
 
       - name: Whitespace - Fix indents and trailing
         run: |
