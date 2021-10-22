@@ -141,7 +141,7 @@ uses_geom_param <- function(p, geom, params, i = NULL) {
   if (any(invalid_params)) {
     stop(
       "Grading error: the supplied parameters ",
-       paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
+      paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
     )
   }
   # check both the user parameters contained in plot's geom and stat parameters
