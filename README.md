@@ -45,7 +45,6 @@ library(ggplot2)
 p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(mapping = aes(color = class)) +
-  geom_label(label = "a") +
   geom_smooth(se = FALSE, method = "lm")
 
 p
@@ -75,7 +74,7 @@ that order.
 
 ``` r
 uses_geoms(p, c("point", "smooth"), exact = TRUE)
-#> [1] FALSE
+#> [1] TRUE
 ```
 
 Similarly, we can test that a linear model was used for the smoothing
