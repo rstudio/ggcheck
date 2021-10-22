@@ -16,7 +16,7 @@ ggcheck provides functions that inspect
 teachers to check that student plots meet expectations. Designed
 primarily for automated grading via
 [gradethis](https://pkgs.rstudio.com/gradethis) in interactive
-[learnr](https://rstudio.github.io/learnr) tutorials.
+[learnr](https://rstudio.github.io/learnr/) tutorials.
 
 ## Installation
 
@@ -87,4 +87,4 @@ uses_geom_param(p, "smooth", list(se = FALSE, method = "lm"))
 ```
 
 There’s a lot more that ggcheck can do. Read more in the [full function
-listing](https://rstudio.github.io/ggcheck).
+listing](https://rstudio.github.io/ggcheck/).
