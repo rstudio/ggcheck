@@ -96,7 +96,7 @@ Please note that the tblcheck project is released with a [Contributor Code of Co
 ```{r results = "asis", echo=FALSE}
 cat(
   "<hr />",
-  '<p>ggcheck is built for use with <a href="https://rstudio.github.io/learnr">learnr</a> interactive tutorials.',
+  '<p>ggcheck is built for use with <a href="https://rstudio.github.io/learnr/">learnr</a> interactive tutorials.',
   '<strongr>learnr</strong> is a part of the <strong>R Markdown</strong>',
   'ecosystem of packages for creating computational documents in R. Learn more at',
   '<a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.</p>'
