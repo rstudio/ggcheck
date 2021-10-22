@@ -1,0 +1,48 @@
+The primary goal of ggcheck is to help tutorial authors inspect and test properties of [ggplot2] plots.
+The examples below demonstrate how ggcheck can be used in general;
+for more information about using gradethis in learnr tutorials,
+please see the [gradethis package documentation](https://pkgs.rstudio.com/gradethis/).
+
+Suppose an exercise asks students to create the following plot
+of engine displacement vs highway miles per gallon ratings.
+
+```{r expected-plot}
+library(ggplot2)
+
+p <-
+  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class)) +
+  geom_smooth(se = FALSE, method = "lm")
+
+p
+```
+
+We can use ggcheck to test that students used `geom_point()`
+
+```{r test-geom-point}
+library(ggcheck)
+
+uses_geoms(p, "point", exact = FALSE)
+```
+
+or that both `geom_point()` and `geom_smooth()` were used
+
+```{r test-geom-both}
+uses_geoms(p, c("point", "smooth"), exact = FALSE)
+```
+
+or that exactly both `geom_point()` and `geom_smooth()` were used and in that order.
+
+```{r test-geom-both-exact}
+uses_geoms(p, c("point", "smooth"), exact = TRUE)
+```
+
+Similarly, we can test that a linear model was used for the smoothing method
+and the confidence interval was not displayed:
+
+```{r test-geom-params}
+uses_geom_param(p, "smooth", list(se = FALSE, method = "lm"))
+```
+
+There's a lot more that ggcheck can do.
+Read more in the [full function listing](https://rstudio.github.io/ggcheck/).

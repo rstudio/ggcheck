@@ -1,0 +1,16 @@
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/ggcheck)](https://CRAN.R-project.org/package=ggcheck)
+[![R-CMD-check](https://github.com/rstudio/ggcheck/workflows/R-CMD-check/badge.svg)](https://github.com/rstudio/ggcheck/actions)
+<!-- [![](http://cranlogs.r-pkg.org/badges/last-month/ggcheck?color=blue)](https://cran.r-project.org/package=ggcheck) -->
+<!-- badges: end -->
+
+ggcheck provides functions that inspect [ggplot2] objects to make it easier for teachers to check that student plots meet expectations. Designed primarily for automated grading via [gradethis] in interactive [learnr] tutorials.
+
+## Installation
+
+You can install ggcheck from [GitHub][gh-ggcheck] with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("rstudio/ggcheck")
+```
