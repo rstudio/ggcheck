@@ -95,19 +95,10 @@ Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
-<!-- hide content on pkgdown, shown on GitHub -->
-<style>.container.template-home { display: none; }</style>
+-----
 
-<div class="footer">
-
-<hr />
-<p>
 ggcheck is built for use with
-<a href="https://rstudio.github.io/learnr/">learnr</a> interactive
-tutorials. <strongr>learnr</strong> is a part of the <strong>R
-Markdown</strong> ecosystem of packages for creating computational
-documents in R. Learn more at
-<a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.
-</p>
-
-</div>
+[learnr](https://rstudio.github.io/learnr/) interactive tutorials.
+learnr is a part of the **R Markdown** ecosystem of packages for
+creating computational documents in R. Learn more at
+[rmarkdown.rstudio.com](https://rmarkdown.rstudio.com).
