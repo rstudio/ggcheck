@@ -103,7 +103,7 @@ By contributing to this project, you agree to abide by its terms.
 <hr />
 <p>
 ggcheck is built for use with
-<a href="https://rstudio.github.io/learnr">learnr</a> interactive
+<a href="https://rstudio.github.io/learnr/">learnr</a> interactive
 tutorials. <strongr>learnr</strong> is a part of the <strong>R
 Markdown</strong> ecosystem of packages for creating computational
 documents in R. Learn more at
