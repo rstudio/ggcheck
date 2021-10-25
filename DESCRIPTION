@@ -14,7 +14,7 @@ Description: 'ggcheck' provides functions that inspect 'ggplot2' objects
     to make it easier for teachers to check that student plots meet
     expectations. Designed primarily for automated grading via 'gradethis'
     in interactive 'learnr' tutorials.
-License: GPL-3
+License: MIT + file LICENSE
 Suggests: 
     ggplot2,
     testthat
