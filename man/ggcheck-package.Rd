@@ -17,5 +17,10 @@ Authors:
   \item Nischal Shrestha \email{nsrocker92@gmail.com} (\href{https://orcid.org/0000-0003-3321-1712}{ORCID})
 }
 
+Other contributors:
+\itemize{
+  \item RStudio, PBC [copyright holder, funder]
+}
+
 }
 \keyword{internal}
