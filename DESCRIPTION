@@ -1,5 +1,5 @@
 Package: ggcheck
-Title: Grade 'ggplot2' Plots in Learning Exercises
+Title: Inspect 'ggplot2' Plots for Automated Grading in Learning Exercises
 Version: 0.0.1
 Authors@R: c(
     person("Garrick", "Aden-Buie", , "garrick@rstudio.com", role = c("aut", "cre"),
