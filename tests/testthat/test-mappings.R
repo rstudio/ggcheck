@@ -1,5 +1,4 @@
-context("Mappings")
-require(ggplot2)
+require(ggplot2, quietly = TRUE)
 
 p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
@@ -19,7 +18,8 @@ p2 <-
 test_that("Identifies global mapping", {
   expect_equal(
     get_mappings(p),
-    aes(x = displ, y = hwy)
+    aes(x = displ, y = hwy),
+    ignore_formula_env = TRUE
   )
 })
 
@@ -35,11 +35,13 @@ test_that("Checks whether mappings are used globally", {
 test_that("Identifies local mappings", {
   expect_equal(
     ith_mappings(p2, i = 1, local_only = FALSE),
-    aes(x = displ, y = hwy)
+    aes(x = displ, y = hwy),
+    ignore_formula_env = TRUE
   )
   expect_equal(
     ith_mappings(p2, i = 2, local_only = FALSE),
-    aes(x = displ, y = hwy, color = class)
+    aes(x = displ, y = hwy, color = class),
+    ignore_formula_env = TRUE
   )
   expect_equal(
     ith_mappings(p2, i = 1, local_only = TRUE),
@@ -47,7 +49,8 @@ test_that("Identifies local mappings", {
   )
   expect_equal(
     ith_mappings(p2, i = 2, local_only = TRUE),
-    aes(color = class)
+    aes(color = class),
+    ignore_formula_env = TRUE
   )
 })
 

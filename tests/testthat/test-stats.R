@@ -1,5 +1,4 @@
-context("Stats")
-require(ggplot2)
+require(ggplot2, quietly = TRUE)
 
 p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
   stat_boxplot(outlier.alpha = 0.01) +
