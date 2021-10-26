@@ -58,18 +58,14 @@ jobs:
           Rscript -e 'roxygen2::roxygenise()'
           git add man/\* NAMESPACE && git commit -m 'Document (GitHub Actions)' || echo "No documentation changes to commit"
 
-      - name: Build pkgdown index
+      - name: Build README and index
         run: |
-          if [ -f "pkgdown/index.Rmd" ]; then
-            cd pkgdown
-            Rscript -e 'rmarkdown::render("index.Rmd", quiet = FALSE)'
-            git add index.md && git commit -m 'Re-build pkgdown index (GitHub Actions)' || echo "No readme changes to commit"
+          if [ -f "index.Rmd" ]; then
+            Rscript -e 'rmarkdown::render("index.Rmd", quiet = FALSE, output_options = list(html_preview = FALSE)))'
+            git add index.md && git commit -m 'Re-build index.Rmd (GitHub Actions)' || echo "No index.Rmd changes to commit"
           else
-            echo "No pkgdown/index.Rmd to build"
+            echo "No index.Rmd to build"
           fi
-
-      - name: Build README
-        run: |
           if [ -f "README.Rmd" ]; then
             Rscript -e 'devtools::build_readme(quiet = FALSE)'
             git add man/figures/README\* README.md && git commit -m 'Re-build README.Rmd (GitHub Actions)' || echo "No readme changes to commit"
