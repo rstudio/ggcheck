@@ -61,7 +61,7 @@ jobs:
       - name: Build README and index
         run: |
           if [ -f "index.Rmd" ]; then
-            Rscript -e 'rmarkdown::render("index.Rmd", quiet = FALSE, output_options = list(html_preview = FALSE)))'
+            Rscript -e 'rmarkdown::render("index.Rmd", quiet = FALSE, output_options = list(html_preview = FALSE))'
             git add index.md && git commit -m 'Re-build index.Rmd (GitHub Actions)' || echo "No index.Rmd changes to commit"
           else
             echo "No index.Rmd to build"
