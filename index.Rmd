@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "../man/figures/README-",
+  fig.path = "man/figures/README-",
   fig.retina = 2,
   out.width = "100%"
 )
@@ -16,12 +16,12 @@ knitr::opts_chunk$set(
 
 # ggcheck
 
-```{r child="../man/fragments/readme-intro.Rmd"}
+```{r child="man/fragments/readme-intro.Rmd"}
 ```
 
 ## Usage
 
-```{r usage, child="../man/fragments/readme-usage.Rmd"}
+```{r usage, child="man/fragments/readme-usage.Rmd"}
 ```
 
 ## Code of Conduct

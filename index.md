@@ -51,7 +51,7 @@ p
 #> `geom_smooth()` using formula 'y ~ x'
 ```
 
-<img src="../man/figures/README-expected-plot-1.png" width="100%" />
+<img src="man/figures/README-expected-plot-1.png" width="100%" />
 
 We can use ggcheck to test that students used `geom_point()`
 
