@@ -17,6 +17,15 @@ template:
       ecosystem of packages for creating computational documents in R. Learn more at
       <a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.
 
+authors:
+  Garrick Aden-Buie:
+    href: https://www.garrickadenbuie.com
+  Nischal Shrestha:
+    href: http://nischalshrestha.me/
+  "RStudio, PBC":
+    href: https://www.rstudio.com
+    html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
+
 development:
   version_tooltip: "auto"
 
