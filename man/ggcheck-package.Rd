@@ -10,6 +10,14 @@
 
 'ggcheck' provides functions that inspect 'ggplot2' objects to make it easier for teachers to check that student plots meet expectations. Designed primarily for automated grading via 'gradethis' in interactive 'learnr' tutorials.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rstudio/ggcheck}
+  \item Report bugs at \url{https://github.com/rstudio/ggcheck/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Garrick Aden-Buie \email{garrick@rstudio.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID})
 
