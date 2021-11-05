@@ -1,21 +1,21 @@
 destination: reference
 
+url: https://pkgs.rstudio.com/ggcheck/
+
 template:
-  package: quillt
+  package: tidytemplate
+  bootstrap: 5
+  bslib:
+    primary: "#096B72"
+    navbar-background: "#e6f3fc"
+
   opengraph:
-    # image:
-    #   src: https://github.com/rstudio/ggcheck/raw/master/man/figures/logo.png
-    #   alt: "ggcheck package"
+    image:
+      src: man/figures/logo.png
+      alt: "ggcheck package"
     twitter:
       creator: "@rstudio"
       card: summary
-  params:
-    footer: >
-      ggcheck is built for use with
-      <a href="https://rstudio.github.io/learnr">learnr</a> interactive tutorials.
-      <strongr>learnr</strong> is a part of the <strong>R Markdown</strong>
-      ecosystem of packages for creating computational documents in R. Learn more at
-      <a href="https://rmarkdown.rstudio.com">rmarkdown.rstudio.com</a>.
 
 authors:
   Garrick Aden-Buie:
@@ -26,44 +26,35 @@ authors:
     href: https://www.rstudio.com
     html: <img src="https://www.tidyverse.org/rstudio-logo.svg" height="24" />
 
-development:
-  version_tooltip: "auto"
-
 home:
-  strip_header: false
+  links:
+  - text: Learn more about learnr
+    href: "https://rstudio.github.io/learnr"
+  - text: Learn more about gradethis
+    href: "https://pkgs.rstudio.com/gradethis"
 
 navbar:
-  title: ~
-  type: default
   structure:
-    left:  [intro, examples, articles]
-    right: [reference, news, github]
+    left:  [intro, articles, reference, news]
   components:
-    home: ~
-    # examples:
-    #   text: Examples
-    #   href: articles/articles/examples.html
-    # articles:
-    #   text: Articles
-    #   menu:
-    #     - text: "No vignettes"
-    reference:
-      text: Reference
-      href: reference/index.html
-    github:
-      icon: fab fa-github fa-lg
-      href: https://github.com/rstudio/ggcheck
-    # news:
-    #   text: News
-    #   menu:
-    #     - text: "Changelog"
-    #       href: news/index.html
-    #     - text: "------------------"
-    #     - text: "Blog posts"
-    #     - text: "Version 1.0"
-    #       href: https://blog.rstudio.com/2021/01/18/blogdown-v1.0/
-    #     - text: "Version 0.1"
-    #       href: https://blog.rstudio.com/2017/09/11/announcing-blogdown/
+    examples:
+      text: Examples
+      href: articles/articles/examples.html
+
+# custom footer for rmarkdown ecosystem
+footer:
+  structure:
+    left: [ggcheck]
+    right: [developed_by, p, built_with]
+  components:
+      p: "\n\n"
+      ggcheck: |
+        ggcheck is built for use with [learnr](https://rstudio.github.io/learnr)
+        interactive tutorials.
+
+        learnr is a part of the **R Markdown** ecosystem of packages for creating
+        computational documents in R. Learn more at
+        [rmarkdown.rstudio.com](https://rmarkdown.rstudio.com/).
 
 reference:
 - title: Get Plot Components

@@ -19,7 +19,8 @@ Suggests:
     ggplot2,
     testthat
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
-Config/Needs/website: r-lib/pkgdown, rstudio/quillt
+Config/Needs/website: r-lib/pkgdown, tidyverse/tidytemplate,
+    rstudio/quillt@tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
