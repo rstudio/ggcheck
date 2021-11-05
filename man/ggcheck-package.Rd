@@ -6,6 +6,8 @@
 \alias{ggcheck-package}
 \title{ggcheck: Inspect 'ggplot2' Plots for Automated Grading in Learning Exercises}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 'ggcheck' provides functions that inspect 'ggplot2' objects to make it easier for teachers to check that student plots meet expectations. Designed primarily for automated grading via 'gradethis' in interactive 'learnr' tutorials.
 }
 \author{
