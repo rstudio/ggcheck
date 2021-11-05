@@ -1,6 +1,6 @@
 destination: reference
 
-url: https://pkgs.rstudio.com/ggcheck/
+url: https://pkgs.rstudio.com/ggcheck
 
 template:
   package: tidytemplate
