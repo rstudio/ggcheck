@@ -5,6 +5,7 @@ url: https://pkgs.rstudio.com/ggcheck
 template:
   package: tidytemplate
   bootstrap: 5
+  trailing_slash_redirect: true
   bslib:
     primary: "#096B72"
     navbar-background: "#e6f3fc"
