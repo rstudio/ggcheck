@@ -30,7 +30,6 @@
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' get_labels(p, "color")
 #' get_labels(p, "colour")
-
 get_labels <- function(p, aes = NULL) {
   if (is.null(aes)) {return(p$labels)}
 
@@ -71,7 +70,6 @@ get_labels <- function(p, aes = NULL) {
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' uses_labels(p, color = NULL)
 #' uses_labels(p, colour = NULL)
-
 uses_labels <- function(p, ...) {
   args <- list(...)
 
@@ -84,8 +82,8 @@ uses_labels <- function(p, ...) {
 
   if (
     !all(vapply(args, length, integer(1)) <= 1) ||
-    !all(vapply(args[lengths(args) > 0], is.character, logical(1))) ||
-    !all(vapply(args[lengths(args) == 0], is.null, logical(1)))
+      !all(vapply(args[lengths(args) > 0], is.character, logical(1))) ||
+      !all(vapply(args[lengths(args) == 0], is.null, logical(1)))
   ) {
     stop(
       "All inputs to `...` must be character vectors of length 1 or `NULL`.",
@@ -101,5 +99,3 @@ uses_labels <- function(p, ...) {
 
   all(mapply(identical, args, labels))
 }
-
-
