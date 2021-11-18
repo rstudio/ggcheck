@@ -93,12 +93,19 @@ uses_labels <- function(p, ...) {
 
   labels <- get_labels(p, names(args))
 
-  all(mapply(identical, args, labels))
+  null_expected <- lengths(args) == 0
+  nulls_match   <- all(lengths(labels[null_expected]) == 0)
+  strings_match <- all(
+    mapply(identical, args[!null_expected], labels[!null_expected])
+  )
+
+  strings_match && nulls_match
+}
 
 is_scalar_string_or_null <- function(x) {
   vapply(
     x,
-    function(x) rlang::is_scalar_character(x) || rlang::is_null(x),
+    function(x) rlang::is_scalar_character(x) || length(x) == 0,
     logical(1)
   )
 }

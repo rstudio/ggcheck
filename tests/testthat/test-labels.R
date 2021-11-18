@@ -9,7 +9,8 @@ p <-
     caption = "CAPTION",
     x = "X",
     y = "Y",
-    color = NULL
+    color = NULL,
+    fill = character(0)
   )
 
 test_that("Identifies labels", {
@@ -19,6 +20,7 @@ test_that("Identifies labels", {
       x = "X",
       y = "Y",
       colour = NULL,
+      fill = character(0),
       title = "TITLE",
       subtitle = "SUBTITLE",
       caption = "CAPTION"
@@ -49,8 +51,14 @@ test_that("Identifies labels", {
 test_that("Checks whether a label is used", {
   expect_true(uses_labels(p, x = "X"))
   expect_true(uses_labels(p, x = "X", y = "Y"))
+
   expect_true(uses_labels(p, color = NULL))
+  expect_true(uses_labels(p, fill = NULL))
+  expect_true(uses_labels(p, color = character(0)))
+  expect_true(uses_labels(p, fill = character(0)))
+
   expect_true(uses_labels(p, x = "X", y = "Y", color = NULL))
+
   expect_false(uses_labels(p, x = "Incorrect"))
   expect_false(uses_labels(p, x = "X", y = "Incorrect"))
   expect_false(uses_labels(p, fill = "Incorrect"))
@@ -59,7 +67,7 @@ test_that("Checks whether a label is used", {
 test_that("Throws a grading error when label is not a string or NULL", {
   expect_error(uses_labels(p, x = c("X", "Y")))
   expect_error(uses_labels(p, x = 1))
-  expect_error(uses_labels(p, color = character(0)))
+  expect_error(uses_labels(p, color = FALSE))
 })
 
 test_that("Throws a grading error when argument is not named", {
