@@ -80,11 +80,7 @@ uses_labels <- function(p, ...) {
     )
   }
 
-  if (
-    !all(vapply(args, length, integer(1)) <= 1) ||
-      !all(vapply(args[lengths(args) > 0], is.character, logical(1))) ||
-      !all(vapply(args[lengths(args) == 0], is.null, logical(1)))
-  ) {
+  if (!all(is_scalar_string_or_null(args))) {
     stop(
       "All inputs to `...` must be character vectors of length 1 or `NULL`.",
       call. = FALSE
@@ -98,4 +94,11 @@ uses_labels <- function(p, ...) {
   labels <- get_labels(p, names(args))
 
   all(mapply(identical, args, labels))
+
+is_scalar_string_or_null <- function(x) {
+  vapply(
+    x,
+    function(x) rlang::is_scalar_character(x) || rlang::is_null(x),
+    logical(1)
+  )
 }
