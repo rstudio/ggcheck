@@ -11,9 +11,13 @@ uses_labels(p, ...)
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
 \link[=character]{Character} strings.
-Unnamed arguments will check whether a label exists for that aesthetic.
+
+Unnamed arguments will check whether a label was set for that aesthetic.
+This returns \code{TRUE} if the label exists and is not the default value.
+
 Named arguments will check whether the aesthetic with the same name shares
 has a label with a matching value.
+
 Each argument should have a matching \link[ggplot2:ggplot]{ggplot}
 \link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label}.
 Strings may be input as individual arguments or as list elements.}
@@ -32,15 +36,18 @@ Note that \code{uses_labels()} will match \code{\link{NULL}} if a label is expli
 require(ggplot2)
 
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
   geom_smooth() +
   labs(x = "Weight", y = "MPG", color = NULL)
 
 # Unnamed arguments check if a label is set for the given aesthetic
-uses_label(p, "x", "title")
+uses_labels(p, "x", "title")
 
 # The check will return TRUE for values set to NULL
-uses_label(p, "color")
+uses_labels(p, "color")
+
+# The check will return FALSE if an aesthetic has a default label
+uses_labels(p, "shape")
 
 # Named arguments check if the label matches an expected value
 uses_labels(p, x = "Weight")

@@ -2,7 +2,7 @@ require(ggplot2, quietly = TRUE)
 
 p <-
   ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
   labs(
     title = "TITLE",
     x = "X",
@@ -19,7 +19,8 @@ test_that("Identifies labels", {
       y = "Y",
       colour = NULL,
       fill = character(0),
-      title = "TITLE"
+      title = "TITLE",
+      shape = "drv"
     )
   )
 
@@ -92,6 +93,7 @@ test_that("unnamed inputs", {
   expect_equal(uses_labels(p, "x"),        c(x = TRUE))
   expect_equal(uses_labels(p, "x", "y"),   c(x = TRUE, y = TRUE))
   expect_equal(uses_labels(p, "title"),    c(title = TRUE))
+  expect_equal(uses_labels(p, "shape"),    c(shape = FALSE))
   expect_equal(uses_labels(p, "subtitle"), c(subtitle = FALSE))
 
   expect_equal(uses_labels(p, x = "X", "title"), c(x = TRUE, title = TRUE))

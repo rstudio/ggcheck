@@ -20,10 +20,10 @@ License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
 Imports: 
+    ggplot2,
     purrr,
     rlang
 Suggests: 
-    ggplot2,
     testthat
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
 Config/Needs/website: r-lib/pkgdown, tidyverse/tidytemplate,
