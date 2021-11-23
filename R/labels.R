@@ -46,12 +46,13 @@ get_labels <- function(p, aes = NULL) {
 #' [`NULL`] ***or*** if a requested aesthetic is not present in the plot.
 #'
 #' @param p A ggplot object
-#' @param ... Named [character] strings.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named [character] strings.
 #'   Each argument should have a name matching a [ggplot][ggplot2::ggplot]
-#'   [aesthetic][ggplot2::aes] and a value matching the expected label.
+#'   [aesthetic][ggplot2::aes] or [label][ggplot2::labs],
+#'   and a value matching the expected label.
+#'   Named character strings may be passed as arguments or as list elements.
 #'
-#' @return [`TRUE`], if all labels match arguments to `...`, or [`FALSE`] if at
-#'   least one label does not match
+#' @return A logical vector of the same length as the number of inputs to `...`.
 #'
 #' @family functions for checking labels
 #' @export
@@ -70,8 +71,14 @@ get_labels <- function(p, aes = NULL) {
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' uses_labels(p, color = NULL)
 #' uses_labels(p, colour = NULL)
+#'
+#' # Inputs can be passed from a list, with or without the !!! operator
+#' label_list <- list(x = "Weight", y = "MPG", color = NULL)
+#' uses_labels(p, label_list)
+#' uses_labels(p, !!!label_list)
 uses_labels <- function(p, ...) {
-  args <- list(...)
+  args <- rlang::flatten(rlang::dots_list(...))
+  args <- rlang::dots_list(!!!args, .homonyms = "error")
 
   if (length(args) == 0) {
     stop(
@@ -93,13 +100,16 @@ uses_labels <- function(p, ...) {
 
   labels <- get_labels(p, names(args))
 
-  null_expected <- lengths(args) == 0
-  nulls_match   <- all(lengths(labels[null_expected]) == 0)
-  strings_match <- all(
-    mapply(identical, args[!null_expected], labels[!null_expected])
+  result <- logical(length(args))
+
+  null_expected          <- lengths(args) == 0
+  result[null_expected]  <- lengths(labels[null_expected]) == 0
+  result[!null_expected] <- purrr::map2_lgl(
+    args[!null_expected], labels[!null_expected], identical
   )
 
-  strings_match && nulls_match
+  names(result) <- names(args)
+  result
 }
 
 is_scalar_string_or_null <- function(x) {

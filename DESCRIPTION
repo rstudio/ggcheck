@@ -20,6 +20,7 @@ License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
 Imports: 
+    purrr,
     rlang
 Suggests: 
     ggplot2,

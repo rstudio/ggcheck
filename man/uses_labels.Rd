@@ -9,13 +9,14 @@ uses_labels(p, ...)
 \arguments{
 \item{p}{A ggplot object}
 
-\item{...}{Named \link{character} strings.
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named \link{character} strings.
 Each argument should have a name matching a \link[ggplot2:ggplot]{ggplot}
-\link[ggplot2:aes]{aesthetic} and a value matching the expected label.}
+\link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label},
+and a value matching the expected label.
+Named character strings may be passed as arguments or as list elements.}
 }
 \value{
-\code{\link{TRUE}}, if all labels match arguments to \code{...}, or \code{\link{FALSE}} if at
-least one label does not match
+A logical vector of the same length as the number of inputs to \code{...}.
 }
 \description{
 \code{uses_labels()} tests whether a plot uses one or more \link[ggplot2:labs]{labels}.
@@ -38,6 +39,11 @@ uses_labels(p, x = "Weight", y = "MPG", color = NULL)
 # The colo(u)r aesthetic can be matched with or without a u
 uses_labels(p, color = NULL)
 uses_labels(p, colour = NULL)
+
+# Inputs can be passed from a list, with or without the !!! operator
+label_list <- list(x = "Weight", y = "MPG", color = NULL)
+uses_labels(p, label_list)
+uses_labels(p, !!!label_list)
 }
 \seealso{
 Other functions for checking labels: 
