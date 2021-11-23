@@ -104,8 +104,8 @@ uses_labels <- function(p, ...) {
 
   null_expected          <- lengths(args) == 0
   result[null_expected]  <- lengths(labels[null_expected]) == 0
-  result[!null_expected] <- as.logical(
-    Map(identical, args[!null_expected], labels[!null_expected])
+  result[!null_expected] <- purrr::map2_lgl(
+    args[!null_expected], labels[!null_expected], identical
   )
 
   names(result) <- names(args)
