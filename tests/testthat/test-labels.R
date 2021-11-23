@@ -67,6 +67,31 @@ test_that("Checks whether a label is used", {
   expect_equal(uses_labels(p, fill = "Incorrect"), c(fill = FALSE))
 })
 
+test_that("Inputs from list", {
+  expect_equal(
+    uses_labels(p, list(x = "X", y = "Y", color = "C")),
+    c(x = TRUE, y = TRUE, color = FALSE)
+  )
+  expect_equal(
+    uses_labels(p, x = "X", list(y = "Y", color = "C")),
+    c(x = TRUE, y = TRUE, color = FALSE)
+  )
+
+  expect_equal(
+    uses_labels(p, !!!list(x = "X", y = "Y", color = "C")),
+    c(x = TRUE, y = TRUE, color = FALSE)
+  )
+  expect_equal(
+    uses_labels(p, x = "X", !!!list(y = "Y", color = "C")),
+    c(x = TRUE, y = TRUE, color = FALSE)
+  )
+
+  expect_equal(
+    uses_labels(p, x = "X", list(y = "Y"), !!!list(color = "C")),
+    c(x = TRUE, y = TRUE, color = FALSE)
+  )
+})
+
 test_that("Throws a grading error when label is not a string or NULL", {
   expect_error(uses_labels(p, x = c("X", "Y")))
   expect_error(uses_labels(p, x = 1))
@@ -77,4 +102,13 @@ test_that("Throws a grading error when argument is not named", {
   expect_error(uses_labels(p, "X"))
   expect_error(uses_labels(p, c(x = "X", y = "Y")))
   expect_error(uses_labels(p))
+})
+
+test_that("Throws a grading error when name is duplicated", {
+  expect_error(uses_labels(p, x = "X", x = "X"))
+  expect_error(uses_labels(p, x = "X", list(x = "X", y = "Y")))
+  expect_error(uses_labels(p, x = "X", !!!list(x = "X", y = "Y")))
+  expect_error(uses_labels(p, list(x = "X"), list(x = "X", y = "Y")))
+  expect_error(uses_labels(p, list(x = "X"), !!!list(x = "X", y = "Y")))
+  expect_error(uses_labels(p, !!!list(x = "X"), !!!list(x = "X", y = "Y")))
 })
