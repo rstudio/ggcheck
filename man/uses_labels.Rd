@@ -9,11 +9,14 @@ uses_labels(p, ...)
 \arguments{
 \item{p}{A ggplot object}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named \link{character} strings.
-Each argument should have a name matching a \link[ggplot2:ggplot]{ggplot}
-\link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label},
-and a value matching the expected label.
-Named character strings may be passed as arguments or as list elements.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
+\link[=character]{Character} strings.
+Unnamed arguments will check whether a label exists for that aesthetic.
+Named arguments will check whether the aesthetic with the same name shares
+has a label with a matching value.
+Each argument should have a matching \link[ggplot2:ggplot]{ggplot}
+\link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label}.
+Strings may be input as individual arguments or as list elements.}
 }
 \value{
 A logical vector of the same length as the number of inputs to \code{...}.
@@ -33,6 +36,13 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_smooth() +
   labs(x = "Weight", y = "MPG", color = NULL)
 
+# Unnamed arguments check if a label is set for the given aesthetic
+uses_label(p, "x", "title")
+
+# The check will return TRUE for values set to NULL
+uses_label(p, "color")
+
+# Named arguments check if the label matches an expected value
 uses_labels(p, x = "Weight")
 uses_labels(p, x = "Weight", y = "MPG", color = NULL)
 

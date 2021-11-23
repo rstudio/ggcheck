@@ -46,11 +46,14 @@ get_labels <- function(p, aes = NULL) {
 #' [`NULL`] ***or*** if a requested aesthetic is not present in the plot.
 #'
 #' @param p A ggplot object
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named [character] strings.
-#'   Each argument should have a name matching a [ggplot][ggplot2::ggplot]
-#'   [aesthetic][ggplot2::aes] or [label][ggplot2::labs],
-#'   and a value matching the expected label.
-#'   Named character strings may be passed as arguments or as list elements.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
+#'   [Character][character] strings.
+#'   Unnamed arguments will check whether a label exists for that aesthetic.
+#'   Named arguments will check whether the aesthetic with the same name shares
+#'   has a label with a matching value.
+#'   Each argument should have a matching [ggplot][ggplot2::ggplot]
+#'   [aesthetic][ggplot2::aes] or [label][ggplot2::labs].
+#'   Strings may be input as individual arguments or as list elements.
 #'
 #' @return A logical vector of the same length as the number of inputs to `...`.
 #'
@@ -65,6 +68,13 @@ get_labels <- function(p, aes = NULL) {
 #'   geom_smooth() +
 #'   labs(x = "Weight", y = "MPG", color = NULL)
 #'
+#' # Unnamed arguments check if a label is set for the given aesthetic
+#' uses_labels(p, "x", "title")
+#'
+#' # The check will return TRUE for values set to NULL
+#' uses_labels(p, "color")
+#'
+#' # Named arguments check if the label matches an expected value
 #' uses_labels(p, x = "Weight")
 #' uses_labels(p, x = "Weight", y = "MPG", color = NULL)
 #'
@@ -94,13 +104,30 @@ uses_labels <- function(p, ...) {
     )
   }
 
-  if (is.null(names(args)) || any(names(args) == "")) {
-    stop("All inputs to `...` must be named.", call. = FALSE)
+  if (is.null(names(args))) {
+    names(args) <- rep("",    length(args))
+    named       <- rep(FALSE, length(args))
+  } else {
+    named <- names(args) != ""
   }
 
-  labels <- get_labels(p, names(args))
+  result         <- logical(length(args))
+  result[!named] <- check_labels_exist(p, args[!named])
+  result[named]  <- check_labels_match(p, args[named])
+  names(result)  <- coalesce_chr(names(args), args)
+  result
+}
 
+check_labels_exist <- function(p, args) {
+  args[args == "color"] <- "colour"
+
+  args %in% names(p$labels)
+}
+
+check_labels_match <- function(p, args) {
   result <- logical(length(args))
+
+  labels <- get_labels(p, names(args))
 
   null_expected          <- lengths(args) == 0
   result[null_expected]  <- lengths(labels[null_expected]) == 0
@@ -108,7 +135,6 @@ uses_labels <- function(p, ...) {
     args[!null_expected], labels[!null_expected], identical
   )
 
-  names(result) <- names(args)
   result
 }
 
@@ -118,4 +144,9 @@ is_scalar_string_or_null <- function(x) {
     function(x) rlang::is_scalar_character(x) || length(x) == 0,
     logical(1)
   )
+}
+
+coalesce_chr <- function(x, y) {
+  x[x == ""] <- y[x == ""]
+  x
 }
