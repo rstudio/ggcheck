@@ -49,19 +49,22 @@ test_that("Identifies labels", {
 })
 
 test_that("Checks whether a label is used", {
-  expect_true(uses_labels(p, x = "X"))
-  expect_true(uses_labels(p, x = "X", y = "Y"))
+  expect_equal(uses_labels(p, x = "X"),          c(x = TRUE))
+  expect_equal(uses_labels(p, x = "X", y = "Y"), c(x = TRUE, y = TRUE))
 
-  expect_true(uses_labels(p, color = NULL))
-  expect_true(uses_labels(p, fill = NULL))
-  expect_true(uses_labels(p, color = character(0)))
-  expect_true(uses_labels(p, fill = character(0)))
+  expect_equal(uses_labels(p, color = NULL),         c(color = TRUE))
+  expect_equal(uses_labels(p, fill  = NULL),         c(fill  = TRUE))
+  expect_equal(uses_labels(p, color = character(0)), c(color = TRUE))
+  expect_equal(uses_labels(p, fill  = character(0)), c(fill  = TRUE))
 
-  expect_true(uses_labels(p, x = "X", y = "Y", color = NULL))
+  expect_equal(
+    uses_labels(p, x = "X", y = "Y", color = NULL),
+    c(x = TRUE, y = TRUE, color = TRUE)
+  )
 
-  expect_false(uses_labels(p, x = "Incorrect"))
-  expect_false(uses_labels(p, x = "X", y = "Incorrect"))
-  expect_false(uses_labels(p, fill = "Incorrect"))
+  expect_equal(uses_labels(p, x = "Incorrect"), c(x = FALSE))
+  expect_equal(uses_labels(p, x = "X", y = "Incorrect"), c(x = TRUE, y = FALSE))
+  expect_equal(uses_labels(p, fill = "Incorrect"), c(fill = FALSE))
 })
 
 test_that("Throws a grading error when label is not a string or NULL", {

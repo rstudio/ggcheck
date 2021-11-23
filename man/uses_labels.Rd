@@ -14,8 +14,7 @@ Each argument should have a name matching a \link[ggplot2:ggplot]{ggplot}
 \link[ggplot2:aes]{aesthetic} and a value matching the expected label.}
 }
 \value{
-\code{\link{TRUE}}, if all labels match arguments to \code{...}, or \code{\link{FALSE}} if at
-least one label does not match
+A logical vector of the same length as the number of inputs to \code{...}.
 }
 \description{
 \code{uses_labels()} tests whether a plot uses one or more \link[ggplot2:labs]{labels}.

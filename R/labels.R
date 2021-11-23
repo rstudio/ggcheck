@@ -50,8 +50,7 @@ get_labels <- function(p, aes = NULL) {
 #'   Each argument should have a name matching a [ggplot][ggplot2::ggplot]
 #'   [aesthetic][ggplot2::aes] and a value matching the expected label.
 #'
-#' @return [`TRUE`], if all labels match arguments to `...`, or [`FALSE`] if at
-#'   least one label does not match
+#' @return A logical vector of the same length as the number of inputs to `...`.
 #'
 #' @family functions for checking labels
 #' @export
@@ -93,13 +92,16 @@ uses_labels <- function(p, ...) {
 
   labels <- get_labels(p, names(args))
 
-  null_expected <- lengths(args) == 0
-  nulls_match   <- all(lengths(labels[null_expected]) == 0)
-  strings_match <- all(
-    mapply(identical, args[!null_expected], labels[!null_expected])
+  result <- logical(length(args))
+
+  null_expected          <- lengths(args) == 0
+  result[null_expected]  <- lengths(labels[null_expected]) == 0
+  result[!null_expected] <- as.logical(
+    Map(identical, args[!null_expected], labels[!null_expected])
   )
 
-  strings_match && nulls_match
+  names(result) <- names(args)
+  result
 }
 
 is_scalar_string_or_null <- function(x) {
