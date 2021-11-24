@@ -20,6 +20,7 @@ or \code{\link{NULL}}
 What is the default label for a plot aesthetic?
 }
 \examples{
+#
 
 # Returns the label the ggplot would create by default for an aesthetic
 default_label(p, "x")
@@ -35,7 +36,6 @@ default_label(p, "title")
 # The colo(u)r aesthetic can be matched with or without a u
 default_label(p, "color")
 default_label(p, "colour")
-
 }
 \seealso{
 Other functions for checking labels: 
