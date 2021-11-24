@@ -35,23 +35,22 @@ Note that \code{uses_labels()} will match \code{\link{NULL}} if a label is expli
 \examples{
 require(ggplot2)
 
-p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class, shape = drv)) +
-  geom_smooth() +
-  labs(x = "Weight", y = "MPG", color = NULL)
 
 # Unnamed arguments check if a label is set for the given aesthetic
-uses_labels(p, "x", "title")
+uses_labels(p, "title", "subtitle", "x", "y")
 
-# The check will return TRUE for values set to NULL
+# The check will return TRUE for labels set to NULL
 uses_labels(p, "color")
 
-# The check will return FALSE if an aesthetic has a default label
+# The check will return TRUE for aesthetics with default labels
 uses_labels(p, "shape")
 
 # Named arguments check if the label matches an expected value
 uses_labels(p, x = "Weight")
 uses_labels(p, x = "Weight", y = "MPG", color = NULL)
+
+# You can check for default labels with default_label()
+uses_labels(p, shape = default_label(), x = default_label())
 
 # The colo(u)r aesthetic can be matched with or without a u
 uses_labels(p, color = NULL)
@@ -61,9 +60,11 @@ uses_labels(p, colour = NULL)
 label_list <- list(x = "Weight", y = "MPG", color = NULL)
 uses_labels(p, label_list)
 uses_labels(p, !!!label_list)
+
 }
 \seealso{
 Other functions for checking labels: 
+\code{\link{default_label}()},
 \code{\link{get_labels}()}
 }
 \concept{functions for checking labels}

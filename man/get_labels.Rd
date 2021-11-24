@@ -41,6 +41,7 @@ get_labels(p, "colour")
 }
 \seealso{
 Other functions for checking labels: 
+\code{\link{default_label}()},
 \code{\link{uses_labels}()}
 }
 \concept{functions for checking labels}
