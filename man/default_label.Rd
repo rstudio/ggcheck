@@ -44,7 +44,7 @@ default_label(p, "color")
 default_label(p, "colour")
 }
 \seealso{
-Other functions for checking labels: 
+Other functions for checking labels:
 \code{\link{get_labels}()},
 \code{\link{uses_labels}()}
 }

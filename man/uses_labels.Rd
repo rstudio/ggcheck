@@ -60,7 +60,6 @@ uses_labels(p, colour = NULL)
 label_list <- list(x = "Weight", y = "MPG", color = NULL)
 uses_labels(p, label_list)
 uses_labels(p, !!!label_list)
-
 }
 \seealso{
 Other functions for checking labels: 
