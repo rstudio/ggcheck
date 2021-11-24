@@ -237,7 +237,8 @@ check_labels_match <- function(p, args) {
   null_expected          <- lengths(args) == 0
   result[null_expected]  <- lengths(labels[null_expected]) == 0
   result[!null_expected] <- purrr::map2_lgl(
-    args[!null_expected], labels[!null_expected], identical
+    args[!null_expected], labels[!null_expected],
+    ~ isTRUE(all.equal(.x, .y, check.attributes = FALSE, check.names = FALSE))
   )
 
   result

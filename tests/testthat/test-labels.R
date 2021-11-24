@@ -141,6 +141,7 @@ test_that("default labels", {
     uses_labels(p, x = default_label(), shape = default_label()),
     c(x = FALSE, shape = TRUE)
   )
+  expect_equal(uses_labels(p, color = default_label()), c(color = FALSE))
 })
 
 test_that("Throws a grading error when label is not a string or NULL", {
