@@ -22,7 +22,8 @@ BugReports: https://github.com/rstudio/ggcheck/issues
 Imports: 
     ggplot2,
     purrr,
-    rlang
+    rlang,
+    utils
 Suggests: 
     testthat
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis

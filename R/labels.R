@@ -194,7 +194,7 @@ default_label.ggplot <- function(p, aes = NULL) {
 
   aes[aes == "color"] <- "colour"
 
-  make_labels <- getFromNamespace("make_labels", "ggplot2")
+  make_labels <- utils::getFromNamespace("make_labels", "ggplot2")
 
   purrr::map(
     aes,
