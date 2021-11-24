@@ -35,6 +35,10 @@ Note that \code{uses_labels()} will match \code{\link{NULL}} if a label is expli
 \examples{
 require(ggplot2)
 
+p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
+  geom_smooth() +
+  labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 
 # Unnamed arguments check if a label is set for the given aesthetic
 uses_labels(p, "title", "subtitle", "x", "y")

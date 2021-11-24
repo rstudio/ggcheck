@@ -30,7 +30,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # Returns the label the ggplot would create by default for an aesthetic
 default_label(p, "x")
-default_label(p, "x", "y")
+default_label(p, c("x", "y"))
 default_label(p)
 
 # If an aesthetic does not exist, returns NULL

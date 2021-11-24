@@ -51,10 +51,10 @@ get_labels <- function(p, aes = NULL) {
 #' @examples
 #' require(ggplot2)
 #'
-# p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#   geom_point(mapping = aes(color = class, shape = drv)) +
-#   geom_smooth() +
-#   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_point(mapping = aes(color = class, shape = drv)) +
+#'   geom_smooth() +
+#'   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 #'
 #' # Unnamed arguments check if a label is set for the given aesthetic
 #' uses_labels(p, "title", "subtitle", "x", "y")
@@ -148,7 +148,7 @@ uses_labels <- function(p, ...) {
 #'
 #' # Returns the label the ggplot would create by default for an aesthetic
 #' default_label(p, "x")
-#' default_label(p, "x", "y")
+#' default_label(p, c("x", "y"))
 #' default_label(p)
 #'
 #' # If an aesthetic does not exist, returns NULL
