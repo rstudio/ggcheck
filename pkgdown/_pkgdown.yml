@@ -69,3 +69,6 @@ reference:
   contents:
   - identical_aes
   - starts_with("uses_")
+- title: Miscellaneous Helper Functions
+  contents:
+  - default_label
