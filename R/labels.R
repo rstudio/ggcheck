@@ -80,7 +80,6 @@ get_labels <- function(p, aes = NULL) {
 #' label_list <- list(x = "Weight", y = "MPG", color = NULL)
 #' uses_labels(p, label_list)
 #' uses_labels(p, !!!label_list)
-#'
 #' @param p A ggplot object
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
 #'   [Character][character] strings.
@@ -141,7 +140,7 @@ uses_labels <- function(p, ...) {
 #'
 #' @examples
 # require(ggplot2)
-#
+#' #
 # p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 #   geom_point(mapping = aes(color = class, shape = drv)) +
 #   geom_smooth() +
@@ -161,7 +160,6 @@ uses_labels <- function(p, ...) {
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' default_label(p, "color")
 #' default_label(p, "colour")
-#'
 #' @param p A [ggplot][ggplot2::ggplot] object
 #' If `aes` is a [character] vector, returns only the labels
 #'   corresponding to the included aesthetics.
