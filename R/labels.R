@@ -45,6 +45,42 @@ get_labels <- function(p, aes = NULL) {
 #' Note that `uses_labels()` will match [`NULL`] if a label is explicitly set to
 #' [`NULL`] ***or*** if a requested aesthetic is not present in the plot.
 #'
+#' @family functions for checking labels
+#' @export
+#'
+#' @examples
+#' require(ggplot2)
+#'
+# p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#   geom_point(mapping = aes(color = class, shape = drv)) +
+#   geom_smooth() +
+#   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
+#'
+#' # Unnamed arguments check if a label is set for the given aesthetic
+#' uses_labels(p, "title", "subtitle", "x", "y")
+#'
+#' # The check will return TRUE for labels set to NULL
+#' uses_labels(p, "color")
+#'
+#' # The check will return TRUE for aesthetics with default labels
+#' uses_labels(p, "shape")
+#'
+#' # Named arguments check if the label matches an expected value
+#' uses_labels(p, x = "Weight")
+#' uses_labels(p, x = "Weight", y = "MPG", color = NULL)
+#'
+#' # You can check for default labels with default_label()
+#' uses_labels(p, shape = default_label(), x = default_label())
+#'
+#' # The colo(u)r aesthetic can be matched with or without a u
+#' uses_labels(p, color = NULL)
+#' uses_labels(p, colour = NULL)
+#'
+#' # Inputs can be passed from a list, with or without the !!! operator
+#' label_list <- list(x = "Weight", y = "MPG", color = NULL)
+#' uses_labels(p, label_list)
+#' uses_labels(p, !!!label_list)
+#'
 #' @param p A ggplot object
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
 #'   [Character][character] strings.
@@ -60,39 +96,6 @@ get_labels <- function(p, aes = NULL) {
 #'   Strings may be input as individual arguments or as list elements.
 #'
 #' @return A logical vector of the same length as the number of inputs to `...`.
-#'
-#' @family functions for checking labels
-#' @export
-#'
-#' @examples
-#' require(ggplot2)
-#'
-#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#'   geom_point(mapping = aes(color = class, shape = drv)) +
-#'   geom_smooth() +
-#'   labs(x = "Weight", y = "MPG", color = NULL)
-#'
-#' # Unnamed arguments check if a label is set for the given aesthetic
-#' uses_labels(p, "x", "title")
-#'
-#' # The check will return TRUE for values set to NULL
-#' uses_labels(p, "color")
-#'
-#' # The check will return FALSE if an aesthetic has a default label
-#' uses_labels(p, "shape")
-#'
-#' # Named arguments check if the label matches an expected value
-#' uses_labels(p, x = "Weight")
-#' uses_labels(p, x = "Weight", y = "MPG", color = NULL)
-#'
-#' # The colo(u)r aesthetic can be matched with or without a u
-#' uses_labels(p, color = NULL)
-#' uses_labels(p, colour = NULL)
-#'
-#' # Inputs can be passed from a list, with or without the !!! operator
-#' label_list <- list(x = "Weight", y = "MPG", color = NULL)
-#' uses_labels(p, label_list)
-#' uses_labels(p, !!!label_list)
 uses_labels <- function(p, ...) {
   args <- rlang::flatten(rlang::dots_list(...))
   args <- rlang::dots_list(!!!args, .homonyms = "error")
@@ -103,6 +106,12 @@ uses_labels <- function(p, ...) {
       call. = FALSE
     )
   }
+
+  default_labels <- purrr::map_lgl(args, inherits, ".default_label")
+
+  args[default_labels] <- purrr::map(
+    names(args)[default_labels], ~ unlist(default_label(p, .))
+  )
 
   if (!all(is_scalar_string_or_null(args))) {
     stop(
@@ -125,6 +134,88 @@ uses_labels <- function(p, ...) {
   result
 }
 
+#' What is the default label for a plot aesthetic?
+#'
+#' @family functions for checking labels
+#' @export
+#'
+#' @examples
+# require(ggplot2)
+#
+# p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#   geom_point(mapping = aes(color = class, shape = drv)) +
+#   geom_smooth() +
+#   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
+#'
+#' # Returns the label the ggplot would create by default for an aesthetic
+#' default_label(p, "x")
+#' default_label(p, "x", "y")
+#' default_label(p)
+#'
+#' # If an aesthetic does not exist, returns NULL
+#' default_label(p, "size")
+#'
+#' # If an aesthetic has no default, returns NULL
+#' default_label(p, "title")
+#'
+#' # The colo(u)r aesthetic can be matched with or without a u
+#' default_label(p, "color")
+#' default_label(p, "colour")
+#'
+#' @param p A [ggplot][ggplot2::ggplot] object
+#' If `aes` is a [character] vector, returns only the labels
+#'   corresponding to the included aesthetics.
+#'   Defaults to [`NULL`], which returns all labels.
+#'
+#' @return A named [list] in which each element is a [character] string
+#'   or [`NULL`]
+default_label <- function(p, aes = NULL) {
+  UseMethod("default_label")
+}
+
+#' @export
+default_label.default <- function(p, aes = NULL) {
+  if (!missing(p)) {
+    rlang::abort("`p` must be a `ggplot` object.")
+  }
+
+  structure(list(), class = c(".default_label", "ggcheck_placeholder"))
+}
+
+#' @export
+default_label.ggplot <- function(p, aes = NULL) {
+  if (is.null(aes)) {
+    aes <- names(p$labels)
+  }
+
+  if (!is.character(aes)) {
+    rlang::abort("`aes` must be a character vector or NULL.")
+  }
+
+  names(aes) <- aes
+
+  aes[aes == "color"] <- "colour"
+
+  make_labels <- getFromNamespace("make_labels", "ggplot2")
+
+  purrr::map(
+    aes,
+    function(aes) {
+      if (!is.null(p$mapping[[aes]])) {
+        return(as.character(make_labels(p$mapping[aes])))
+      }
+
+      for (i in seq_along(p$layers)) {
+        if (!is.null(p$layers[[i]]$mapping[[aes]])) {
+          return(as.character(make_labels(p$layers[[i]]$mapping[aes])))
+        }
+      }
+
+      NULL
+    }
+  )
+}
+
 check_labels_set <- function(p, args) {
   if (!length(args)) {
     return(logical(0))
@@ -133,34 +224,7 @@ check_labels_set <- function(p, args) {
   args                  <- as.character(args)
   args[args == "color"] <- "colour"
 
-  label_exists <- args %in% names(p$labels)
-
-  make_labels <- getFromNamespace("make_labels", "ggplot2")
-
-  existing_labels <- p$labels[args[label_exists]]
-  default_labels  <- purrr::map(
-    args[label_exists],
-    function(arg) {
-      if (!is.null(p$mapping[arg][[1]])) {
-        return(unlist(make_labels(p$mapping[arg])))
-      }
-
-      for (i in length(p$layers)) {
-        if (!is.null(p$layers[[i]]$mapping[arg][[1]])) {
-          return(unlist(make_labels(p$layers[[i]]$mapping[arg])))
-        }
-      }
-    }
-  )
-
-  result               <- label_exists
-  result[label_exists] <- purrr::map2_lgl(
-    unname(existing_labels),
-    unname(default_labels),
-    ~ !isTRUE(all.equal(.x, .y, check.attributes = FALSE))
-  )
-
-  result
+  args %in% names(p$labels)
 }
 
 check_labels_match <- function(p, args) {
