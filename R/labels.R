@@ -139,12 +139,12 @@ uses_labels <- function(p, ...) {
 #' @export
 #'
 #' @examples
-# require(ggplot2)
-#' #
-# p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-#   geom_point(mapping = aes(color = class, shape = drv)) +
-#   geom_smooth() +
-#   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
+#' require(ggplot2)
+#'
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_point(mapping = aes(color = class, shape = drv)) +
+#'   geom_smooth() +
+#'   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 #'
 #' # Returns the label the ggplot would create by default for an aesthetic
 #' default_label(p, "x")
@@ -161,7 +161,7 @@ uses_labels <- function(p, ...) {
 #' default_label(p, "color")
 #' default_label(p, "colour")
 #' @param p A [ggplot][ggplot2::ggplot] object
-#' If `aes` is a [character] vector, returns only the labels
+#' @param aes If `aes` is a [character] vector, returns only the labels
 #'   corresponding to the included aesthetics.
 #'   Defaults to [`NULL`], which returns all labels.
 #'

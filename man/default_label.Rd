@@ -7,8 +7,9 @@
 default_label(p, aes = NULL)
 }
 \arguments{
-\item{p}{A \link[ggplot2:ggplot]{ggplot} object
-If \code{aes} is a \link{character} vector, returns only the labels
+\item{p}{A \link[ggplot2:ggplot]{ggplot} object}
+
+\item{aes}{If \code{aes} is a \link{character} vector, returns only the labels
 corresponding to the included aesthetics.
 Defaults to \code{\link{NULL}}, which returns all labels.}
 }
@@ -20,6 +21,12 @@ or \code{\link{NULL}}
 What is the default label for a plot aesthetic?
 }
 \examples{
+require(ggplot2)
+
+p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
+  geom_smooth() +
+  labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 
 # Returns the label the ggplot would create by default for an aesthetic
 default_label(p, "x")
@@ -35,7 +42,6 @@ default_label(p, "title")
 # The colo(u)r aesthetic can be matched with or without a u
 default_label(p, "color")
 default_label(p, "colour")
-
 }
 \seealso{
 Other functions for checking labels: 
