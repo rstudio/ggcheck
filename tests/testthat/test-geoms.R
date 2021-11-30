@@ -21,6 +21,9 @@ p3 <- ggplot(data = diamonds, aes(x = cut, y = price)) +
 p4 <- ggplot(data = diamonds, aes(price)) +
   geom_histogram(bins = 20, binwidth = 500)
 
+p5 <- ggplot(data = diamonds, aes(price)) +
+  geom_histogram(fill = "blue")
+
 test_that("Identifies ith geom", {
   expect_equal(
     ith_geom(p, 1),
@@ -117,12 +120,58 @@ test_that("Throws a grading error when checking an invalid geom and stat combina
 
 test_that("Checks whether a geom uses a specfic parameter value", {
   # check a default parameter
-  expect_true(uses_geom_param(p, geom = "smooth", params = list(na.rm = FALSE)))
+  expect_equal(
+    uses_geom_param(p, geom = "smooth", params = list(na.rm = FALSE)),
+    c(na.rm = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p, geom = "smooth", na.rm = FALSE),
+    c(na.rm = TRUE)
+  )
+
   # check set parameters
-  expect_true(uses_geom_param(p, geom = "smooth", params = list(se = FALSE)))
-  expect_true(uses_geom_param(p3, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01)))
+  expect_equal(
+    uses_geom_param(p, geom = "smooth", params = list(se = FALSE)),
+    c(se = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p, geom = "smooth", se = FALSE),
+    c(se = TRUE)
+  )
+
+  expect_equal(
+    uses_geom_param(p3, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01)),
+    c(varwidth = TRUE, outlier.alpha = TRUE)
+  )
+
+  expect_equal(
+    uses_geom_param(p3, geom = "boxplot", varwidth = TRUE, outlier.alpha = 0.01),
+    c(varwidth = TRUE, outlier.alpha = TRUE)
+  )
+
   # check parameter of a geom which is a stat parameter
-  expect_true(uses_geom_param(p4, geom = "histogram", params = list(bins = 20, binwidth = 500)))
+  expect_equal(
+    uses_geom_param(p4, geom = "histogram", params = list(bins = 20, binwidth = 500)),
+    c(bins = TRUE, binwidth = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p4, geom = "histogram", bins = 20, binwidth = 500),
+    c(bins = TRUE, binwidth = TRUE)
+  )
+
+  # check parameter of a geom which is an aes parameter
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", params = list(fill = "blue")),
+    c(fill = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", fill = "blue"),
+    c(fill = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", fill = "red"),
+    c(fill = FALSE)
+  )
 })
 
 test_that("Throws a grading error when checking an invalid geom parameter", {
