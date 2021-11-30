@@ -2,7 +2,7 @@
 % Please edit documentation in R/geoms.R
 \name{uses_geom_param}
 \alias{uses_geom_param}
-\title{Does a layer use a specific geom parameter?}
+\title{Does a layer use a specific parameter?}
 \usage{
 uses_geom_param(p, geom, params, i = NULL)
 }
@@ -20,18 +20,21 @@ e.g. \code{"point"}.}
 A boolean
 }
 \description{
-\code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
+\code{uses_geom_param} checks that a plot's geom layer uses a specific parameter.
 }
 \details{
 To specify a specific geom layer, either specify using position using the \code{i} index or
 by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 uses the geom.
 
-The \code{params} argument accepts a list that contains geom or stat parameters. This offers
-flexibility in certain situations where setting a parameter on a \code{geom_} function is
-actually setting a stat parameter. For e.g., in \code{geom_histogram(binwidth = 500)},
-the \code{binwidth} is a stat parameter. \code{uses_geom_param} will take this into account
-and check both geom and stat parameters.
+The \code{params} argument accepts a list that contains geom, stat, or aes
+parameters. This offers flexibility in certain situations where setting a
+parameter on a \code{geom_} function is actually setting a stat parameter or
+aes parameter. For example, in \code{geom_histogram(binwidth = 500)}, the
+\code{binwidth} is a stat parameter, while in
+\code{geom_histogram(fill = "blue")}, the \code{fill} is an aes parameter.
+\code{uses_geom_param} will take this into account and check geom, stat, and
+aes parameters.
 }
 \examples{
 require(ggplot2)

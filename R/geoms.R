@@ -102,19 +102,22 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
   }
 }
 
-#' Does a layer use a specific geom parameter?
+#' Does a layer use a specific parameter?
 #'
-#' \code{uses_geom_param} checks that a plot's geom layer uses a specific geom parameter.
+#' \code{uses_geom_param} checks that a plot's geom layer uses a specific parameter.
 #'
 #' To specify a specific geom layer, either specify using position using the \code{i} index or
 #' by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
 #' uses the geom.
 #'
-#' The \code{params} argument accepts a list that contains geom or stat parameters. This offers
-#' flexibility in certain situations where setting a parameter on a \code{geom_} function is
-#' actually setting a stat parameter. For e.g., in \code{geom_histogram(binwidth = 500)},
-#' the \code{binwidth} is a stat parameter. \code{uses_geom_param} will take this into account
-#' and check both geom and stat parameters.
+#' The \code{params} argument accepts a list that contains geom, stat, or aes
+#' parameters. This offers flexibility in certain situations where setting a
+#' parameter on a \code{geom_} function is actually setting a stat parameter or
+#' aes parameter. For example, in \code{geom_histogram(binwidth = 500)}, the
+#' \code{binwidth} is a stat parameter, while in
+#' \code{geom_histogram(fill = "blue")}, the \code{fill} is an aes parameter.
+#' \code{uses_geom_param} will take this into account and check geom, stat, and
+#' aes parameters.
 #'
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
@@ -135,7 +138,7 @@ uses_geom_param <- function(p, geom, params, i = NULL) {
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
   user_params <- names(params)
   # collect geom and stat parameters
-  all_params <- c(layer$geom_params, layer$stat_params)
+  all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
   p_params <- names(all_params)
   # check if user supplied invalid parameters
   invalid_params <- !(user_params %in% p_params)
