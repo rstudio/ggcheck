@@ -156,6 +156,7 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   params <- c(params, capture_dots(...))
 
   user_params <- names(params)
+  user_params[user_params == "color"] <- "colour"
 
   # collect geom, stat, and aes parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)

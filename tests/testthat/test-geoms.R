@@ -22,7 +22,7 @@ p4 <- ggplot(data = diamonds, aes(price)) +
   geom_histogram(bins = 20, binwidth = 500)
 
 p5 <- ggplot(data = diamonds, aes(price)) +
-  geom_histogram(fill = "blue")
+  geom_histogram(fill = "blue", color = "red")
 
 test_that("Identifies ith geom", {
   expect_equal(
@@ -227,6 +227,24 @@ test_that("uses_geom_param() alias", {
   expect_equal(
     uses_geom_param(p5, geom = "histogram", fill = "red"),
     c(fill = FALSE)
+  )
+
+  # support color and colour
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", color = "red"),
+    c(color = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", colour = "red"),
+    c(colour = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", color = "blue"),
+    c(color = FALSE)
+  )
+  expect_equal(
+    uses_geom_param(p5, geom = "histogram", colour = "blue"),
+    c(colour = FALSE)
   )
 })
 
