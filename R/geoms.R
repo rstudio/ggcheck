@@ -156,17 +156,9 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   params <- c(params, capture_dots(...))
 
   user_params <- names(params)
+
   # collect geom, stat, and aes parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
-  p_params <- names(all_params)
-  # check if user supplied invalid parameters
-  invalid_params <- !(user_params %in% p_params)
-  if (any(invalid_params)) {
-    stop(
-      "Grading error: the supplied parameters ",
-      paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
-    )
-  }
 
   purrr::map2_lgl(params, all_params[user_params], identical)
 }

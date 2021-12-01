@@ -230,12 +230,24 @@ test_that("uses_geom_param() alias", {
   )
 })
 
-test_that("Throws a grading error when checking an invalid geom parameter", {
+test_that("Return FALSE when checking an invalid geom parameter", {
   # typo
-  expect_error(uses_geom_param(p, geom = "smooth", params = list(see = FALSE)))
+  expect_equal(
+    uses_geom_param(p, geom = "smooth", params = list(see = FALSE)),
+    c(see = FALSE)
+  )
   # invalid parameter for geom
-  expect_error(uses_geom_param(p3, geom = "boxplot", params = list(bins = 20, outlier.alpha = 0.01)))
-  expect_error(uses_geom_param(p4, geom = "histogram", params = list(bins = 20, outlier.alpha = 0.01)))
+  expect_equal(
+    uses_geom_param(p3, geom = "boxplot", params = list(bins = 20, outlier.alpha = 0.01)),
+    c(bins = FALSE, outlier.alpha = TRUE)
+  )
+  expect_equal(
+    uses_geom_param(p4, geom = "histogram", params = list(bins = 20, outlier.alpha = 0.01)),
+    c(bins = TRUE, outlier.alpha = FALSE)
+  )
   # multiple invalid parameters
-  expect_error(uses_geom_param(p3, geom = "boxplot", params = list(varwidthh = TRUE, outlierr.alpha = 0.01)))
+  expect_equal(
+    uses_geom_param(p3, geom = "boxplot", params = list(varwidthh = TRUE, outlierr.alpha = 0.01)),
+    c(varwidthh = FALSE, outlierr.alpha = FALSE)
+  )
 })
