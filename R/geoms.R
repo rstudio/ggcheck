@@ -138,9 +138,17 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #'
 #' @examples
 #' require(ggplot2)
+#'
 #' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
-#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
-#' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
+#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
+#'
+#' uses_geom_param(
+#'   p, "boxplot", list(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
+#' )
+#'
+#' uses_geom_param(
+#'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
+#' )
 uses_geom_param <- function(p, geom, params = NULL, ..., i = NULL) {
   stop_if_not_ggplot(p)
 
