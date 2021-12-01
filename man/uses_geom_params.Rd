@@ -15,10 +15,14 @@ uses_geom_param(p, geom, ..., params = NULL, i = NULL)
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named values.
-Each parameter should have a name matching a \link[ggplot2:ggplot]{ggplot}
-layer parameter and a value matching the expected label.
-Named values may be passed as arguments or as list elements.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
+Named values or \link{character} strings.
+Unnamed arguments will check whether any value was set for that parameter.
+Named arguments will check whether the parameter with the same name has a
+matching value.
+Each argument should have a name matching a \link[ggplot2:ggplot]{ggplot}
+layer parameter.
+Values may be passed as arguments or as list elements.}
 
 \item{params}{A named list of geom or stat parameter values, e.g.
 \code{list(outlier.alpha = 0.01)}.
@@ -60,4 +64,7 @@ uses_geom_params(
 uses_geom_params(
   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
 )
+
+# Unnamed arguments check that a parameter is set to any value
+uses_geom_params(p, "boxplot", "fill")
 }

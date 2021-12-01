@@ -122,10 +122,14 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named values.
-#'   Each parameter should have a name matching a [ggplot][ggplot2::ggplot]
-#'   layer parameter and a value matching the expected label.
-#'   Named values may be passed as arguments or as list elements.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
+#'   Named values or [character] strings.
+#'   Unnamed arguments will check whether any value was set for that parameter.
+#'   Named arguments will check whether the parameter with the same name has a
+#'   matching value.
+#'   Each argument should have a name matching a [ggplot][ggplot2::ggplot]
+#'   layer parameter.
+#'   Values may be passed as arguments or as list elements.
 #' @param params A named list of geom or stat parameter values, e.g.
 #'   \code{list(outlier.alpha = 0.01)}.
 #'   This list is combined with any inputs to `...`
@@ -148,6 +152,9 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' uses_geom_params(
 #'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
 #' )
+#'
+#' # Unnamed arguments check that a parameter is set to any value
+#' uses_geom_params(p, "boxplot", "fill")
 uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   stop_if_not_ggplot(p)
 
