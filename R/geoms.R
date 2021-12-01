@@ -154,14 +154,24 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
 
   params <- c(params, capture_dots(...))
+  named  <- names(params) != ""
 
-  user_params <- names(params)
+  user_params         <- names(params)
+  user_params[!named] <- as.character(params[!named])
+
+  result        <- logical(length(params))
+  names(result) <- user_params
+
   user_params[user_params == "color"] <- "colour"
 
   # collect geom, stat, and aes parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
 
-  purrr::map2_lgl(params, all_params[user_params], identical)
+  result[named] <- purrr::map2_lgl(
+    params[named], all_params[user_params][named], identical
+  )
+  result[!named] <- user_params[!named] %in% names(all_params)
+  result
 }
 
 #' @rdname uses_geom_params
