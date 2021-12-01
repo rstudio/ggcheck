@@ -248,6 +248,33 @@ test_that("uses_geom_param() alias", {
   )
 })
 
+test_that("unnames uses_geom_params", {
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", "fill"),
+    c(fill = TRUE)
+  )
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", "color"),
+    c(color = TRUE)
+  )
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", "colour"),
+    c(colour = TRUE)
+  )
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", "linetype"),
+    c(linetype = FALSE)
+  )
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", "fill", "color", "linetype"),
+    c(fill = TRUE, color = TRUE, linetype = FALSE)
+  )
+  expect_equal(
+    uses_geom_params(p5, geom = "histogram", fill = "blue", "color", "linetype"),
+    c(fill = TRUE, color = TRUE, linetype = FALSE)
+  )
+})
+
 test_that("Return FALSE when checking an invalid geom parameter", {
   # typo
   expect_equal(
