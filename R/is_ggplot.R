@@ -11,7 +11,6 @@
 #'
 #' p_invalid <- geom_point()
 #' is_ggplot(p_invalid)
-#'
 #' @param p An object
 #'
 #' @return [`TRUE`] if `p` is a [ggplot][ggplot2::ggplot] object,
