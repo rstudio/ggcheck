@@ -83,13 +83,9 @@ get_labels <- function(p, aes = NULL) {
 #' @param p A ggplot object
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
 #'   [Character][character] strings.
-#'
-#'   Unnamed arguments will check whether a label was set for that aesthetic.
-#'   This returns `TRUE` if the label exists and is not the default value.
-#'
-#'   Named arguments will check whether the aesthetic with the same name shares
+#'   Unnamed arguments will check whether a label exists that aesthetic.
+#'   Named arguments will check whether the aesthetic with the same name
 #'   has a label with a matching value.
-#'
 #'   Each argument should have a matching [ggplot][ggplot2::ggplot]
 #'   [aesthetic][ggplot2::aes] or [label][ggplot2::labs].
 #'   Strings may be input as individual arguments or as list elements.
