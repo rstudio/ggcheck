@@ -9,9 +9,9 @@ default_label(p, aes = NULL)
 \arguments{
 \item{p}{A \link[ggplot2:ggplot]{ggplot} object}
 
-\item{aes}{If \code{aes} is a \link{character} vector, returns only the labels
-corresponding to the included aesthetics.
-Defaults to \code{\link{NULL}}, which returns all labels.}
+\item{aes}{If \code{aes} is a \link{character} vector, returns only the default labels
+(based on the plot \code{p}) that correspond to the included aesthetics.
+Defaults to \code{\link{NULL}}, which returns the default values of all labels.}
 }
 \value{
 A named \link{list} in which each element is a \link{character} string

@@ -11,7 +11,7 @@ uses_labels(p, ...)
 
 \item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
 \link[=character]{Character} strings.
-Unnamed arguments will check whether a label exists that aesthetic.
+Unnamed arguments will check whether a label exists for that aesthetic.
 Named arguments will check whether the aesthetic with the same name
 has a label with a matching value.
 Each argument should have a matching \link[ggplot2:ggplot]{ggplot}
