@@ -30,7 +30,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Alexander Rossell Hayes \email{alex.rossellhayes@rstudio.com} (\href{https://orcid.org/0000-0001-9412-0457}{ORCID}) [contributor]
-  \item Sara Altman \email{sara.altman@rstudio.com} [contributor]
+  \item Sara Altman \email{sara.altman@rstudio.com} (\href{https://orcid.org/0000-0002-2529-5680}{ORCID}) [contributor]
   \item RStudio, PBC [copyright holder, funder]
 }
 
