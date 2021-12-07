@@ -10,7 +10,8 @@ Authors@R: c(
            comment = c(ORCID = "0000-0003-3321-1712")),
     person("Alexander", "Rossell Hayes", , "alex.rossellhayes@rstudio.com", role = "ctb",
            comment = c(ORCID = "0000-0001-9412-0457")),
-    person("Sara", "Altman", , "sara.altman@rstudio.com", role = "ctb"),
+    person("Sara", "Altman", , "sara.altman@rstudio.com", role = "ctb",
+           comment = c(ORCID = "0000-0002-2529-5680")),
     person("RStudio, PBC", role = c("cph", "fnd"))
   )
 Description: 'ggcheck' provides functions that inspect 'ggplot2' objects
