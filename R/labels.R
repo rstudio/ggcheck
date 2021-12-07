@@ -83,7 +83,7 @@ get_labels <- function(p, aes = NULL) {
 #' @param p A ggplot object
 #' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
 #'   [Character][character] strings.
-#'   Unnamed arguments will check whether a label exists that aesthetic.
+#'   Unnamed arguments will check whether a label exists for that aesthetic.
 #'   Named arguments will check whether the aesthetic with the same name
 #'   has a label with a matching value.
 #'   Each argument should have a matching [ggplot][ggplot2::ggplot]
@@ -157,9 +157,9 @@ uses_labels <- function(p, ...) {
 #' default_label(p, "color")
 #' default_label(p, "colour")
 #' @param p A [ggplot][ggplot2::ggplot] object
-#' @param aes If `aes` is a [character] vector, returns only the labels
-#'   corresponding to the included aesthetics.
-#'   Defaults to [`NULL`], which returns all labels.
+#' @param aes If `aes` is a [character] vector, returns only the default labels
+#'   (based on the plot `p`) that correspond to the included aesthetics.
+#'   Defaults to [`NULL`], which returns the default values of all labels.
 #'
 #' @return A named [list] in which each element is a [character] string
 #'   or [`NULL`]
@@ -215,7 +215,7 @@ check_labels_set <- function(p, args) {
     return(logical(0))
   }
 
-  args                  <- as.character(args)
+  args <- as.character(args)
   args[args == "color"] <- "colour"
 
   args %in% names(p$labels)
@@ -233,8 +233,11 @@ check_labels_match <- function(p, args) {
   null_expected          <- lengths(args) == 0
   result[null_expected]  <- lengths(labels[null_expected]) == 0
   result[!null_expected] <- purrr::map2_lgl(
-    args[!null_expected], labels[!null_expected],
-    ~ isTRUE(all.equal(.x, .y, check.attributes = FALSE, check.names = FALSE))
+    args[!null_expected], 
+    labels[!null_expected],
+    function(expected, actual) {
+      isTRUE(all.equal(expected, actual, check.attributes = FALSE, check.names = FALSE))
+    }
   )
 
   result
