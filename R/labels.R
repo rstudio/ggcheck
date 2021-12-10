@@ -6,16 +6,6 @@
 #' Note that `get_labels()` will return [`NULL`] if a label is explicitly set to
 #' [`NULL`] ***or*** if a requested aesthetic is not present in the plot.
 #'
-#' @param p A [ggplot][ggplot2::ggplot] object
-#' @param aes If `aes` is a [character] vector, returns only the labels
-#'   corresponding to the included aesthetics.
-#'   Defaults to [`NULL`], which returns all labels.
-#'
-#' @return A named list of character strings.
-#'
-#' @family functions for checking labels
-#' @export
-#'
 #' @examples
 #' require(ggplot2)
 #'
@@ -30,6 +20,15 @@
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' get_labels(p, "color")
 #' get_labels(p, "colour")
+#' @param p A [ggplot][ggplot2::ggplot] object
+#' @param aes If `aes` is a [character] vector, returns only the labels
+#'   corresponding to the included aesthetics.
+#'   Defaults to [`NULL`], which returns all labels.
+#'
+#' @return A named list of character strings.
+#'
+#' @family functions for checking labels
+#' @export
 get_labels <- function(p, aes = NULL) {
   if (is.null(aes)) {return(p$labels)}
 
@@ -44,9 +43,6 @@ get_labels <- function(p, aes = NULL) {
 #'
 #' Note that `uses_labels()` will match [`NULL`] if a label is explicitly set to
 #' [`NULL`] ***or*** if a requested aesthetic is not present in the plot.
-#'
-#' @family functions for checking labels
-#' @export
 #'
 #' @examples
 #' require(ggplot2)
@@ -91,6 +87,9 @@ get_labels <- function(p, aes = NULL) {
 #'   Strings may be input as individual arguments or as list elements.
 #'
 #' @return A logical vector of the same length as the number of inputs to `...`.
+#'
+#' @family functions for checking labels
+#' @export
 uses_labels <- function(p, ...) {
   args <- rlang::flatten(rlang::dots_list(...))
   args <- rlang::dots_list(!!!args, .homonyms = "error")
@@ -131,9 +130,6 @@ uses_labels <- function(p, ...) {
 
 #' What is the default label for a plot aesthetic?
 #'
-#' @family functions for checking labels
-#' @export
-#'
 #' @examples
 #' require(ggplot2)
 #'
@@ -167,6 +163,9 @@ uses_labels <- function(p, ...) {
 #'   Strings are returned for aesthetics with a default value.
 #'   [`NULL`] is returned for aesthetics that do not exist in the plot,
 #'   or non-aesthetic labels that do not have a default value, like `title`.
+#'
+#' @family functions for checking labels
+#' @export
 default_label <- function(p, aes = NULL) {
   UseMethod("default_label")
 }
