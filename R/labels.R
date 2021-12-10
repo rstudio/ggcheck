@@ -195,16 +195,26 @@ default_label.ggplot <- function(p, aes = NULL) {
   purrr::map(
     aes,
     function(aes) {
+      # If an aesthetic exists in multiple layers, ggplot gives it a default
+      # label based on the lowest level of the plot in which it appears
+
+      # First check if the aesthetic exists in the base plot,
+      # and return that label if it does
       if (!is.null(p$mapping[[aes]])) {
         return(as.character(make_labels(p$mapping[aes])))
       }
 
-      for (i in seq_along(p$layers)) {
-        if (!is.null(p$layers[[i]]$mapping[[aes]])) {
-          return(as.character(make_labels(p$layers[[i]]$mapping[aes])))
+      # Then check if the aesthetic exists in any layer,
+      # and return the label for the lowest layer is it does
+      for (layer in p$layers) {
+        if (!is.null(layer$mapping[[aes]])) {
+          return(as.character(make_labels(layer$mapping[aes])))
         }
       }
 
+      # If the aesthetic doesn't exist in the base plot or any layer,
+      # its default label is `NULL`
+      # (this always applies to non-aesthetic labels, like `title`)
       NULL
     }
   )
