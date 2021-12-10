@@ -210,37 +210,28 @@ default_label.ggplot <- function(p, aes = NULL) {
   )
 }
 
-check_labels_set <- function(p, args) {
-  if (!length(args)) {
+check_labels_set <- function(p, labels) {
+  if (!length(labels)) {
     return(logical(0))
   }
 
-  args <- as.character(args)
-  args[args == "color"] <- "colour"
+  labels <- as.character(labels)
+  labels[labels == "color"] <- "colour"
 
-  args %in% names(p$labels)
+  labels %in% names(p$labels)
 }
 
-check_labels_match <- function(p, args) {
-  if (!length(args)) {
+check_labels_match <- function(p, label_values) {
+  if (!length(label_values)) {
     return(logical(0))
   }
 
-  result <- logical(length(args))
+  plot_labels <- get_labels(p, names(label_values))
 
-  labels <- get_labels(p, names(args))
-
-  null_expected          <- lengths(args) == 0
-  result[null_expected]  <- lengths(labels[null_expected]) == 0
-  result[!null_expected] <- purrr::map2_lgl(
-    args[!null_expected],
-    labels[!null_expected],
-    function(expected, actual) {
-      isTRUE(all.equal(expected, actual, check.attributes = FALSE, check.names = FALSE))
-    }
+  purrr::map2_lgl(
+    label_values, plot_labels,
+    ~ isTRUE(all.equal(as.character(.x), as.character(.y)))
   )
-
-  result
 }
 
 is_scalar_string_or_null <- function(x) {
