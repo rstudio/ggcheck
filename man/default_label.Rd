@@ -15,7 +15,10 @@ Defaults to \code{\link{NULL}}, which returns the default values of all labels.}
 }
 \value{
 A named \link{list} in which each element is a \link{character} string
-or \code{\link{NULL}}
+or \code{\link{NULL}}.
+Strings are returned for aesthetics with a default value.
+\code{\link{NULL}} is returned for aesthetics that do not exist in the plot,
+or non-aesthetic labels that do not have a default value, like \code{title}.
 }
 \description{
 What is the default label for a plot aesthetic?
@@ -36,8 +39,9 @@ default_label(p)
 # If an aesthetic does not exist, returns NULL
 default_label(p, "size")
 
-# If an aesthetic has no default, returns NULL
+# Non-aesthetic labels have no default value, so they also return NULL
 default_label(p, "title")
+default_label(p, "comment")
 
 # The colo(u)r aesthetic can be matched with or without a u
 default_label(p, "color")

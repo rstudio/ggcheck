@@ -150,8 +150,9 @@ uses_labels <- function(p, ...) {
 #' # If an aesthetic does not exist, returns NULL
 #' default_label(p, "size")
 #'
-#' # If an aesthetic has no default, returns NULL
+#' # Non-aesthetic labels have no default value, so they also return NULL
 #' default_label(p, "title")
+#' default_label(p, "comment")
 #'
 #' # The colo(u)r aesthetic can be matched with or without a u
 #' default_label(p, "color")
@@ -162,7 +163,10 @@ uses_labels <- function(p, ...) {
 #'   Defaults to [`NULL`], which returns the default values of all labels.
 #'
 #' @return A named [list] in which each element is a [character] string
-#'   or [`NULL`]
+#'   or [`NULL`].
+#'   Strings are returned for aesthetics with a default value.
+#'   [`NULL`] is returned for aesthetics that do not exist in the plot,
+#'   or non-aesthetic labels that do not have a default value, like `title`.
 default_label <- function(p, aes = NULL) {
   UseMethod("default_label")
 }
