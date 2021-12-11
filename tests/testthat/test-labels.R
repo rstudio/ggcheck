@@ -112,3 +112,13 @@ test_that("Throws a grading error when name is duplicated", {
   expect_error(uses_labels(p, list(x = "X"), !!!list(x = "X", y = "Y")))
   expect_error(uses_labels(p, !!!list(x = "X"), !!!list(x = "X", y = "Y")))
 })
+
+test_that("stop_if_not_ggplot", {
+  expect_error(
+    uses_labels(
+      geom_point(data = mpg, mapping = aes(x = displ, y = hwy)),
+      x = "displ", y = "hwy"
+    ),
+    '`p` must be a "ggplot" object'
+  )
+})

@@ -149,10 +149,6 @@ uses_data <- function(p, data, local_only = FALSE) {
 #'   geom_point()
 #' ith_data(p, i = 1)
 ith_data <- function(p, i, local_only = FALSE) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
-
   get_data(get_geom_layer(p, i = i), local_only)
 }
 

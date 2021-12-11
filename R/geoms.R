@@ -19,6 +19,7 @@
 #'   geom_smooth()
 #' get_geoms(p)
 get_geoms <- function(p) {
+  stop_if_not_ggplot(p)
   n <- n_layers(p)
   vapply(seq_len(n), ith_geom, character(1), p = p)
 }
@@ -40,9 +41,7 @@ get_geoms <- function(p) {
 #'   geom_smooth()
 #' get_geoms_stats(p)
 get_geoms_stats <- function(p) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
   n <- n_layers(p)
   lapply(seq_len(n), ith_geom_stat, p = p)
 }
@@ -78,6 +77,7 @@ get_geoms_stats <- function(p) {
 #' uses_geoms(p, geoms = c("point", "smooth"), exact = TRUE)
 #' uses_geoms(p, geoms = c("point", "smooth"), stats = c("identity", "smooth"))
 uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
+  stop_if_not_ggplot(p)
   # map the GEOM + STAT for the instructor's target geoms
   geoms <- lapply(geoms, map_geom)
   # if stats is specified override the STAT(s) defaults of geoms
@@ -131,6 +131,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
 #' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
 uses_geom_param <- function(p, geom, params, i = NULL) {
+  stop_if_not_ggplot(p)
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
   user_params <- names(params)
   # collect geom and stat parameters
@@ -169,9 +170,7 @@ uses_geom_param <- function(p, geom, params, i = NULL) {
 #'   geom_smooth()
 #' ith_geom(p, i = 2)
 ith_geom <- function(p, i) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
   geom <- class(p$layers[[i]]$geom)[1]
   gsub("geom", "", tolower(geom))
 }
@@ -198,6 +197,7 @@ ith_geom <- function(p, i) {
 #'   geom_smooth()
 #' ith_geom_stat(p, i = 2)
 ith_geom_stat <- function(p, i) {
+  stop_if_not_ggplot(p)
   # extract geom/stat classes
   geom_class <- gsub("geom", "", tolower(class(p$layers[[i]]$geom)[1]))
   stat_class <- gsub("stat", "", tolower(class(p$layers[[i]]$stat)[1]))
@@ -232,6 +232,7 @@ ith_geom_stat <- function(p, i) {
 #'   geom_smooth()
 #' ith_geom_is(p, geom = "smooth", i = 2)
 ith_geom_is <- function(p, geom, i = 1) {
+  stop_if_not_ggplot(p)
   geom_i <- ith_geom(p, i)
   geom_i == geom
 }

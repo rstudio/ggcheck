@@ -31,6 +31,8 @@
 #' get_labels(p, "color")
 #' get_labels(p, "colour")
 get_labels <- function(p, aes = NULL) {
+  stop_if_not_ggplot(p)
+
   if (is.null(aes)) {return(p$labels)}
 
   aes[aes == "color"] <- "colour"
@@ -77,6 +79,8 @@ get_labels <- function(p, aes = NULL) {
 #' uses_labels(p, label_list)
 #' uses_labels(p, !!!label_list)
 uses_labels <- function(p, ...) {
+  stop_if_not_ggplot(p)
+
   args <- rlang::flatten(rlang::dots_list(...))
   args <- rlang::dots_list(!!!args, .homonyms = "error")
 
