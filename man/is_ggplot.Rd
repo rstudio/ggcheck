@@ -2,19 +2,28 @@
 % Please edit documentation in R/is_ggplot.R
 \name{is_ggplot}
 \alias{is_ggplot}
+\alias{stop_if_not_ggplot}
 \title{Check if an object is a ggplot}
 \usage{
 is_ggplot(p)
+
+stop_if_not_ggplot(p)
 }
 \arguments{
 \item{p}{An object}
 }
 \value{
-\code{\link{TRUE}} if \code{p} is a \link[ggplot2:ggplot]{ggplot} object,
-otherwise \code{\link{FALSE}}
+\code{is_ggplot()} returns \code{\link{TRUE}} if \code{p} is a \link[ggplot2:ggplot]{ggplot}
+object; otherwise it returns \code{\link{FALSE}}.
+
+\code{stop_if_not_ggplot()} returns an error if \code{p} is not a
+\link[ggplot2:ggplot]{ggplot} object; other it invisibly returns \code{\link{NULL}}.
 }
 \description{
-Check if an object is a ggplot
+\code{is_ggplot()} tests if an object is a \link[ggplot2:ggplot]{ggplot}.
+
+\code{stop_if_not_ggplot()} signals an error if an object is not
+a \link[ggplot2:ggplot]{ggplot}.
 }
 \examples{
 require(ggplot2)
@@ -22,8 +31,10 @@ require(ggplot2)
 p_valid <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point()
 is_ggplot(p_valid)
+stop_if_not_ggplot(p_valid)
 
 p_invalid <- geom_point()
 is_ggplot(p_invalid)
-
+\dontrun{
+stop_if_not_ggplot(p_invalid)}
 }
