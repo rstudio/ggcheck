@@ -10,13 +10,20 @@ is_ggplot(p)
 
 stop_if_not_ggplot(p, message = getOption("ggcheck.error"))
 
-fail_if_not_ggplot(p = .result, message = getOption("ggcheck.fail"))
+fail_if_not_ggplot(
+  p = .result,
+  message = getOption("ggcheck.fail"),
+  env = parent.frame()
+)
 }
 \arguments{
 \item{p}{An object}
 
 \item{message}{A message to be displayed if \code{p} is not a
-\link[ggplot2:ggplot]{ggplot}] object.}
+\link[ggplot2:ggplot]{ggplot} object.}
+
+\item{env}{Environment in which to find \code{.result}.
+Most users of \code{ggcheck} will not need to use this argument.}
 }
 \value{
 \code{is_ggplot()} returns \code{\link{TRUE}} if \code{p} is a \link[ggplot2:ggplot]{ggplot}

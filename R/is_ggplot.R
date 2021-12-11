@@ -26,7 +26,10 @@
 #' @param p An object
 #'
 #' @param message A message to be displayed if `p` is not a
-#'   [ggplot][ggplot2::ggplot]] object.
+#'   [ggplot][ggplot2::ggplot] object.
+#'
+#' @param env Environment in which to find `.result`.
+#'   Most users of `ggcheck` will not need to use this argument.
 #'
 #' @return `is_ggplot()` returns [`TRUE`] if `p` is a [ggplot][ggplot2::ggplot]
 #' object; otherwise it returns [`FALSE`].
@@ -62,7 +65,7 @@ stop_if_not_ggplot <- function(p, message = getOption("ggcheck.error")) {
 #' @rdname is_ggplot
 #' @export
 fail_if_not_ggplot <- function(
-  p = .result, message = getOption("ggcheck.fail")
+  p = .result, message = getOption("ggcheck.fail"), env = parent.frame()
 ) {
   if (is_ggplot(p)) {
     return(invisible(NULL))
