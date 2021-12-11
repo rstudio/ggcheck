@@ -21,7 +21,8 @@
 #' p_invalid <- geom_point()
 #' is_ggplot(p_invalid)
 #' \dontrun{
-#' stop_if_not_ggplot(p_invalid)}
+#' stop_if_not_ggplot(p_invalid)
+#' }
 #' fail_if_not_ggplot(p_valid)
 #' @param p An object
 #'
