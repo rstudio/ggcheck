@@ -1,7 +1,5 @@
 #' Check if an object is a ggplot
 #'
-#' @export
-#'
 #' @examples
 #' require(ggplot2)
 #'
@@ -15,6 +13,9 @@
 #'
 #' @return [`TRUE`] if `p` is a [ggplot][ggplot2::ggplot] object,
 #' otherwise [`FALSE`]
+#'
+#' @export
 is_ggplot <- function(p) {
   inherits(p, "ggplot")
 }
+
