@@ -21,15 +21,14 @@ Description: 'ggcheck' provides functions that inspect 'ggplot2' objects
 License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
-Imports: 
+Imports:
     purrr,
     rlang
-Suggests: 
+Suggests:
     ggplot2,
     testthat
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
-Config/Needs/website: r-lib/pkgdown, tidyverse/tidytemplate,
-    rstudio/quillt@tidytemplate
+Config/Needs/website: pkgdown, tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
