@@ -11,8 +11,6 @@ template:
     navbar-background: "#e6f3fc"
     pkgdown-nav-height: 90px
 
-  trailing_slash_redirect: true
-
   opengraph:
     image:
       src: man/figures/logo.png
