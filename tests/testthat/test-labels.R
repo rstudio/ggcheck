@@ -41,7 +41,12 @@ test_that("Identifies labels", {
 
   expect_equal(
     get_labels(p, "color"),
-    list(colour = NULL)
+    list(color = NULL)
+  )
+
+  expect_equal(
+    get_labels(p, "subtitle"),
+    list(subtitle = NULL)
   )
 })
 

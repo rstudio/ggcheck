@@ -32,9 +32,15 @@
 get_labels <- function(p, aes = NULL) {
   if (is.null(aes)) {return(p$labels)}
 
-  aes[aes == "color"] <- "colour"
+  label_names <- aes
+  label_names[aes == "color"] <- "colour"
 
-  p$labels[aes]
+  result <- p$labels[label_names]
+
+  # Restore names from inputs so spelling of "colo(u)r" matches
+  names(result) <- aes
+
+  result
 }
 
 #' Does a plot use one or more labels?
@@ -124,7 +130,12 @@ uses_labels <- function(p, ...) {
   result         <- logical(length(args))
   result[!named] <- check_labels_set(p, args[!named])
   result[named]  <- check_labels_match(p, args[named])
-  names(result)  <- coalesce_chr(names(args), args)
+
+  # Ensure names of result vector match names in `...`:
+  # - Names of inputs for named inputs
+  # - Values of inputs for unnamed inputs
+  names(result) <- coalesce_chr(names(args), args)
+
   result
 }
 
