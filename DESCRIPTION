@@ -22,6 +22,7 @@ License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
 Imports:
+    gradethis,
     purrr,
     rlang
 Suggests:
