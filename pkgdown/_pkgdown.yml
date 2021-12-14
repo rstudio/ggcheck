@@ -70,3 +70,6 @@ reference:
   contents:
   - identical_aes
   - starts_with("uses_")
+- title: Miscellaneous Utility Functions
+  contents:
+  - is_ggplot
