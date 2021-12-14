@@ -66,7 +66,9 @@ stop_if_not_ggplot <- function(p, message = getOption("ggcheck.error")) {
 #' @rdname is_ggplot
 #' @export
 fail_if_not_ggplot <- function(
-  p = .result, message = getOption("ggcheck.fail"), env = parent.frame()
+  p = .result,
+  message = getOption("ggcheck.fail"),
+  env = parent.frame()
 ) {
   if (is_ggplot(p)) {
     return(invisible(NULL))
