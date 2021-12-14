@@ -9,6 +9,7 @@ template:
   bslib:
     primary: "#096B72"
     navbar-background: "#e6f3fc"
+    pkgdown-nav-height: 90px
 
   opengraph:
     image:
@@ -71,4 +72,5 @@ reference:
   - starts_with("uses_")
 - title: Miscellaneous Helper Functions
   contents:
+  - is_ggplot
   - default_label

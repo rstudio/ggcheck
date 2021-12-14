@@ -30,6 +30,8 @@
 #' @family functions for checking labels
 #' @export
 get_labels <- function(p, aes = NULL) {
+  stop_if_not_ggplot(p)
+
   if (is.null(aes)) {return(p$labels)}
 
   label_names <- aes
@@ -97,6 +99,8 @@ get_labels <- function(p, aes = NULL) {
 #' @family functions for checking labels
 #' @export
 uses_labels <- function(p, ...) {
+  stop_if_not_ggplot(p)
+
   args <- rlang::flatten(rlang::dots_list(...))
   args <- rlang::dots_list(!!!args, .homonyms = "error")
 

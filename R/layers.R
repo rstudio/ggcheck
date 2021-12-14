@@ -57,6 +57,8 @@ n_layers <- function(p) {
 #' get_layer(p, stat = "smooth")
 #' @noRd
 get_layer <- function(p, geom = NULL, stat = NULL, i = NULL) {
+  stop_if_not_ggplot(p)
+
   if (!is.null(geom) && !is.null(stat)) {
     stop("Grading error: cannot identify a layer with a combination of geom and stat name. Please pick one or the other.")
   }
@@ -131,9 +133,7 @@ get_layer <- function(p, geom = NULL, stat = NULL, i = NULL) {
 #' get_geom_layer(p, geom = "smooth")
 #' get_geom_layer(p, geom = "point", i = 2)
 get_geom_layer <- function(p, geom = NULL, i = NULL) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
 
   if (is.null(geom) && is.null(i)) {
     stop("Grading error: cannot identify which layer to grade. Please specify at least one of geom or i.")
@@ -175,9 +175,7 @@ get_geom_layer <- function(p, geom = NULL, i = NULL) {
 #' get_stat_layer(p, i = 1)
 #' get_stat_layer(p, stat = "bin")
 get_stat_layer <- function(p, stat = NULL, i = NULL) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
 
   if (is.null(stat) && is.null(i)) {
     stop("Grading error: cannot identify which layer to grade. Please specify at least one of stat or i.")
