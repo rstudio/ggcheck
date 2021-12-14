@@ -20,6 +20,7 @@
 #'   geom_smooth()
 #' get_stats(p)
 get_stats <- function(p) {
+  stop_if_not_ggplot(p)
   n <- n_layers(p)
   vapply(seq_len(n), ith_stat, character(1), p = p)
 }
@@ -53,6 +54,7 @@ get_stats <- function(p) {
 #' uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
 #' uses_stats(p, c("smooth", "identity"), geoms = c("smooth", "point"))
 uses_stats <- function(p, stats, geoms = NULL, exact = TRUE) {
+  stop_if_not_ggplot(p)
   # map the GEOM + STAT for plot and the instructor's target stats
   stats <- lapply(stats, map_stat)
   # if geoms is specified override the GEOM(s) defaults of geoms
@@ -100,6 +102,7 @@ uses_stats <- function(p, stats, geoms = NULL, exact = TRUE) {
 #'   stat_bin(bins = 200)
 #' uses_stat_param(p, stat = "bin", params = list(bins = 200))
 uses_stat_param <- function(p, stat, params, i = NULL) {
+  stop_if_not_ggplot(p)
   layer <- get_stat_layer(p, stat = stat, i)$layer
   user_params <- names(params)
   # collect geom and stat parameters
@@ -138,9 +141,7 @@ uses_stat_param <- function(p, stat, params, i = NULL) {
 #'   geom_qq()
 #' ith_stat(p, i = 1)
 ith_stat <- function(p, i) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
   stat <- class(p$layers[[i]]$stat)[1]
   gsub("stat", "", tolower(stat))
 }
@@ -168,6 +169,7 @@ ith_stat <- function(p, i) {
 #'   geom_qq()
 #' ith_stat_is(p, i = 1, "qq")
 ith_stat_is <- function(p, stat, i = 1) {
+  stop_if_not_ggplot(p)
   stat_i <- ith_stat(p, i)
   stat_i == stat
 }

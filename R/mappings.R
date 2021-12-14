@@ -234,9 +234,7 @@ uses_aesthetics <- function(p, aesthetics, local_only = FALSE, exact = FALSE) {
 #' ith_mappings(p, i = 1, local_only = TRUE)
 #' ith_mappings(p, i = 2, local_only = FALSE)
 ith_mappings <- function(p, i, local_only = FALSE) {
-  if (!inherits(p, "ggplot")) {
-    stop("p should be a ggplot object")
-  }
+  stop_if_not_ggplot(p)
   get_mappings(get_layer(p, i = i), local_only)
 }
 

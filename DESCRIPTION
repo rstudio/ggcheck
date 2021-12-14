@@ -22,11 +22,14 @@ License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
 Imports:
+    gradethis (>= 0.2.4.9000),
     purrr,
     rlang
 Suggests:
     ggplot2,
     testthat
+Remotes: 
+    rstudio/gradethis
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
 Config/Needs/website: pkgdown, tidyverse/tidytemplate
 Config/testthat/edition: 3

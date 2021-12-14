@@ -15,6 +15,7 @@
 #'   coord_polar()
 #' get_coordinate_system(p)
 get_coordinate_system <- function(p) {
+  stop_if_not_ggplot(p)
   coords <- class(p$coordinates)[1]
   gsub("coord", "", tolower(coords))
 }
@@ -43,5 +44,6 @@ get_coordinate_system <- function(p) {
 #'   coord_polar()
 #' uses_coordinate_system(p, coordinates = "polar")
 uses_coordinate_system <- function(p, coordinates) {
+  stop_if_not_ggplot(p)
   coordinates == get_coordinate_system(p)
 }
