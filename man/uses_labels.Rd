@@ -9,11 +9,14 @@ uses_labels(p, ...)
 \arguments{
 \item{p}{A ggplot object}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named \link{character} strings.
-Each argument should have a name matching a \link[ggplot2:ggplot]{ggplot}
-\link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label},
-and a value matching the expected label.
-Named character strings may be passed as arguments or as list elements.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
+\link[=character]{Character} strings.
+Unnamed arguments will check whether a label exists for that aesthetic.
+Named arguments will check whether the aesthetic with the same name
+has a label with a matching value.
+Each argument should have a matching \link[ggplot2:ggplot]{ggplot}
+\link[ggplot2:aes]{aesthetic} or \link[ggplot2:labs]{label}.
+Strings may be input as individual arguments or as list elements.}
 }
 \value{
 A logical vector of the same length as the number of inputs to \code{...}.
@@ -29,12 +32,25 @@ Note that \code{uses_labels()} will match \code{\link{NULL}} if a label is expli
 require(ggplot2)
 
 p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
   geom_smooth() +
-  labs(x = "Weight", y = "MPG", color = NULL)
+  labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 
+# Unnamed arguments check if a label is set for the given aesthetic
+uses_labels(p, "title", "subtitle", "x", "y")
+
+# The check will return TRUE for labels set to NULL
+uses_labels(p, "color")
+
+# The check will return TRUE for aesthetics with default labels
+uses_labels(p, "shape")
+
+# Named arguments check if the label matches an expected value
 uses_labels(p, x = "Weight")
 uses_labels(p, x = "Weight", y = "MPG", color = NULL)
+
+# You can check for default labels with default_label()
+uses_labels(p, shape = default_label(), x = default_label())
 
 # The colo(u)r aesthetic can be matched with or without a u
 uses_labels(p, color = NULL)
@@ -47,6 +63,7 @@ uses_labels(p, !!!label_list)
 }
 \seealso{
 Other functions for checking labels: 
+\code{\link{default_label}()},
 \code{\link{get_labels}()}
 }
 \concept{functions for checking labels}

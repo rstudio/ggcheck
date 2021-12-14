@@ -21,12 +21,13 @@ Description: 'ggcheck' provides functions that inspect 'ggplot2' objects
 License: MIT + file LICENSE
 URL: https://github.com/rstudio/ggcheck
 BugReports: https://github.com/rstudio/ggcheck/issues
-Imports:
+Imports: 
+    ggplot2,
     gradethis (>= 0.2.4.9000),
     purrr,
-    rlang
-Suggests:
-    ggplot2,
+    rlang,
+    utils
+Suggests: 
     testthat
 Remotes: 
     rstudio/gradethis
