@@ -101,8 +101,7 @@ get_labels <- function(p, aes = NULL) {
 uses_labels <- function(p, ...) {
   stop_if_not_ggplot(p)
 
-  args <- rlang::flatten(rlang::dots_list(...))
-  args <- rlang::dots_list(!!!args, .homonyms = "error")
+  args <- capture_dots(...)
 
   if (length(args) == 0) {
     stop(
