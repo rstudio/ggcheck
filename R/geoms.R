@@ -102,9 +102,9 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
   }
 }
 
-#' Does a layer use a specific parameter?
+#' Does a layer use one of more specific parameters?
 #'
-#' \code{uses_geom_param} checks that a plot's geom layer uses a specific parameter.
+#' \code{uses_geom_params} checks that a plot's geom layer uses a specific parameter.
 #'
 #' To specify a specific geom layer, either specify using position using the \code{i} index or
 #' by using a combination of \code{geom} function suffix name and \code{i} to check the ith layer that
@@ -116,7 +116,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' aes parameter. For example, in \code{geom_histogram(binwidth = 500)}, the
 #' \code{binwidth} is a stat parameter, while in
 #' \code{geom_histogram(fill = "blue")}, the \code{fill} is an aes parameter.
-#' \code{uses_geom_param} will take this into account and check geom, stat, and
+#' \code{uses_geom_params} will take this into account and check geom, stat, and
 #' aes parameters.
 #'
 #' @param p A ggplot object
@@ -142,14 +142,14 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
 #'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
 #'
-#' uses_geom_param(
+#' uses_geom_params(
 #'   p, "boxplot", list(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
 #' )
 #'
-#' uses_geom_param(
+#' uses_geom_params(
 #'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
 #' )
-uses_geom_param <- function(p, geom, params = NULL, ..., i = NULL) {
+uses_geom_params <- function(p, geom, params = NULL, ..., i = NULL) {
   stop_if_not_ggplot(p)
 
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
@@ -171,6 +171,10 @@ uses_geom_param <- function(p, geom, params = NULL, ..., i = NULL) {
 
   purrr::map2_lgl(params, all_params[user_params], identical)
 }
+
+#' @rdname uses_geom_params
+#' @export
+uses_geom_param <- uses_geom_params
 
 #' Which geom is used in the ith layer?
 #'
