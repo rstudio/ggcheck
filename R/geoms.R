@@ -122,7 +122,13 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#' @param params A named list of geom or stat parameter values, e.g. \code{list(outlier.alpha = 0.01)}
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named values.
+#'   Each parameter should have a name matching a [ggplot][ggplot2::ggplot]
+#'   layer parameter and a value matching the expected label.
+#'   Named values may be passed as arguments or as list elements.
+#' @param params A named list of geom or stat parameter values, e.g.
+#'   \code{list(outlier.alpha = 0.01)}.
+#'   This list is combined with any inputs to `...`
 #' @param i A numerical index, e.g. \code{1}.
 #'
 #' @return A boolean
@@ -133,9 +139,13 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
 #'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01)
 #' uses_geom_param(p, geom = "boxplot", params = list(varwidth = TRUE, outlier.alpha = 0.01))
-uses_geom_param <- function(p, geom, params, i = NULL) {
+uses_geom_param <- function(p, geom, ..., params = NULL, i = NULL) {
   stop_if_not_ggplot(p)
+
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
+
+  params <- c(params, capture_dots(...))
+
   user_params <- names(params)
   # collect geom and stat parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
