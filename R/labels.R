@@ -94,7 +94,8 @@ get_labels <- function(p, aes = NULL) {
 #'   [aesthetic][ggplot2::aes] or [label][ggplot2::labs].
 #'   Strings may be input as individual arguments or as list elements.
 #'
-#' @return A logical vector of the same length as the number of inputs to `...`.
+#' @return A named logical vector of the same length as the number of inputs
+#'   to `...`.
 #'
 #' @family functions for checking labels
 #' @export

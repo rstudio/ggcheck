@@ -33,6 +33,7 @@
 #'
 #' @return A named logical vector of the same length as the number of inputs
 #'   to `...`.
+#' @family functions for checking geom parameters
 #' @export
 #'
 #' @examples
@@ -67,8 +68,13 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
 
   user_params[user_params == "color"] <- "colour"
 
-  # collect geom, stat, and aes parameters
+  # Collect geom, stat, and aes parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
+
+  # Add inherited default parameters
+  default_params <- default_params(p, geom)
+  inherited <- !names(default_params) %in% names(all_params)
+  all_params <- c(all_params, default_params[inherited])
 
   result[named] <- purrr::map2_lgl(
     params[named], all_params[user_params][named], identical
@@ -80,3 +86,91 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
 #' @rdname uses_geom_params
 #' @export
 uses_geom_param <- uses_geom_params
+
+#' What are the default parameters for a plot layer?
+#'
+#' @examples
+#' require(ggplot2)
+#'
+#' p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+#'   geom_smooth(aes(color = class))
+#'
+#' # Returns the parameters the ggplot would use by default for a layer
+#' default_params(p, "smooth", "linetype")
+#' default_params(p, "smooth", "se", "level")
+#' default_params(p, "smooth")
+#'
+#' # If a parameter does not exist, returns NULL
+#' default_params(p, "smooth", "shape")
+#'
+#' # The colo(u)r aesthetic can be matched with or without a u
+#' default_params(p, "smooth", "color")
+#' default_params(p, "smooth", "colour")
+#' @inheritParams uses_geom_params
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
+#'   [Character][character] strings.
+#'   `default_params()` returns the default parameter value with a name matching
+#'   each string passed to `...`.
+#'   If no arguments are passed to `...` (the default), the default values for
+#'   all parameters are returned.
+#'
+#' @return A named [list] of the same length as the number of inputs to `...`,
+#'   or, if `...` is empty, a named list of default values for all parameters
+#'   of `geom`.
+#' @family functions for checking geom parameters
+#' @export
+default_params <- function(p, geom, ..., i = NULL) {
+  UseMethod("default_params")
+}
+
+#' @export
+default_params.default <- function(p, geom, ..., i = NULL) {
+  if (!missing(p)) {
+    stop_if_not_ggplot()
+  }
+
+  structure(list(), class = c(".default_params", "ggcheck_placeholder"))
+}
+
+#' @export
+default_params.ggplot <- function(p, geom, ..., i = NULL) {
+  layer <- get_geom_layer(p, geom = geom, i = i)$layer
+
+  params <- capture_dots(...)
+
+  if (!all(is_scalar_string_or_null(params))) {
+    stop(
+      "All inputs to `...` must be character vectors of length 1 or `NULL`.",
+      call. = FALSE
+    )
+  }
+
+  params <- unlist(params)
+  names(params) <- params
+  params[params == "color"] <- "colour"
+
+  snake_class <- utils::getFromNamespace("snake_class", "ggplot2")
+
+  default_geom <- utils::getFromNamespace(snake_class(layer$geom), "ggplot2")()
+  default_stat <- utils::getFromNamespace(snake_class(layer$stat), "ggplot2")()
+
+  result <- c(
+    default_geom$geom$default_aes,
+    default_geom$geom_params,
+    default_geom$stat_params,
+    default_stat$geom$default_aes,
+    default_stat$geom_params,
+    default_stat$stat_params
+  )
+
+  # Remove duplicate entries
+  # (some params have the same default in geom_params and stat_params)
+  result <- result[unique(names(result))]
+
+  if (length(params)) {
+    result <- result[params]
+    names(result) <- names(params)
+  }
+
+  result
+}
