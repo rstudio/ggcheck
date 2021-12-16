@@ -68,6 +68,12 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   user_params         <- names(params)
   user_params[!named] <- as.character(params[!named])
 
+  default_params <- purrr::map_lgl(params, inherits, ".default_params")
+  params[default_params] <- purrr::map(
+    names(params)[default_params],
+    ~ unlist(unname(default_params(p, geom, ., i = i)))
+  )
+
   result        <- logical(length(params))
   names(result) <- user_params
 
@@ -79,10 +85,10 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   # Add inherited default parameters
   default_params <- default_params(p, geom)
   inherited <- !names(default_params) %in% names(all_params)
-  all_params <- c(all_params, default_params[inherited])
+  all_params_with_inherited <- c(all_params, default_params[inherited])
 
   result[named] <- purrr::map2_lgl(
-    params[named], all_params[user_params][named], identical
+    params[named], all_params_with_inherited[user_params][named], identical
   )
   result[!named] <- user_params[!named] %in% names(all_params)
   result
