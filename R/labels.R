@@ -188,7 +188,7 @@ default_label <- function(p, aes = NULL) {
 #' @export
 default_label.default <- function(p, aes = NULL) {
   if (!missing(p)) {
-    rlang::abort("`p` must be a `ggplot` object.")
+    stop_if_not_ggplot()
   }
 
   structure(list(), class = c(".default_label", "ggcheck_placeholder"))
