@@ -122,14 +122,13 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
-#' @param params A named list of geom or stat parameter values, e.g.
-#'   \code{list(outlier.alpha = 0.01)}.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named values.
 #'   Each parameter should have a name matching a [ggplot][ggplot2::ggplot]
 #'   layer parameter and a value matching the expected label.
-#'   This list is combined with any inputs to `...`
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Named values.
-#'   Input is combined with `params`.
 #'   Named values may be passed as arguments or as list elements.
+#' @param params A named list of geom or stat parameter values, e.g.
+#'   \code{list(outlier.alpha = 0.01)}.
+#'   This list is combined with any inputs to `...`
 #' @param i A numerical index, e.g. \code{1}.
 #'
 #' @return A named logical vector of the same length as the number of inputs
@@ -149,7 +148,7 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #' uses_geom_params(
 #'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
 #' )
-uses_geom_params <- function(p, geom, params = NULL, ..., i = NULL) {
+uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   stop_if_not_ggplot(p)
 
   layer <- get_geom_layer(p, geom = geom, i = i)$layer

@@ -5,9 +5,9 @@
 \alias{uses_geom_param}
 \title{Does a layer use one of more specific parameters?}
 \usage{
-uses_geom_params(p, geom, params = NULL, ..., i = NULL)
+uses_geom_params(p, geom, ..., params = NULL, i = NULL)
 
-uses_geom_param(p, geom, params = NULL, ..., i = NULL)
+uses_geom_param(p, geom, ..., params = NULL, i = NULL)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -15,15 +15,14 @@ uses_geom_param(p, geom, params = NULL, ..., i = NULL)
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
 
-\item{params}{A named list of geom or stat parameter values, e.g.
-\code{list(outlier.alpha = 0.01)}.
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named values.
 Each parameter should have a name matching a \link[ggplot2:ggplot]{ggplot}
 layer parameter and a value matching the expected label.
-This list is combined with any inputs to \code{...}}
-
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Named values.
-Input is combined with \code{params}.
 Named values may be passed as arguments or as list elements.}
+
+\item{params}{A named list of geom or stat parameter values, e.g.
+\code{list(outlier.alpha = 0.01)}.
+This list is combined with any inputs to \code{...}}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
