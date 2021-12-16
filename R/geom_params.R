@@ -15,6 +15,11 @@
 #' \code{uses_geom_params} will take this into account and check geom, stat, and
 #' aes parameters.
 #'
+#' Note that `uses_geom_params()` can detect aes _parameters_, but not aes
+#' _mappings_. Parameters are set directly within a layer (e.g.
+#' `geom_point(color = "blue")`), while mappings are set using
+#' [`aes()`][ggplot2::aes] (e.g. `geom_point(aes(color = class))`).
+#'
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.

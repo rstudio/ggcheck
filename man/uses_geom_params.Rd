@@ -50,6 +50,11 @@ aes parameter. For example, in \code{geom_histogram(binwidth = 500)}, the
 \code{geom_histogram(fill = "blue")}, the \code{fill} is an aes parameter.
 \code{uses_geom_params} will take this into account and check geom, stat, and
 aes parameters.
+
+Note that \code{uses_geom_params()} can detect aes \emph{parameters}, but not aes
+\emph{mappings}. Parameters are set directly within a layer (e.g.
+\code{geom_point(color = "blue")}), while mappings are set using
+\code{\link[ggplot2:aes]{aes()}} (e.g. \code{geom_point(aes(color = class))}).
 }
 \examples{
 require(ggplot2)
