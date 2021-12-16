@@ -19,7 +19,8 @@ Each argument should have a matching \link[ggplot2:ggplot]{ggplot}
 Strings may be input as individual arguments or as list elements.}
 }
 \value{
-A logical vector of the same length as the number of inputs to \code{...}.
+A named logical vector of the same length as the number of inputs
+to \code{...}.
 }
 \description{
 \code{uses_labels()} tests whether a plot uses one or more \link[ggplot2:labs]{labels}.

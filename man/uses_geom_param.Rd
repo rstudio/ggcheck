@@ -24,7 +24,8 @@ This list is combined with any inputs to \code{...}}
 \item{i}{A numerical index, e.g. \code{1}.}
 }
 \value{
-A boolean
+A named logical vector of the same length as the number of inputs
+to \code{...}.
 }
 \description{
 \code{uses_geom_param} checks that a plot's geom layer uses a specific parameter.

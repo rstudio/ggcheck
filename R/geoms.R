@@ -131,7 +131,8 @@ uses_geoms <- function(p, geoms, stats = NULL, exact = TRUE) {
 #'   This list is combined with any inputs to `...`
 #' @param i A numerical index, e.g. \code{1}.
 #'
-#' @return A boolean
+#' @return A named logical vector of the same length as the number of inputs
+#'   to `...`.
 #' @export
 #'
 #' @examples
@@ -147,7 +148,7 @@ uses_geom_param <- function(p, geom, ..., params = NULL, i = NULL) {
   params <- c(params, capture_dots(...))
 
   user_params <- names(params)
-  # collect geom and stat parameters
+  # collect geom, stat, and aes parameters
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
   p_params <- names(all_params)
   # check if user supplied invalid parameters
@@ -158,8 +159,8 @@ uses_geom_param <- function(p, geom, ..., params = NULL, i = NULL) {
       paste0("'", user_params[invalid_params], "'", collapse = ", "), " are invalid."
     )
   }
-  # check both the user parameters contained in plot's geom and stat parameters
-  identical(params, all_params[user_params])
+
+  purrr::map2_lgl(params, all_params[user_params], identical)
 }
 
 #' Which geom is used in the ith layer?
