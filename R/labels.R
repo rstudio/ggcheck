@@ -182,6 +182,8 @@ uses_labels <- function(p, ...) {
 #' @family functions for checking labels
 #' @export
 get_default_labels <- function(p, aes = NULL) {
+  stop_if_not_ggplot(p)
+
   if (is.null(aes)) {
     aes <- names(p$labels)
   }

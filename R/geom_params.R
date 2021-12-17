@@ -128,6 +128,8 @@ uses_geom_param <- uses_geom_params
 #' @family functions for checking geom parameters
 #' @export
 get_default_params <- function(p, geom, params = NULL, i = NULL) {
+  stop_if_not_ggplot(p)
+
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
 
   if (!is.character(params) && !is.null(params)) {
