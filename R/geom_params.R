@@ -20,6 +20,22 @@
 #' `geom_point(color = "blue")`), while mappings associate variables in the data with plot aesthetics using
 #' [`aes()`][ggplot2::aes] (e.g. `geom_point(aes(color = class))`).
 #'
+#' @examples
+#' require(ggplot2)
+#'
+#' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
+#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
+#'
+#' uses_geom_params(
+#'   p, "boxplot", list(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
+#' )
+#'
+#' uses_geom_params(
+#'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
+#' )
+#'
+#' # Unnamed arguments check that a parameter is set to any value
+#' uses_geom_params(p, "boxplot", "fill")
 #' @param p A ggplot object
 #' @param geom A character string found in the suffix of a ggplot2 geom function,
 #'  e.g. \code{"point"}.
@@ -40,23 +56,6 @@
 #'   to `...`.
 #' @family functions for checking geom parameters
 #' @export
-#'
-#' @examples
-#' require(ggplot2)
-#'
-#' p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
-#'   geom_boxplot(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
-#'
-#' uses_geom_params(
-#'   p, "boxplot", list(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
-#' )
-#'
-#' uses_geom_params(
-#'   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
-#' )
-#'
-#' # Unnamed arguments check that a parameter is set to any value
-#' uses_geom_params(p, "boxplot", "fill")
 uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   stop_if_not_ggplot(p)
 
