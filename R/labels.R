@@ -102,7 +102,7 @@ get_labels <- function(p, aes = NULL) {
 uses_labels <- function(p, ...) {
   stop_if_not_ggplot(p)
 
-  args <- capture_dots(...)
+  args <- flatten_dots(...)
 
   if (length(args) == 0) {
     stop(

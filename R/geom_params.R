@@ -62,7 +62,7 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
 
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
 
-  params <- c(params, capture_dots(...))
+  params <- c(params, flatten_dots(...))
   named  <- names(params) != ""
 
   user_params         <- names(params)
