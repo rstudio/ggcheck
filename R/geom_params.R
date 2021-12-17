@@ -16,8 +16,8 @@
 #' aes parameters.
 #'
 #' Note that `uses_geom_params()` can detect aes _parameters_, but not aes
-#' _mappings_. Parameters are set directly within a layer (e.g.
-#' `geom_point(color = "blue")`), while mappings are set using
+#' _mappings_. Parameters are set to static values directly within a layer (e.g.
+#' `geom_point(color = "blue")`), while mappings associate variables in the data with plot aesthetics using
 #' [`aes()`][ggplot2::aes] (e.g. `geom_point(aes(color = class))`).
 #'
 #' @param p A ggplot object
@@ -34,7 +34,7 @@
 #' @param params A named list of geom or stat parameter values, e.g.
 #'   \code{list(outlier.alpha = 0.01)}.
 #'   This list is combined with any inputs to `...`
-#' @param i A numerical index, e.g. \code{1}.
+#' @inheritParams get_geom_layer
 #'
 #' @return A named logical vector of the same length as the number of inputs
 #'   to `...`.
