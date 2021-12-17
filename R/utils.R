@@ -334,3 +334,9 @@ map_stat <- function(stat) {
     stat = stat_lookup$STAT[which(stat_lookup$stat == stat)]
   )
 }
+
+flatten_dots <- function(...) {
+  args <- rlang::flatten(rlang::dots_list(...))
+  args <- rlang::dots_list(!!!args, .homonyms = "error")
+  args
+}

@@ -73,4 +73,6 @@ reference:
 - title: Miscellaneous Helper Functions
   contents:
   - is_ggplot
+  - get_default_labels
+  - get_default_params
   - default_label

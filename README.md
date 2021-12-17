@@ -82,7 +82,8 @@ method and the confidence interval was not displayed:
 
 ``` r
 uses_geom_param(p, "smooth", list(se = FALSE, method = "lm"))
-#> [1] TRUE
+#>     se method 
+#>   TRUE   TRUE
 ```
 
 There’s a lot more that ggcheck can do. Read more in the [full function
