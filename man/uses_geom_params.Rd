@@ -52,8 +52,8 @@ aes parameter. For example, in \code{geom_histogram(binwidth = 500)}, the
 aes parameters.
 
 Note that \code{uses_geom_params()} can detect aes \emph{parameters}, but not aes
-\emph{mappings}. Parameters are set directly within a layer (e.g.
-\code{geom_point(color = "blue")}), while mappings are set using
+\emph{mappings}. Parameters are set to static values directly within a layer (e.g.
+\code{geom_point(color = "blue")}), while mappings associate variables in the data with plot aesthetics using
 \code{\link[ggplot2:aes]{aes()}} (e.g. \code{geom_point(aes(color = class))}).
 }
 \examples{
