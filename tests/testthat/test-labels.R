@@ -114,13 +114,13 @@ test_that("unnamed inputs", {
 
 test_that("default labels", {
   # Returns the label the ggplot would create by default for an aesthetic
-  expect_equal(default_label(p, "x"),     list(x     = "displ"))
-  expect_equal(default_label(p, "y"),     list(y     = "hwy"))
-  expect_equal(default_label(p, "color"), list(color = "class"))
-  expect_equal(default_label(p, "shape"), list(shape = "drv"))
+  expect_equal(get_default_labels(p, "x"),     list(x     = "displ"))
+  expect_equal(get_default_labels(p, "y"),     list(y     = "hwy"))
+  expect_equal(get_default_labels(p, "color"), list(color = "class"))
+  expect_equal(get_default_labels(p, "shape"), list(shape = "drv"))
 
   expect_equal(
-    default_label(p),
+    get_default_labels(p),
     list(
       x      = "displ",
       y      = "hwy",
@@ -132,14 +132,14 @@ test_that("default labels", {
   )
 
   # If an aesthetic does not exist, returns NULL
-  expect_equal(default_label(p, "size"), list(size = NULL))
+  expect_equal(get_default_labels(p, "size"), list(size = NULL))
 
   # If an aesthetic has no default, returns NULL
-  expect_equal(default_label(p, "title"), list(title = NULL))
+  expect_equal(get_default_labels(p, "title"), list(title = NULL))
 
   # The colo(u)r aesthetic can be matched with or without a u
-  expect_equal(default_label(p, "color"),  list(color  = "class"))
-  expect_equal(default_label(p, "colour"), list(colour = "class"))
+  expect_equal(get_default_labels(p, "color"),  list(color  = "class"))
+  expect_equal(get_default_labels(p, "colour"), list(colour = "class"))
 
   # Works with no arguments within `uses_labels()`
   expect_equal(

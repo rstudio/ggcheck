@@ -67,10 +67,10 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   user_params         <- names(params)
   user_params[!named] <- as.character(params[!named])
 
-  default_params <- purrr::map_lgl(params, inherits, ".default_params")
+  default_params <- purrr::map_lgl(params, inherits, ".default_param")
   params[default_params] <- purrr::map(
     names(params)[default_params],
-    ~ unlist(unname(default_params(p, geom, ., i = i)))
+    ~ unlist(unname(get_default_params(p, geom, ., i = i)))
   )
 
   result        <- logical(length(params))
@@ -82,9 +82,9 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
   all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
 
   # Add inherited default parameters
-  default_params <- default_params(p, geom)
-  inherited <- !names(default_params) %in% names(all_params)
-  all_params_with_inherited <- c(all_params, default_params[inherited])
+  get_default_params <- get_default_params(p, geom)
+  inherited <- !names(get_default_params) %in% names(all_params)
+  all_params_with_inherited <- c(all_params, get_default_params[inherited])
 
   result[named] <- purrr::map2_lgl(
     params[named], all_params_with_inherited[user_params][named], identical
@@ -106,20 +106,20 @@ uses_geom_param <- uses_geom_params
 #'   geom_smooth(aes(color = class))
 #'
 #' # Returns the parameters the ggplot would use by default for a layer
-#' default_params(p, "smooth", "linetype")
-#' default_params(p, "smooth", c("se", "level"))
-#' default_params(p, "smooth")
+#' get_default_params(p, "smooth", "linetype")
+#' get_default_params(p, "smooth", c("se", "level"))
+#' get_default_params(p, "smooth")
 #'
 #' # If a parameter does not exist, returns NULL
-#' default_params(p, "smooth", "shape")
+#' get_default_params(p, "smooth", "shape")
 #'
 #' # The colo(u)r aesthetic can be matched with or without a u
-#' default_params(p, "smooth", "color")
-#' default_params(p, "smooth", "colour")
+#' get_default_params(p, "smooth", "color")
+#' get_default_params(p, "smooth", "colour")
 #' @inheritParams uses_geom_params
 #' @param params A [character] vector.
-#'   `default_params()` returns the default parameter value with a name matching
-#'   each string in `params`.
+#'   `get_default_params()` returns the default parameter value with a name
+#'   matching each string in `params`.
 #'   If `params` is [`NULL`] (the default), the default values for
 #'   all parameters are returned.
 #'
@@ -127,21 +127,7 @@ uses_geom_param <- uses_geom_params
 #'   [`NULL`], a named list of default values for all parameters of `geom`.
 #' @family functions for checking geom parameters
 #' @export
-default_params <- function(p, geom, params = NULL, i = NULL) {
-  UseMethod("default_params")
-}
-
-#' @export
-default_params.default <- function(p, geom, params = NULL, i = NULL) {
-  if (!missing(p)) {
-    stop_if_not_ggplot()
-  }
-
-  structure(list(), class = c(".default_params", "ggcheck_placeholder"))
-}
-
-#' @export
-default_params.ggplot <- function(p, geom, params = NULL, i = NULL) {
+get_default_params <- function(p, geom, params = NULL, i = NULL) {
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
 
   if (!is.character(params) && !is.null(params)) {

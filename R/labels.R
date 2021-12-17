@@ -114,7 +114,7 @@ uses_labels <- function(p, ...) {
   default_labels <- purrr::map_lgl(args, inherits, ".default_label")
 
   args[default_labels] <- purrr::map(
-    names(args)[default_labels], ~ unlist(default_label(p, .))
+    names(args)[default_labels], ~ unlist(get_default_labels(p, .))
   )
 
   if (!all(is_scalar_string_or_null(args))) {
@@ -154,20 +154,20 @@ uses_labels <- function(p, ...) {
 #'   labs(title = "My plot", x = "Weight", y = "MPG", color = NULL)
 #'
 #' # Returns the label the ggplot would create by default for an aesthetic
-#' default_label(p, "x")
-#' default_label(p, c("x", "y"))
-#' default_label(p)
+#' get_default_labels(p, "x")
+#' get_default_labels(p, c("x", "y"))
+#' get_default_labels(p)
 #'
 #' # If an aesthetic does not exist, returns NULL
-#' default_label(p, "size")
+#' get_default_labels(p, "size")
 #'
 #' # Non-aesthetic labels have no default value, so they also return NULL
-#' default_label(p, "title")
-#' default_label(p, "comment")
+#' get_default_labels(p, "title")
+#' get_default_labels(p, "comment")
 #'
 #' # The colo(u)r aesthetic can be matched with or without a u
-#' default_label(p, "color")
-#' default_label(p, "colour")
+#' get_default_labels(p, "color")
+#' get_default_labels(p, "colour")
 #' @param p A [ggplot][ggplot2::ggplot] object
 #' @param aes If `aes` is a [character] vector, returns only the default labels
 #'   (based on the plot `p`) that correspond to the included aesthetics.
@@ -181,21 +181,7 @@ uses_labels <- function(p, ...) {
 #'
 #' @family functions for checking labels
 #' @export
-default_label <- function(p, aes = NULL) {
-  UseMethod("default_label")
-}
-
-#' @export
-default_label.default <- function(p, aes = NULL) {
-  if (!missing(p)) {
-    rlang::abort("`p` must be a `ggplot` object.")
-  }
-
-  structure(list(), class = c(".default_label", "ggcheck_placeholder"))
-}
-
-#' @export
-default_label.ggplot <- function(p, aes = NULL) {
+get_default_labels <- function(p, aes = NULL) {
   if (is.null(aes)) {
     aes <- names(p$labels)
   }

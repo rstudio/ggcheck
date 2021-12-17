@@ -192,25 +192,25 @@ test_that("Return FALSE when checking an invalid geom parameter", {
   )
 })
 
-test_that("default_params()", {
+test_that("get_default_params()", {
   expect_equal(
-    default_params(p, "point"),
+    get_default_params(p, "point"),
     list(
       shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA,
       stroke = 0.5, na.rm = FALSE
     )
   )
 
-  expect_equal(default_params(p, "point", "color"), list(color = "black"))
+  expect_equal(get_default_params(p, "point", "color"), list(color = "black"))
 
   expect_equal(
-    default_params(p, "smooth", c("se", "level")),
+    get_default_params(p, "smooth", c("se", "level")),
     list(se = TRUE, level = 0.95)
   )
 
   expect_equal(
     uses_geom_params(
-      p, "smooth", se = default_params(), level = default_params()
+      p, "smooth", se = default_param(), level = default_param()
     ),
     c(se = FALSE, level = TRUE)
   )
