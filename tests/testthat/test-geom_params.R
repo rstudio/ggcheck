@@ -204,12 +204,14 @@ test_that("default_params()", {
   expect_equal(default_params(p, "point", "color"), list(color = "black"))
 
   expect_equal(
-    default_params(p, "smooth", "se", "level"),
+    default_params(p, "smooth", c("se", "level")),
     list(se = TRUE, level = 0.95)
   )
 
   expect_equal(
-    uses_geom_params(p, "smooth", se = default_params(), level = default_params()),
+    uses_geom_params(
+      p, "smooth", se = default_params(), level = default_params()
+    ),
     c(se = FALSE, level = TRUE)
   )
 })

@@ -4,7 +4,7 @@
 \alias{default_params}
 \title{What are the default parameters for a plot layer?}
 \usage{
-default_params(p, geom, ..., i = NULL)
+default_params(p, geom, params = NULL, i = NULL)
 }
 \arguments{
 \item{p}{A ggplot object}
@@ -12,19 +12,17 @@ default_params(p, geom, ..., i = NULL)
 \item{geom}{A character string found in the suffix of a ggplot2 geom function,
 e.g. \code{"point"}.}
 
-\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}>
-\link[=character]{Character} strings.
+\item{params}{A \link{character} vector.
 \code{default_params()} returns the default parameter value with a name matching
-each string passed to \code{...}.
-If no arguments are passed to \code{...} (the default), the default values for
+each string in \code{params}.
+If \code{params} is \code{\link{NULL}} (the default), the default values for
 all parameters are returned.}
 
 \item{i}{A numerical index, e.g. \code{1}.}
 }
 \value{
-A named \link{list} of the same length as the number of inputs to \code{...},
-or, if \code{...} is empty, a named list of default values for all parameters
-of \code{geom}.
+A named \link{list} of the same length as \code{params}, or, if \code{params} is
+\code{\link{NULL}}, a named list of default values for all parameters of \code{geom}.
 }
 \description{
 What are the default parameters for a plot layer?
@@ -37,7 +35,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # Returns the parameters the ggplot would use by default for a layer
 default_params(p, "smooth", "linetype")
-default_params(p, "smooth", "se", "level")
+default_params(p, "smooth", c("se", "level"))
 default_params(p, "smooth")
 
 # If a parameter does not exist, returns NULL

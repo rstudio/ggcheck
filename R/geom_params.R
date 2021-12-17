@@ -108,7 +108,7 @@ uses_geom_param <- uses_geom_params
 #'
 #' # Returns the parameters the ggplot would use by default for a layer
 #' default_params(p, "smooth", "linetype")
-#' default_params(p, "smooth", "se", "level")
+#' default_params(p, "smooth", c("se", "level"))
 #' default_params(p, "smooth")
 #'
 #' # If a parameter does not exist, returns NULL
@@ -118,24 +118,22 @@ uses_geom_param <- uses_geom_params
 #' default_params(p, "smooth", "color")
 #' default_params(p, "smooth", "colour")
 #' @inheritParams uses_geom_params
-#' @param ... <[`dynamic-dots`][rlang::dyn-dots]>
-#'   [Character][character] strings.
+#' @param params A [character] vector.
 #'   `default_params()` returns the default parameter value with a name matching
-#'   each string passed to `...`.
-#'   If no arguments are passed to `...` (the default), the default values for
+#'   each string in `params`.
+#'   If `params` is [`NULL`] (the default), the default values for
 #'   all parameters are returned.
 #'
-#' @return A named [list] of the same length as the number of inputs to `...`,
-#'   or, if `...` is empty, a named list of default values for all parameters
-#'   of `geom`.
+#' @return A named [list] of the same length as `params`, or, if `params` is
+#'   [`NULL`], a named list of default values for all parameters of `geom`.
 #' @family functions for checking geom parameters
 #' @export
-default_params <- function(p, geom, ..., i = NULL) {
+default_params <- function(p, geom, params = NULL, i = NULL) {
   UseMethod("default_params")
 }
 
 #' @export
-default_params.default <- function(p, geom, ..., i = NULL) {
+default_params.default <- function(p, geom, params = NULL, i = NULL) {
   if (!missing(p)) {
     stop_if_not_ggplot()
   }
@@ -144,19 +142,16 @@ default_params.default <- function(p, geom, ..., i = NULL) {
 }
 
 #' @export
-default_params.ggplot <- function(p, geom, ..., i = NULL) {
+default_params.ggplot <- function(p, geom, params = NULL, i = NULL) {
   layer <- get_geom_layer(p, geom = geom, i = i)$layer
 
-  params <- capture_dots(...)
-
-  if (!all(is_scalar_string_or_null(params))) {
+  if (!is.character(params) && !is.null(params)) {
     stop(
-      "All inputs to `...` must be character vectors of length 1 or `NULL`.",
+      "`params` must be a character vector or `NULL`.",
       call. = FALSE
     )
   }
 
-  params <- unlist(params)
   names(params) <- params
   params[params == "color"] <- "colour"
 
