@@ -1,6 +1,6 @@
 Package: ggcheck
 Title: Inspect 'ggplot2' Plots for Automated Grading in Learning Exercises
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Garrick", "Aden-Buie", , "garrick@rstudio.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7111-0077")),
