@@ -2,8 +2,8 @@ pandoc: 2.16.2
 pkgdown: 2.0.1.9000
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-01-06T21:25Z
+last_built: 2022-01-06T22:28Z
 urls:
-  reference: https://pkgs.rstudio.com/ggcheck/reference
-  article: https://pkgs.rstudio.com/ggcheck/articles
+  reference: https://pkgs.rstudio.com/ggcheck/v0.0.2/reference
+  article: https://pkgs.rstudio.com/ggcheck/v0.0.2/articles
 
