@@ -1,5 +1,9 @@
 <!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
 
+# ggcheck 0.0.3 (2022-02-24)
+
+- Fixed a bug when `fail_if_not_ggplot()` attempted to access a `gradethis` `.result` object (#33)
+
 # ggcheck 0.0.2 (2021-12-22)
 
 ## New Features
