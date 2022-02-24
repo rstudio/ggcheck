@@ -70,12 +70,12 @@ fail_if_not_ggplot <- function(
   message = getOption("ggcheck.fail"),
   env = parent.frame()
 ) {
-  if (is_ggplot(p)) {
-    return(invisible(NULL))
-  }
-
   if (inherits(p, ".result")) {
     p <- get(".result", env)
+  }
+
+  if (is_ggplot(p)) {
+    return(invisible(NULL))
   }
 
   if (is.null(message)) {
