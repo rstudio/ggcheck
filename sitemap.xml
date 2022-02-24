@@ -1,102 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/404.html</loc>
   </url>
   <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/reference/get_coordinate_system.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/authors.html</loc>
   </url>
   <url>
-    <loc>/reference/get_data.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/index.html</loc>
   </url>
   <url>
-    <loc>/reference/get_geom_layer.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/get_geoms.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/default_label.html</loc>
   </url>
   <url>
-    <loc>/reference/get_geoms_stats.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_coordinate_system.html</loc>
   </url>
   <url>
-    <loc>/reference/get_mappings.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_data.html</loc>
   </url>
   <url>
-    <loc>/reference/get_stat_layer.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_default_labels.html</loc>
   </url>
   <url>
-    <loc>/reference/get_stats.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_default_params.html</loc>
   </url>
   <url>
-    <loc>/reference/identical_aes.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_geom_layer.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_geoms.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_data.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_geoms_stats.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_data_is.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_labels.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_geom.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_mappings.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_geom_is.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_stat_layer.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_geom_stat.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/get_stats.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_mappings.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ggcheck-package.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_mappings_use.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/identical_aes.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_stat.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/ith_stat_is.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/is_ggplot.html</loc>
   </url>
   <url>
-    <loc>/reference/n_layers.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_data.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_aesthetics.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_data_is.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_coordinate_system.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_geom.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_data.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_geom_is.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_extra_mappings.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_geom_stat.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_geom_param.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_mappings.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_geoms.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_mappings_use.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_mappings.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_stat.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_stat_param.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/ith_stat_is.html</loc>
   </url>
   <url>
-    <loc>/reference/uses_stats.html</loc>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/n_layers.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/reexports.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_aesthetics.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_coordinate_system.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_data.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_extra_mappings.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_geom_params.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_geoms.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_labels.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_mappings.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_stat_param.html</loc>
+  </url>
+  <url>
+    <loc>https://pkgs.rstudio.com/ggcheck/reference/uses_stats.html</loc>
   </url>
 </urlset>
