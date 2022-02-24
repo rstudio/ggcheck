@@ -18,7 +18,7 @@
       })(gradethis::mock_this_exercise(.user_code = "ggplot2::geom_point()"))
     Output
       <gradethis_graded: [Incorrect]
-        I expected your code to create a ggplot, but it created an object of
-        class "LayerInstance"
+        I expected your code to create an entire ggplot, but it only created
+        a ggplot layer (class "LayerInstance")
       >
 

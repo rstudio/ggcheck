@@ -79,10 +79,17 @@ fail_if_not_ggplot <- function(
   }
 
   if (is.null(message)) {
-    message <- paste0(
-      'I expected your code to create a ggplot, ',
-      'but it created an object of class "', class(p)[[1]], '"'
-    )
+    if (inherits(p, "LayerInstance")) {
+      message <- paste0(
+        'I expected your code to create an entire ggplot, ',
+        'but it only created a ggplot layer (class "', class(p)[[1]], '")'
+      )
+    } else {
+      message <- paste0(
+        'I expected your code to create a ggplot, ',
+        'but it created an object of class "', class(p)[[1]], '"'
+      )
+    }
   }
 
   gradethis::fail(message)
