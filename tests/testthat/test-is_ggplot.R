@@ -33,3 +33,26 @@ test_that("fail_if_not_ggplot", {
   expect_s3_class(fail_if_not_ggplot(p_invalid), "gradethis_graded")
   expect_false(fail_if_not_ggplot(p_invalid)$correct)
 })
+
+test_that("fail_if_not_ggplot() within mock_this_exercise()", {
+  # Should fail
+  expect_snapshot(
+    gradethis::grade_this({
+      fail_if_not_ggplot()
+    })(gradethis::mock_this_exercise(.user_code = "2"))
+  )
+
+  # Should fail
+  expect_snapshot(
+    gradethis::grade_this({
+      fail_if_not_ggplot()
+    })(gradethis::mock_this_exercise(.user_code = "ggplot2::geom_point()"))
+  )
+
+  # Should not fail
+  expect_null(
+    gradethis::grade_this({
+      fail_if_not_ggplot()
+    })(gradethis::mock_this_exercise(.user_code = "ggplot2::ggplot()"))
+  )
+})

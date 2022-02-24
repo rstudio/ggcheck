@@ -70,19 +70,26 @@ fail_if_not_ggplot <- function(
   message = getOption("ggcheck.fail"),
   env = parent.frame()
 ) {
-  if (is_ggplot(p)) {
-    return(invisible(NULL))
-  }
-
   if (inherits(p, ".result")) {
     p <- get(".result", env)
   }
 
+  if (is_ggplot(p)) {
+    return(invisible(NULL))
+  }
+
   if (is.null(message)) {
-    message <- paste0(
-      'I expected your code to create a ggplot, ',
-      'but it created an object of class "', class(p)[[1]], '"'
-    )
+    if (inherits(p, "LayerInstance")) {
+      message <- paste0(
+        'I expected your code to create an entire ggplot, ',
+        'but it only created a ggplot layer (class "', class(p)[[1]], '")'
+      )
+    } else {
+      message <- paste0(
+        'I expected your code to create a ggplot, ',
+        'but it created an object of class "', class(p)[[1]], '"'
+      )
+    }
   }
 
   gradethis::fail(message)
