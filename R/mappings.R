@@ -72,7 +72,18 @@ get_mappings <- function(p, local_only = FALSE) {
 
 #' @export
 get_mappings.ggplot <- function(p, local_only = FALSE) {
-  p$mapping
+  aes_map <- p$mapping
+
+  if (local_only) {
+    return(aes_map)
+  }
+
+  layer_maps <- purrr::map(p$layers, "mapping")
+  intersection <- intersect_with_attr(layer_maps)
+
+  aes_map <- c(aes_map, intersection)
+  class(aes_map) <- "uneval"
+  aes_map
 }
 
 #' @export

@@ -340,3 +340,24 @@ flatten_dots <- function(...) {
   args <- rlang::dots_list(!!!args, .homonyms = "error")
   args
 }
+
+intersect_with_attr <- function(.l, ...) {
+  list <- c(.l, list(...))
+  attr_list <- purrr::map(list, attr_list)
+
+  intersect <- purrr::reduce(attr_list, intersect)
+  indices <- match(intersect, attr_list[[1]])
+  list[[1]][indices]
+}
+
+attr_list <- function(x) {
+  strip_attr <- function(x) {
+    attributes(x) <- NULL
+    x
+  }
+
+  list <- purrr::pmap(
+    c(list(strip_attr(x)), attributes(x)),
+    list
+  )
+}
