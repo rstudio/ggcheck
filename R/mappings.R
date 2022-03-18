@@ -72,16 +72,25 @@ get_mappings <- function(p, local_only = FALSE) {
 
 #' @export
 get_mappings.ggplot <- function(p, local_only = FALSE) {
-  aes_map <- p$mapping
+  global_map <- p$mapping
 
   if (local_only) {
-    return(aes_map)
+    return(global_map)
   }
 
   layer_maps <- purrr::map(p$layers, "mapping")
-  intersection <- intersect_with_attr(layer_maps)
+  layer_names <- purrr::reduce(purrr::map(layer_maps, names), intersect)
+  layer_names <- purrr::set_names(layer_names)
 
-  aes_map <- c(aes_map, intersection)
+  layer_maps_ubiquitous <- purrr::map(layer_names, function(name) {
+    # If the aesthetic has the same value across all layers, return its
+    # value in the first layer; otherwise return NULL
+    if (all_identical(purrr::map(layer_maps, name))) {
+      layer_maps[[1]][[name]]
+    }
+  })
+
+  aes_map <- c(global_map, purrr::compact(layer_maps_ubiquitous))
   class(aes_map) <- "uneval"
   aes_map
 }
