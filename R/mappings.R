@@ -79,7 +79,17 @@ get_mappings.ggplot <- function(p, local_only = FALSE) {
   }
 
   layer_maps <- purrr::map(p$layers, "mapping")
+
+  if (length(layer_maps) < 1) {
+    return(global_map)
+  }
+
   layer_names <- purrr::reduce(purrr::map(layer_maps, names), intersect)
+
+  if (length(layer_names) < 1) {
+    return(global_map)
+  }
+
   layer_names <- purrr::set_names(layer_names)
 
   layer_maps_ubiquitous <- purrr::map(layer_names, function(name) {
