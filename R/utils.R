@@ -340,3 +340,17 @@ flatten_dots <- function(...) {
   args <- rlang::dots_list(!!!args, .homonyms = "error")
   args
 }
+
+all_identical <- function(.l) {
+  if (length(.l) < 2) {
+    return(TRUE)
+  }
+
+  for (i in seq_along(.l)[-1]) {
+    if (!identical(.l[[i - 1]], .l[[i]])) {
+      return(FALSE)
+    }
+  }
+
+  TRUE
+}
