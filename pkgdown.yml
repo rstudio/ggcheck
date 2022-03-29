@@ -2,7 +2,7 @@ pandoc: 2.14.2
 pkgdown: 2.0.2
 pkgdown_sha: ~
 articles: {}
-last_built: 2022-02-24T19:26Z
+last_built: 2022-03-29T20:59Z
 urls:
   reference: https://pkgs.rstudio.com/ggcheck/reference
   article: https://pkgs.rstudio.com/ggcheck/articles
