@@ -16,9 +16,9 @@ p2 <-
   labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
 p3 <-
-  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
-  geom_point(mapping = aes(color = class, shape = drv)) +
-  geom_smooth(mapping = aes(color = class), se = FALSE, method = lm) +
+  ggplot(data = mpg, mapping = aes(x = displ)) +
+  geom_point(mapping = aes(y = hwy, color = class, shape = drv)) +
+  geom_smooth(mapping = aes(y = hwy, color = drv), se = FALSE) +
   labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
 test_that("Identifies global mapping", {
@@ -32,20 +32,22 @@ test_that("Identifies global mapping", {
 test_that("Inherit local mappings that appear in all layers", {
   expect_equal(
     get_mappings(p3),
-    aes(x = displ, y = hwy, color = class),
+    aes(x = displ, y = hwy),
     ignore_formula_env = TRUE
   )
 
   expect_equal(
     get_mappings(p3, local_only = TRUE),
-    aes(x = displ, y = hwy),
+    aes(x = displ),
     ignore_formula_env = TRUE
   )
 
   expect_true(uses_mappings(p3, aes(x = displ)))
   expect_true(uses_mappings(p3, aes(x = displ), local_only = TRUE))
-  expect_true(uses_mappings(p3, aes(color = class)))
-  expect_false(uses_mappings(p3, aes(color = class), local_only = TRUE))
+  expect_true(uses_mappings(p3, aes(y = hwy)))
+  expect_false(uses_mappings(p3, aes(y = hwy), local_only = TRUE))
+  expect_false(uses_mappings(p3, aes(color = class)))
+  expect_false(uses_mappings(p3, aes(color = drv)))
   expect_false(uses_mappings(p3, aes(shape = drv)))
 })
 
