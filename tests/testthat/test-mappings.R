@@ -42,12 +42,16 @@ test_that("Inherit local mappings that appear in all layers", {
     ignore_formula_env = TRUE
   )
 
+  # `x` is mapped globally in `ggplot()`
   expect_true(uses_mappings(p3, aes(x = displ)))
   expect_true(uses_mappings(p3, aes(x = displ), local_only = TRUE))
+  # `y` is mapped locally to the same value in each layer
   expect_true(uses_mappings(p3, aes(y = hwy)))
   expect_false(uses_mappings(p3, aes(y = hwy), local_only = TRUE))
+  # `color` is mapped locally to different values in each layer
   expect_false(uses_mappings(p3, aes(color = class)))
   expect_false(uses_mappings(p3, aes(color = drv)))
+  # `shape` is only mapped in one layer
   expect_false(uses_mappings(p3, aes(shape = drv)))
 })
 
