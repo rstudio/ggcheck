@@ -15,12 +15,38 @@ p2 <-
   geom_smooth(se = FALSE) +
   labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
 
+p3 <-
+  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class, shape = drv)) +
+  geom_smooth(mapping = aes(color = class), se = FALSE, method = lm) +
+  labs(title = "TITLE", subtitle = "SUBTITLE", caption = "CAPTION")
+
 test_that("Identifies global mapping", {
   expect_equal(
     get_mappings(p),
     aes(x = displ, y = hwy),
     ignore_formula_env = TRUE
   )
+})
+
+test_that("Inherit local mappings that appear in all layers", {
+  expect_equal(
+    get_mappings(p3),
+    aes(x = displ, y = hwy, color = class),
+    ignore_formula_env = TRUE
+  )
+
+  expect_equal(
+    get_mappings(p3, local_only = TRUE),
+    aes(x = displ, y = hwy),
+    ignore_formula_env = TRUE
+  )
+
+  expect_true(uses_mappings(p3, aes(x = displ)))
+  expect_true(uses_mappings(p3, aes(x = displ), local_only = TRUE))
+  expect_true(uses_mappings(p3, aes(color = class)))
+  expect_false(uses_mappings(p3, aes(color = class), local_only = TRUE))
+  expect_false(uses_mappings(p3, aes(shape = drv)))
 })
 
 test_that("Checks whether mappings are used globally", {
