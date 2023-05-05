@@ -10,6 +10,8 @@
 #'
 #' @examples
 #' library(ggplot2)
+#' library(ggcheck)
+#' library(gradethis)
 #'
 #' cty_plot <- ggplot(mpg, aes(x = displ, y = cty)) + geom_point()
 #' hwy_plot <- ggplot(mpg, aes(x = displ, y = cty)) + geom_point()
