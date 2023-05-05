@@ -1,4 +1,3 @@
-
 #' List the stats used by a plot
 #'
 #' \code{get_stats} returns a vector of stats names, written as character

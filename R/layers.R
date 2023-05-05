@@ -1,4 +1,3 @@
-
 #' How many layers are in a plot?
 #'
 #' @param p A ggplot object

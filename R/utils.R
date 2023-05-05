@@ -1,4 +1,3 @@
-
 # ggplot2 default mappings from a `geom_` function suffix to geom and stat class names when
 # creating a layer using a `geom_` function.
 # NOTE: this could be dynamically generated as well but would require extra dependency of {sf} package
