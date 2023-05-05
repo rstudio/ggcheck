@@ -76,4 +76,4 @@ reference:
   - get_default_labels
   - get_default_params
   - default_label
-  - gradethis_equal
+  - gradethis_equal.ggplot
