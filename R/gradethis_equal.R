@@ -17,7 +17,7 @@
 #' gradethis_equal(cty_plot, hwy_plot)
 #' gradethis_equal(cty_plot, cty_plot)
 gradethis_equal.ggplot <- function(x, y, ...) {
-  try(ggplot_build(x), silent = TRUE)
-  try(ggplot_build(y), silent = TRUE)
+  try(ggplot2::ggplot_build(x), silent = TRUE)
+  try(ggplot2::ggplot_build(y), silent = TRUE)
   NextMethod()
 }
