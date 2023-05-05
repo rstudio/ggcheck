@@ -48,7 +48,7 @@ p <-
   geom_smooth(se = FALSE, method = "lm")
 
 p
-#> `geom_smooth()` using formula 'y ~ x'
+#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
 <img src="man/figures/README-expected-plot-1.png" width="100%" />
