@@ -30,7 +30,7 @@ Imports:
 Suggests: 
     testthat
 Remotes: 
-    rstudio/gradethis#346
+    rstudio/gradethis
 Config/Needs/learnr: rstudio/learnr, rstudio/gradethis
 Config/Needs/website: pkgdown, tidyverse/tidytemplate
 Config/testthat/edition: 3
