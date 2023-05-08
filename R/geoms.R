@@ -1,4 +1,3 @@
-
 #' List the geoms used by a plot
 #'
 #' \code{get_geoms} returns a vector of geom names, written as character
