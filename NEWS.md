@@ -1,4 +1,6 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+# ggcheck 0.0.5
+
+
 
 # ggcheck 0.0.4 (2022-04-14)
 
