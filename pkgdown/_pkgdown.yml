@@ -1,6 +1,6 @@
 destination: reference
 
-url: https://pkgs.rstudio.com/ggcheck
+url: https://rstudio.github.io/ggcheck
 
 template:
   package: tidytemplate
@@ -33,7 +33,7 @@ home:
   - text: Learn more about learnr
     href: "https://rstudio.github.io/learnr"
   - text: Learn more about gradethis
-    href: "https://pkgs.rstudio.com/gradethis"
+    href: "https://rstudio.github.io/gradethis"
 
 navbar:
   structure:

@@ -1,7 +1,7 @@
 The primary goal of ggcheck is to help tutorial authors inspect and test properties of [ggplot2] plots.
 The examples below demonstrate how ggcheck can be used in general;
 for more information about using gradethis in learnr tutorials,
-please see the [gradethis package documentation](https://pkgs.rstudio.com/gradethis/).
+please see the [gradethis package documentation](https://rstudio.github.io/gradethis/).
 
 Suppose an exercise asks students to create the following plot
 of engine displacement vs highway miles per gallon ratings.

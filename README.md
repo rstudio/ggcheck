@@ -15,7 +15,7 @@ ggcheck provides functions that inspect
 [ggplot2](https://ggplot2.tidyverse.org) objects to make it easier for
 teachers to check that student plots meet expectations. Designed
 primarily for automated grading via
-[gradethis](https://pkgs.rstudio.com/gradethis) in interactive
+[gradethis](https://rstudio.github.io/gradethis) in interactive
 [learnr](https://rstudio.github.io/learnr/) tutorials.
 
 ## Installation
@@ -34,7 +34,7 @@ The primary goal of ggcheck is to help tutorial authors inspect and test
 properties of [ggplot2](https://ggplot2.tidyverse.org) plots. The
 examples below demonstrate how ggcheck can be used in general; for more
 information about using gradethis in learnr tutorials, please see the
-[gradethis package documentation](https://pkgs.rstudio.com/gradethis/).
+[gradethis package documentation](https://rstudio.github.io/gradethis/).
 
 Suppose an exercise asks students to create the following plot of engine
 displacement vs highway miles per gallon ratings.
