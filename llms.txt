@@ -1,0 +1,204 @@
+# ggcheck
+
+ggcheck provides functions that inspect
+[ggplot2](https://ggplot2.tidyverse.org) objects to make it easier for
+teachers to check that student plots meet expectations. Designed
+primarily for automated grading via
+[gradethis](https://rstudio.github.io/gradethis) in interactive
+[learnr](https://rstudio.github.io/learnr/) tutorials.
+
+## Installation
+
+You can install ggcheck from
+[GitHub](https://github.com/rstudio/ggcheck) with:
+
+``` r
+
+# install.packages("remotes")
+remotes::install_github("rstudio/ggcheck")
+```
+
+## Usage
+
+The primary goal of ggcheck is to help tutorial authors inspect and test
+properties of [ggplot2](https://ggplot2.tidyverse.org) plots. The
+examples below demonstrate how ggcheck can be used in general; for more
+information about using gradethis in learnr tutorials, please see the
+[gradethis package documentation](https://rstudio.github.io/gradethis/).
+
+Suppose an exercise asks students to create the following plot of engine
+displacement vs highway miles per gallon ratings.
+
+``` r
+
+library(ggplot2)
+
+p <-
+  ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = class)) +
+  geom_smooth(se = FALSE, method = "lm")
+
+p
+#> `geom_smooth()` using formula = 'y ~ x'
+```
+
+![](reference/figures/README-expected-plot-1.png)
+
+We can use ggcheck to test that students used
+[`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+``` r
+
+library(ggcheck)
+#> 
+#> Attaching package: 'ggcheck'
+#> The following object is masked from 'package:ggplot2':
+#> 
+#>     is_ggplot
+
+uses_geoms(p, "point", exact = FALSE)
+#> [1] TRUE
+```
+
+or that both
+[`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+and
+[`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)
+were used
+
+``` r
+
+uses_geoms(p, c("point", "smooth"), exact = FALSE)
+#> [1] TRUE
+```
+
+or that exactly both
+[`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+and
+[`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html)
+were used and in that order.
+
+``` r
+
+uses_geoms(p, c("point", "smooth"), exact = TRUE)
+#> [1] TRUE
+```
+
+Similarly, we can test that a linear model was used for the smoothing
+method and the confidence interval was not displayed:
+
+``` r
+
+uses_geom_param(p, "smooth", list(se = FALSE, method = "lm"))
+#>     se method 
+#>   TRUE   TRUE
+```
+
+There’s a lot more that ggcheck can do. Read more in the [full function
+listing](https://rstudio.github.io/ggcheck/).
+
+## Code of Conduct
+
+Please note that the tblcheck project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+# Package index
+
+## Get Plot Components
+
+- [`get_coordinate_system()`](https://rstudio.github.io/ggcheck/reference/get_coordinate_system.md)
+  : Which coordinate system does a plot use?
+- [`get_data()`](https://rstudio.github.io/ggcheck/reference/get_data.md)
+  : Get the data set used by a plot or layer
+- [`get_default_labels()`](https://rstudio.github.io/ggcheck/reference/get_default_labels.md)
+  : What is the default label for a plot aesthetic?
+- [`get_default_params()`](https://rstudio.github.io/ggcheck/reference/get_default_params.md)
+  : What are the default parameters for a plot layer?
+- [`get_geom_layer()`](https://rstudio.github.io/ggcheck/reference/get_geom_layer.md)
+  : Isolate a geom layer from a plot
+- [`get_geoms()`](https://rstudio.github.io/ggcheck/reference/get_geoms.md)
+  : List the geoms used by a plot
+- [`get_geoms_stats()`](https://rstudio.github.io/ggcheck/reference/get_geoms_stats.md)
+  : List the geom and stat combination used by all layers of a plot.
+- [`get_labels()`](https://rstudio.github.io/ggcheck/reference/get_labels.md)
+  : List the labels used by a plot
+- [`get_mappings()`](https://rstudio.github.io/ggcheck/reference/get_mappings.md)
+  : Get aesthetic mappings from a layer or plot
+- [`get_stat_layer()`](https://rstudio.github.io/ggcheck/reference/get_stat_layer.md)
+  : Isolate a stat layer from a plot
+- [`get_stats()`](https://rstudio.github.io/ggcheck/reference/get_stats.md)
+  : List the stats used by a plot
+
+## Locate Components by Layer
+
+- [`n_layers()`](https://rstudio.github.io/ggcheck/reference/n_layers.md)
+  : How many layers are in a plot?
+- [`ith_data()`](https://rstudio.github.io/ggcheck/reference/ith_data.md)
+  : Which data set does the ith layer use?
+- [`ith_data_is()`](https://rstudio.github.io/ggcheck/reference/ith_data_is.md)
+  : Does the ith layer use the correct data set?
+- [`ith_geom()`](https://rstudio.github.io/ggcheck/reference/ith_geom.md)
+  : Which geom is used in the ith layer?
+- [`ith_geom_is()`](https://rstudio.github.io/ggcheck/reference/ith_geom_is.md)
+  : Is the ith geom what it should be?
+- [`ith_geom_stat()`](https://rstudio.github.io/ggcheck/reference/ith_geom_stat.md)
+  : Which geom/stat combination is used in the ith layer?
+- [`ith_mappings()`](https://rstudio.github.io/ggcheck/reference/ith_mappings.md)
+  : Return the aesthetic mappings used by the ith layer
+- [`ith_mappings_use()`](https://rstudio.github.io/ggcheck/reference/ith_mappings_use.md)
+  : Does the ith layer use one or more aesthetic mappings?
+- [`ith_stat()`](https://rstudio.github.io/ggcheck/reference/ith_stat.md)
+  : Which stat is used in the ith layer?
+- [`ith_stat_is()`](https://rstudio.github.io/ggcheck/reference/ith_stat_is.md)
+  : Is the ith stat what it should be?
+
+## Test that a Plot Uses a Component
+
+- [`identical_aes()`](https://rstudio.github.io/ggcheck/reference/identical_aes.md)
+  : Are aesthetic mapping specifications "identical"?
+- [`uses_aesthetics()`](https://rstudio.github.io/ggcheck/reference/uses_aesthetics.md)
+  : Does a plot use one or more aesthetics?
+- [`uses_coordinate_system()`](https://rstudio.github.io/ggcheck/reference/uses_coordinate_system.md)
+  : Does a plot use the correct coordinate system?
+- [`uses_data()`](https://rstudio.github.io/ggcheck/reference/uses_data.md)
+  : Does a plot or layer use the correct data set?
+- [`uses_extra_mappings()`](https://rstudio.github.io/ggcheck/reference/uses_extra_mappings.md)
+  : Does the plot uses extra aesthetic mappings?
+- [`uses_geom_params()`](https://rstudio.github.io/ggcheck/reference/uses_geom_params.md)
+  [`uses_geom_param()`](https://rstudio.github.io/ggcheck/reference/uses_geom_params.md)
+  : Does a layer use one of more specific parameters?
+- [`uses_geoms()`](https://rstudio.github.io/ggcheck/reference/uses_geoms.md)
+  : Does a plot use one or more geoms?
+- [`uses_labels()`](https://rstudio.github.io/ggcheck/reference/uses_labels.md)
+  : Does a plot use one or more labels?
+- [`uses_mappings()`](https://rstudio.github.io/ggcheck/reference/uses_mappings.md)
+  : Does a plot or layer use one or more mappings?
+- [`uses_stat_param()`](https://rstudio.github.io/ggcheck/reference/uses_stat_param.md)
+  : Does a layer use a specific stat parameter?
+- [`uses_stats()`](https://rstudio.github.io/ggcheck/reference/uses_stats.md)
+  : Does a plot use one or more stats?
+
+## Miscellaneous Helper Functions
+
+- [`is_ggplot()`](https://rstudio.github.io/ggcheck/reference/is_ggplot.md)
+  [`stop_if_not_ggplot()`](https://rstudio.github.io/ggcheck/reference/is_ggplot.md)
+  [`fail_if_not_ggplot()`](https://rstudio.github.io/ggcheck/reference/is_ggplot.md)
+  : Check if an object is a ggplot
+
+- [`get_default_labels()`](https://rstudio.github.io/ggcheck/reference/get_default_labels.md)
+  : What is the default label for a plot aesthetic?
+
+- [`get_default_params()`](https://rstudio.github.io/ggcheck/reference/get_default_params.md)
+  : What are the default parameters for a plot layer?
+
+- [`default_label()`](https://rstudio.github.io/ggcheck/reference/default_label.md)
+  [`default_param()`](https://rstudio.github.io/ggcheck/reference/default_label.md)
+  : Placeholders for default values
+
+- [`gradethis_equal(`*`<ggplot>`*`)`](https://rstudio.github.io/ggcheck/reference/gradethis_equal.ggplot.md)
+  :
+
+  Compare two `ggplot`s to check whether they are equal
+
