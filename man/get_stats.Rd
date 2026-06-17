@@ -25,9 +25,9 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 get_stats(p)
 }
 \seealso{
-Other functions for checking stats: 
-\code{\link{ith_stat_is}()},
-\code{\link{ith_stat}()},
-\code{\link{uses_stats}()}
+Other functions for checking stats:
+\code{\link[=ith_stat]{ith_stat()}},
+\code{\link[=ith_stat_is]{ith_stat_is()}},
+\code{\link[=uses_stats]{uses_stats()}}
 }
 \concept{functions for checking stats}

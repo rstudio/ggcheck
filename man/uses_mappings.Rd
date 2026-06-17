@@ -39,10 +39,10 @@ uses_mappings(get_geom_layer(p, i = 1), aes(x = displ, color = class), local_onl
 uses_mappings(p, aes(x = displ, y = hwy), exact = TRUE)
 }
 \seealso{
-Other functions for checking mappings: 
-\code{\link{get_mappings}()},
-\code{\link{identical_aes}()},
-\code{\link{ith_mappings_use}()},
-\code{\link{ith_mappings}()}
+Other functions for checking mappings:
+\code{\link[=get_mappings]{get_mappings()}},
+\code{\link[=identical_aes]{identical_aes()}},
+\code{\link[=ith_mappings]{ith_mappings()}},
+\code{\link[=ith_mappings_use]{ith_mappings_use()}}
 }
 \concept{functions for checking mappings}

@@ -46,7 +46,7 @@ get_default_params(p, "smooth", "color")
 get_default_params(p, "smooth", "colour")
 }
 \seealso{
-Other functions for checking geom parameters: 
-\code{\link{uses_geom_params}()}
+Other functions for checking geom parameters:
+\code{\link[=uses_geom_params]{uses_geom_params()}}
 }
 \concept{functions for checking geom parameters}

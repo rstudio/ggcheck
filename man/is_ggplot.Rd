@@ -32,7 +32,7 @@ object; otherwise it returns \code{\link{FALSE}}.
 \code{stop_if_not_ggplot()} returns an error if \code{p} is not a
 \link[ggplot2:ggplot]{ggplot} object; other it invisibly returns \code{\link{NULL}}.
 
-\code{fail_if_not_ggplot()} returns a \link[gradethis:graded]{failing grade} if \code{p} is
+\code{fail_if_not_ggplot()} returns a \link[gradethis:fail]{failing grade} if \code{p} is
 not a \link[ggplot2:ggplot]{ggplot} object; other it invisibly returns \code{\link{NULL}}.
 }
 \description{
@@ -41,7 +41,7 @@ not a \link[ggplot2:ggplot]{ggplot} object; other it invisibly returns \code{\li
 \code{stop_if_not_ggplot()} signals an error if an object is not
 a \link[ggplot2:ggplot]{ggplot}.
 
-\code{fail_if_not_ggplot()} returns a \link[gradethis:graded]{failing grade} if an
+\code{fail_if_not_ggplot()} returns a \link[gradethis:fail]{failing grade} if an
 object is not a \link[ggplot2:ggplot]{ggplot}.
 }
 \examples{

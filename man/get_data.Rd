@@ -43,9 +43,9 @@ get_data(p)
 get_data(get_geom_layer(p, i = 1))
 }
 \seealso{
-Other functions for checking data: 
-\code{\link{ith_data_is}()},
-\code{\link{ith_data}()},
-\code{\link{uses_data}()}
+Other functions for checking data:
+\code{\link[=ith_data]{ith_data()}},
+\code{\link[=ith_data_is]{ith_data_is()}},
+\code{\link[=uses_data]{uses_data()}}
 }
 \concept{functions for checking data}

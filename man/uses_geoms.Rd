@@ -11,7 +11,7 @@ uses_geoms(p, geoms, stats = NULL, exact = TRUE)
 
 \item{geoms}{A vector of character strings. Each element should correspond to
 the suffix of a ggplot2 \code{geom_} function, e.g. \code{c("point",
-  "line", "smooth")}.}
+"line", "smooth")}.}
 
 \item{stats}{A character vector to optionally check for the stats corresponding to geoms
 e.g. c("identity", "smooth") if checking c("point", "smooth")}
@@ -40,11 +40,11 @@ uses_geoms(p, geoms = c("point", "smooth"), exact = TRUE)
 uses_geoms(p, geoms = c("point", "smooth"), stats = c("identity", "smooth"))
 }
 \seealso{
-Other functions for checking geoms: 
-\code{\link{get_geoms_stats}()},
-\code{\link{get_geoms}()},
-\code{\link{ith_geom_is}()},
-\code{\link{ith_geom_stat}()},
-\code{\link{ith_geom}()}
+Other functions for checking geoms:
+\code{\link[=get_geoms]{get_geoms()}},
+\code{\link[=get_geoms_stats]{get_geoms_stats()}},
+\code{\link[=ith_geom]{ith_geom()}},
+\code{\link[=ith_geom_is]{ith_geom_is()}},
+\code{\link[=ith_geom_stat]{ith_geom_stat()}}
 }
 \concept{functions for checking geoms}

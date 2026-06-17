@@ -29,9 +29,9 @@ p <- ggplot(data = diamonds, aes(sample = price)) +
 ith_stat_is(p, i = 1, "qq")
 }
 \seealso{
-Other functions for checking stats: 
-\code{\link{get_stats}()},
-\code{\link{ith_stat}()},
-\code{\link{uses_stats}()}
+Other functions for checking stats:
+\code{\link[=get_stats]{get_stats()}},
+\code{\link[=ith_stat]{ith_stat()}},
+\code{\link[=uses_stats]{uses_stats()}}
 }
 \concept{functions for checking stats}

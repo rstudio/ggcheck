@@ -40,10 +40,10 @@ get_mappings(p)
 get_mappings(get_geom_layer(p, i = 1), local_only = FALSE)
 }
 \seealso{
-Other functions for checking mappings: 
-\code{\link{identical_aes}()},
-\code{\link{ith_mappings_use}()},
-\code{\link{ith_mappings}()},
-\code{\link{uses_mappings}()}
+Other functions for checking mappings:
+\code{\link[=identical_aes]{identical_aes()}},
+\code{\link[=ith_mappings]{ith_mappings()}},
+\code{\link[=ith_mappings_use]{ith_mappings_use()}},
+\code{\link[=uses_mappings]{uses_mappings()}}
 }
 \concept{functions for checking mappings}

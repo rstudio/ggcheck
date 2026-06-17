@@ -43,9 +43,9 @@ uses_data(p, mpg)
 uses_data(get_geom_layer(p, i = 1), data = head(mpg))
 }
 \seealso{
-Other functions for checking data: 
-\code{\link{get_data}()},
-\code{\link{ith_data_is}()},
-\code{\link{ith_data}()}
+Other functions for checking data:
+\code{\link[=get_data]{get_data()}},
+\code{\link[=ith_data]{ith_data()}},
+\code{\link[=ith_data_is]{ith_data_is()}}
 }
 \concept{functions for checking data}

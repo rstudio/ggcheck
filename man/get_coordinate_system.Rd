@@ -25,7 +25,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 get_coordinate_system(p)
 }
 \seealso{
-Other functions for checking coordinate systems: 
-\code{\link{uses_coordinate_system}()}
+Other functions for checking coordinate systems:
+\code{\link[=uses_coordinate_system]{uses_coordinate_system()}}
 }
 \concept{functions for checking coordinate systems}
