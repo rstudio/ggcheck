@@ -27,11 +27,11 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 ith_geom(p, i = 2)
 }
 \seealso{
-Other functions for checking geoms: 
-\code{\link{get_geoms_stats}()},
-\code{\link{get_geoms}()},
-\code{\link{ith_geom_is}()},
-\code{\link{ith_geom_stat}()},
-\code{\link{uses_geoms}()}
+Other functions for checking geoms:
+\code{\link[=get_geoms]{get_geoms()}},
+\code{\link[=get_geoms_stats]{get_geoms_stats()}},
+\code{\link[=ith_geom_is]{ith_geom_is()}},
+\code{\link[=ith_geom_stat]{ith_geom_stat()}},
+\code{\link[=uses_geoms]{uses_geoms()}}
 }
 \concept{functions for checking geoms}

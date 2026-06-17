@@ -23,6 +23,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Garrick Aden-Buie \email{garrick@rstudio.com} (\href{https://orcid.org/0000-0002-7111-0077}{ORCID})
   \item Garrett Grolemund \email{garrett@rstudio.com} (\href{https://orcid.org/0000-0002-7765-6011}{ORCID}) [conceptor]
   \item Nischal Shrestha \email{nsrocker92@gmail.com} (\href{https://orcid.org/0000-0003-3321-1712}{ORCID})
 }

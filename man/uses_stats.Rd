@@ -37,9 +37,9 @@ uses_stats(p, stats = c("identity", "smooth"), exact = TRUE)
 uses_stats(p, c("smooth", "identity"), geoms = c("smooth", "point"))
 }
 \seealso{
-Other functions for checking stats: 
-\code{\link{get_stats}()},
-\code{\link{ith_stat_is}()},
-\code{\link{ith_stat}()}
+Other functions for checking stats:
+\code{\link[=get_stats]{get_stats()}},
+\code{\link[=ith_stat]{ith_stat()}},
+\code{\link[=ith_stat_is]{ith_stat_is()}}
 }
 \concept{functions for checking stats}

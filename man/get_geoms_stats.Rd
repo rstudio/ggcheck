@@ -24,11 +24,11 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 get_geoms_stats(p)
 }
 \seealso{
-Other functions for checking geoms: 
-\code{\link{get_geoms}()},
-\code{\link{ith_geom_is}()},
-\code{\link{ith_geom_stat}()},
-\code{\link{ith_geom}()},
-\code{\link{uses_geoms}()}
+Other functions for checking geoms:
+\code{\link[=get_geoms]{get_geoms()}},
+\code{\link[=ith_geom]{ith_geom()}},
+\code{\link[=ith_geom_is]{ith_geom_is()}},
+\code{\link[=ith_geom_stat]{ith_geom_stat()}},
+\code{\link[=uses_geoms]{uses_geoms()}}
 }
 \concept{functions for checking geoms}

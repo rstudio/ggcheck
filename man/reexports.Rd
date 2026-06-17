@@ -11,6 +11,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{gradethis}{\code{\link[gradethis:grade_this-objects]{.result}}}
+  \item{gradethis}{\code{\link[gradethis:.result]{.result}}}
 }}
 

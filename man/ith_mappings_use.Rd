@@ -48,10 +48,10 @@ ith_mappings_use(p, i = 1, aes(x = displ), local_only = TRUE)
 ith_mappings_use(p, i = 2, aes(x = displ, y = hwy), local_only = FALSE)
 }
 \seealso{
-Other functions for checking mappings: 
-\code{\link{get_mappings}()},
-\code{\link{identical_aes}()},
-\code{\link{ith_mappings}()},
-\code{\link{uses_mappings}()}
+Other functions for checking mappings:
+\code{\link[=get_mappings]{get_mappings()}},
+\code{\link[=identical_aes]{identical_aes()}},
+\code{\link[=ith_mappings]{ith_mappings()}},
+\code{\link[=uses_mappings]{uses_mappings()}}
 }
 \concept{functions for checking mappings}

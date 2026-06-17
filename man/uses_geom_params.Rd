@@ -74,7 +74,7 @@ uses_geom_params(
 uses_geom_params(p, "boxplot", "fill")
 }
 \seealso{
-Other functions for checking geom parameters: 
-\code{\link{get_default_params}()}
+Other functions for checking geom parameters:
+\code{\link[=get_default_params]{get_default_params()}}
 }
 \concept{functions for checking geom parameters}

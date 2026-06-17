@@ -25,10 +25,10 @@ two specifications contain identical expressions, e.g. \code{x = displ},
 etc., \code{identical_aes} returns \code{TRUE}.
 }
 \seealso{
-Other functions for checking mappings: 
-\code{\link{get_mappings}()},
-\code{\link{ith_mappings_use}()},
-\code{\link{ith_mappings}()},
-\code{\link{uses_mappings}()}
+Other functions for checking mappings:
+\code{\link[=get_mappings]{get_mappings()}},
+\code{\link[=ith_mappings]{ith_mappings()}},
+\code{\link[=ith_mappings_use]{ith_mappings_use()}},
+\code{\link[=uses_mappings]{uses_mappings()}}
 }
 \concept{functions for checking mappings}

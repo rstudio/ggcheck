@@ -40,8 +40,8 @@ get_labels(p, "color")
 get_labels(p, "colour")
 }
 \seealso{
-Other functions for checking labels: 
-\code{\link{get_default_labels}()},
-\code{\link{uses_labels}()}
+Other functions for checking labels:
+\code{\link[=get_default_labels]{get_default_labels()}},
+\code{\link[=uses_labels]{uses_labels()}}
 }
 \concept{functions for checking labels}

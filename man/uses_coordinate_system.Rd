@@ -31,7 +31,7 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 uses_coordinate_system(p, coordinates = "polar")
 }
 \seealso{
-Other functions for checking coordinate systems: 
-\code{\link{get_coordinate_system}()}
+Other functions for checking coordinate systems:
+\code{\link[=get_coordinate_system]{get_coordinate_system()}}
 }
 \concept{functions for checking coordinate systems}

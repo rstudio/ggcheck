@@ -63,8 +63,8 @@ uses_labels(p, label_list)
 uses_labels(p, !!!label_list)
 }
 \seealso{
-Other functions for checking labels: 
-\code{\link{get_default_labels}()},
-\code{\link{get_labels}()}
+Other functions for checking labels:
+\code{\link[=get_default_labels]{get_default_labels()}},
+\code{\link[=get_labels]{get_labels()}}
 }
 \concept{functions for checking labels}

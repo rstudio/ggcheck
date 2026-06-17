@@ -42,10 +42,10 @@ ith_mappings(p, i = 1, local_only = TRUE)
 ith_mappings(p, i = 2, local_only = FALSE)
 }
 \seealso{
-Other functions for checking mappings: 
-\code{\link{get_mappings}()},
-\code{\link{identical_aes}()},
-\code{\link{ith_mappings_use}()},
-\code{\link{uses_mappings}()}
+Other functions for checking mappings:
+\code{\link[=get_mappings]{get_mappings()}},
+\code{\link[=identical_aes]{identical_aes()}},
+\code{\link[=ith_mappings_use]{ith_mappings_use()}},
+\code{\link[=uses_mappings]{uses_mappings()}}
 }
 \concept{functions for checking mappings}
