@@ -62,17 +62,17 @@ get_mappings(p)
 #> $x
 #> <quosure>
 #> expr: ^displ
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> $y
 #> <quosure>
 #> expr: ^hwy
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> $colour
 #> <quosure>
 #> expr: ^class
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> attr(,"class")
 #> [1] "uneval"
@@ -80,17 +80,17 @@ get_mappings(get_geom_layer(p, i = 1), local_only = FALSE)
 #> $x
 #> <quosure>
 #> expr: ^displ
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> $y
 #> <quosure>
 #> expr: ^hwy
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> $colour
 #> <quosure>
 #> expr: ^class
-#> env:  0x55782292c6e8
+#> env:  0x55dba664b3a0
 #> 
 #> attr(,"class")
 #> [1] "uneval"
