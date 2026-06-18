@@ -68,7 +68,7 @@ uses_labels(p, "color")
 # The check will return TRUE for aesthetics with default labels
 uses_labels(p, "shape")
 #> shape 
-#> FALSE 
+#>  TRUE 
 
 # Named arguments check if the label matches an expected value
 uses_labels(p, x = "Weight")
@@ -81,7 +81,7 @@ uses_labels(p, x = "Weight", y = "MPG", color = NULL)
 # You can check for default labels with default_label()
 uses_labels(p, shape = default_label(), x = default_label())
 #> shape     x 
-#> FALSE FALSE 
+#>  TRUE FALSE 
 
 # The colo(u)r aesthetic can be matched with or without a u
 uses_labels(p, color = NULL)

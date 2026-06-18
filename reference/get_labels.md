@@ -52,10 +52,15 @@ p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   labs(x = "Weight", y = "MPG", color = NULL)
 
 get_labels(p)
-#> <ggplot2::labels> List of 3
-#>  $ x     : chr "Weight"
-#>  $ y     : chr "MPG"
-#>  $ colour: NULL
+#> $x
+#> [1] "Weight"
+#> 
+#> $y
+#> [1] "MPG"
+#> 
+#> $colour
+#> NULL
+#> 
 get_labels(p, c("x", "y"))
 #> $x
 #> [1] "Weight"

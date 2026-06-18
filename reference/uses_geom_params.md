@@ -87,13 +87,13 @@ uses_geom_params(
   p, "boxplot", list(varwidth = TRUE, outlier.alpha = 0.01, fill = "blue")
 )
 #>      varwidth outlier.alpha          fill 
-#>          TRUE         FALSE          TRUE 
+#>          TRUE          TRUE          TRUE 
 
 uses_geom_params(
   p, "boxplot", varwidth = TRUE, outlier.alpha = 0.01, fill = "blue"
 )
 #>      varwidth outlier.alpha          fill 
-#>          TRUE         FALSE          TRUE 
+#>          TRUE          TRUE          TRUE 
 
 # Unnamed arguments check that a parameter is set to any value
 uses_geom_params(p, "boxplot", "fill")

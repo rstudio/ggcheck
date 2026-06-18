@@ -99,7 +99,7 @@ to <code>...</code>.</p>
 <span class="r-in"><span><span class="co"># The check will return TRUE for aesthetics with default labels</span></span></span>
 <span class="r-in"><span><span class="fu">uses_labels</span><span class="op">(</span><span class="va">p</span>, <span class="st">"shape"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> shape </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  TRUE </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Named arguments check if the label matches an expected value</span></span></span>
 <span class="r-in"><span><span class="fu">uses_labels</span><span class="op">(</span><span class="va">p</span>, x <span class="op">=</span> <span class="st">"Weight"</span><span class="op">)</span></span></span>
@@ -112,7 +112,7 @@ to <code>...</code>.</p>
 <span class="r-in"><span><span class="co"># You can check for default labels with default_label()</span></span></span>
 <span class="r-in"><span><span class="fu">uses_labels</span><span class="op">(</span><span class="va">p</span>, shape <span class="op">=</span> <span class="fu"><a href="default_label.html">default_label</a></span><span class="op">(</span><span class="op">)</span>, x <span class="op">=</span> <span class="fu"><a href="default_label.html">default_label</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> shape     x </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> FALSE FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  TRUE FALSE </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># The colo(u)r aesthetic can be matched with or without a u</span></span></span>
 <span class="r-in"><span><span class="fu">uses_labels</span><span class="op">(</span><span class="va">p</span>, color <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>

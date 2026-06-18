@@ -73,6 +73,9 @@ get_default_labels(p)
 #> $title
 #> NULL
 #> 
+#> $shape
+#> [1] "drv"
+#> 
 
 # If an aesthetic does not exist, returns NULL
 get_default_labels(p, "size")
