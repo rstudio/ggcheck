@@ -32,12 +32,26 @@
 get_labels <- function(p, aes = NULL) {
   stop_if_not_ggplot(p)
 
-  if (is.null(aes)) {return(p$labels)}
+  # Convert S7 labels object to a plain list
+  labels <- unclass(p$labels)
+  attr(labels, "S7_class") <- NULL
+
+  # Add auto-derived labels from layer mappings not already present
+  make_labels <- utils::getFromNamespace("make_labels", "ggplot2")
+  for (layer in p$layers) {
+    if (!length(layer$mapping)) next
+    new_aes <- names(layer$mapping)[!names(layer$mapping) %in% names(labels)]
+    for (a in new_aes) {
+      labels[[a]] <- as.character(make_labels(layer$mapping[a]))
+    }
+  }
+
+  if (is.null(aes)) return(labels)
 
   label_names <- aes
   label_names[aes == "color"] <- "colour"
 
-  result <- p$labels[label_names]
+  result <- labels[label_names]
 
   # Restore names from inputs so spelling of "colo(u)r" matches
   names(result) <- aes
@@ -185,7 +199,8 @@ get_default_labels <- function(p, aes = NULL) {
   stop_if_not_ggplot(p)
 
   if (is.null(aes)) {
-    aes <- names(p$labels)
+    all_layer_aes <- unique(unlist(lapply(p$layers, function(l) names(l$mapping))))
+    aes <- unique(c(names(p$labels), all_layer_aes))
   }
 
   if (!is.character(aes)) {
@@ -234,7 +249,7 @@ check_labels_set <- function(p, labels) {
   labels <- as.character(labels)
   labels[labels == "color"] <- "colour"
 
-  labels %in% names(p$labels)
+  labels %in% names(get_labels(p))
 }
 
 check_labels_match <- function(p, label_values) {

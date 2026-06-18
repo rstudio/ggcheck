@@ -101,7 +101,7 @@ get_mappings.ggplot <- function(p, local_only = FALSE) {
   })
 
   aes_map <- c(global_map, purrr::compact(layer_maps_ubiquitous))
-  class(aes_map) <- "uneval"
+  class(aes_map) <- class(p$mapping)
   aes_map
 }
 

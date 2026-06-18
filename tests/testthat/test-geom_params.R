@@ -193,15 +193,17 @@ test_that("Return FALSE when checking an invalid geom parameter", {
 })
 
 test_that("get_default_params()", {
-  expect_equal(
-    get_default_params(p, "point"),
-    list(
-      shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA,
-      stroke = 0.5, na.rm = FALSE
-    )
+  point_defaults <- get_default_params(p, "point")
+  # In ggplot2 4.0+, some defaults are theme-dependent quosures
+  expect_setequal(
+    names(point_defaults),
+    c("shape", "colour", "size", "fill", "alpha", "stroke", "na.rm")
   )
+  expect_true(is.na(point_defaults$alpha))
+  expect_false(point_defaults$na.rm)
 
-  expect_equal(get_default_params(p, "point", "color"), list(color = "black"))
+  color_default <- get_default_params(p, "point", "color")
+  expect_named(color_default, "color")
 
   expect_equal(
     get_default_params(p, "smooth", c("se", "level")),

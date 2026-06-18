@@ -59,9 +59,9 @@ test_that("Checks whether mappings are used globally", {
   expect_true(uses_mappings(p, mappings = aes(x = displ, y = hwy)))
   expect_true(uses_mappings(p, mappings = aes(x = displ)))
   expect_false(uses_mappings(p, mappings = aes(x = hwy, y = displ)))
-  expect_true(uses_mappings(p, mapping = aes(x = displ)))
-  expect_true(uses_mappings(p, mapping = aes(y = hwy)))
-  expect_false(uses_mappings(p, mapping = aes(x = hwy)))
+  expect_true(uses_mappings(p, mappings = aes(x = displ)))
+  expect_true(uses_mappings(p, mappings = aes(y = hwy)))
+  expect_false(uses_mappings(p, mappings = aes(x = hwy)))
 })
 
 test_that("Identifies local mappings", {

@@ -335,7 +335,7 @@ map_stat <- function(stat) {
 }
 
 flatten_dots <- function(...) {
-  args <- rlang::flatten(rlang::dots_list(...))
+  args <- purrr::list_flatten(rlang::dots_list(...))
   args <- rlang::dots_list(!!!args, .homonyms = "error")
   args
 }

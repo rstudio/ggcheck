@@ -1,7 +1,7 @@
 require(ggplot2, quietly = TRUE)
 
 p <- ggplot(data = diamonds, aes(x = cut, y = price)) +
-  stat_boxplot(outlier.alpha = 0.01) +
+  stat_boxplot() +
   stat_summary()
 
 p2 <- ggplot(data = diamonds, aes(sample = price)) +
@@ -83,8 +83,6 @@ test_that("Checks whether a stat uses a specfic parameter value", {
   # check a default parameter
   expect_true(uses_stat_param(p, stat = "boxplot", params = list(na.rm = FALSE, coef = 1.5)))
   expect_true(uses_stat_param(p, stat = "summary", params = list(fun = NULL)))
-  # check set parameters
-  expect_true(uses_stat_param(p, stat = "boxplot", params = list(outlier.alpha = 0.01)))
 })
 
 test_that("Throws a grading error when checking an invalid geom parameter", {

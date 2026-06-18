@@ -78,11 +78,11 @@ uses_geom_params <- function(p, geom, ..., params = NULL, i = NULL) {
 
   user_params[user_params == "color"] <- "colour"
 
-  # Collect geom, stat, and aes parameters
-  all_params <- c(layer$geom_params, layer$stat_params, layer$aes_params)
+  # Collect geom, stat, and aes parameters; expand nested _gp lists to dot notation
+  all_params <- flatten_gp_params(c(layer$geom_params, layer$stat_params, layer$aes_params))
 
   # Add inherited default parameters
-  get_default_params <- get_default_params(p, geom)
+  get_default_params <- flatten_gp_params(get_default_params(p, geom))
   inherited <- !names(get_default_params) %in% names(all_params)
   all_params_with_inherited <- c(all_params, get_default_params[inherited])
 
@@ -165,5 +165,24 @@ get_default_params <- function(p, geom, params = NULL, i = NULL) {
     names(result) <- names(params)
   }
 
+  result
+}
+
+# Expand nested _gp sub-lists into dot-notation names, e.g.
+# outlier_gp$alpha -> outlier.alpha, to maintain compatibility with
+# the old ggplot2 flat parameter convention.
+flatten_gp_params <- function(params) {
+  result <- list()
+  for (name in names(params)) {
+    val <- params[[name]]
+    if (grepl("_gp$", name) && is.list(val)) {
+      prefix <- sub("_gp$", "", name)
+      for (subname in names(val)) {
+        result[[paste(prefix, subname, sep = ".")]] <- val[[subname]]
+      }
+    } else {
+      result[[name]] <- val
+    }
+  }
   result
 }
