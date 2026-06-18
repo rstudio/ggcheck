@@ -6,6 +6,9 @@
   [`gradethis_equal()`](https://pkgs.rstudio.com/gradethis/reference/gradethis_equal.html)
   method for `ggplot` objects
   ([\#37](https://github.com/rstudio/ggcheck/issues/37)).
+- Fix compatibility with ggplot2 4.0, which migrated labels and mappings
+  to S7 classes and restructured some geom parameters
+  ([\#40](https://github.com/rstudio/ggcheck/issues/40)).
 
 ## ggcheck 0.0.4 (2022-04-14)
 
