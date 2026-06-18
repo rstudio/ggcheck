@@ -1,6 +1,7 @@
 # ggcheck 0.0.5
 
 * Add `gradethis_equal()` method for `ggplot` objects (#37).
+* Fix compatibility with ggplot2 4.0, which migrated labels and mappings to S7 classes and restructured some geom parameters (#40).
 
 # ggcheck 0.0.4 (2022-04-14)
 
